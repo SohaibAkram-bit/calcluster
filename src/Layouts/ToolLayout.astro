@@ -6,6 +6,7 @@ const { title, description, canonicalUrl } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -33,10 +34,14 @@ const { title, description, canonicalUrl } = Astro.props;
     </main>
 
     <footer class="bg-white border-t border-slate-200 mt-auto">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <p class="text-center text-sm text-slate-500">
-          &copy; 2025 CalCluster. All rights reserved.
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-center md:text-left text-sm text-slate-500">
+          &copy; 2026 CalCluster. All rights reserved.
         </p>
+        <div class="flex space-x-6 text-sm text-slate-500">
+          <a href="/privacy-policy" class="hover:text-[#1D9E75] transition-colors">Privacy Policy</a>
+          <a href="/terms-of-service" class="hover:text-[#1D9E75] transition-colors">Terms of Service</a>
+        </div>
       </div>
     </footer>
   </body>
