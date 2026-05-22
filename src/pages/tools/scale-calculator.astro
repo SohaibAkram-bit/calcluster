@@ -1,0 +1,346 @@
+---
+import ToolLayout from '../../Layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Scale Calculator — Convert Any Scale Instantly"
+  description="Free scale calculator. Enter real size and scale ratio to get scale size instantly. Works for models, maps, architecture, and more."
+  canonicalUrl="https://calcluster.pages.dev/tools/scale-calculator"
+>
+  <!-- Row 1: H1 & Intro -->
+  <div class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Scale Calculator</h1>
+    <p class="text-slate-600 leading-relaxed text-lg max-w-3xl">
+      Convert any measurement between real size and scale size instantly. 
+      Whether you're building a model, reading a map, or working on an 
+      architectural drawing — enter your values and get accurate results in seconds.
+    </p>
+  </div>
+
+  <!-- Row 2: Two Columns (Calculator + Sidebar Ad) -->
+  <div class="flex flex-col lg:flex-row gap-8 mb-8">
+    
+    <!-- Left Column: Calculator Widget (60% on desktop) -->
+    <div class="w-full lg:w-[60%]">
+      <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 sm:p-6">
+        
+        <!-- Mode Selector -->
+        <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-100 pb-4">
+          <button data-mode="1" class="mode-btn flex-1 bg-[#1D9E75] text-white font-medium py-2 px-3 rounded-lg text-sm sm:text-base transition-colors">Real &rarr; Scale</button>
+          <button data-mode="2" class="mode-btn flex-1 bg-white border border-slate-200 text-slate-600 font-medium py-2 px-3 rounded-lg text-sm sm:text-base hover:bg-slate-50 transition-colors">Scale &rarr; Real</button>
+          <button data-mode="3" class="mode-btn flex-1 bg-white border border-slate-200 text-slate-600 font-medium py-2 px-3 rounded-lg text-sm sm:text-base hover:bg-slate-50 transition-colors">Find Ratio</button>
+        </div>
+
+        <!-- Forms Container -->
+        <div class="mb-6">
+          
+          <!-- Mode 1: Real to Scale -->
+          <div id="mode-1-form" class="mode-form space-y-4 block">
+            <div>
+              <label for="m1-real" class="block text-sm font-semibold text-slate-700 mb-1">Real Size</label>
+              <div class="flex gap-2">
+                <input type="number" id="m1-real" step="any" min="0" placeholder="e.g. 500" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="m1-unit" class="w-24 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mm">mm</option>
+                  <option value="cm" selected>cm</option>
+                  <option value="m">m</option>
+                  <option value="km">km</option>
+                  <option value="in">in</option>
+                  <option value="ft">ft</option>
+                  <option value="yd">yd</option>
+                  <option value="mi">mi</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="m1-ratio" class="block text-sm font-semibold text-slate-700 mb-1">Scale Ratio (1:X)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-500 font-medium">1:</span>
+                <input type="number" id="m1-ratio" step="any" min="0" placeholder="e.g. 50" class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode 2: Scale to Real -->
+          <div id="mode-2-form" class="mode-form space-y-4 hidden">
+            <div>
+              <label for="m2-scale" class="block text-sm font-semibold text-slate-700 mb-1">Scale Size</label>
+              <div class="flex gap-2">
+                <input type="number" id="m2-scale" step="any" min="0" placeholder="e.g. 10" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="m2-unit" class="w-24 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mm">mm</option>
+                  <option value="cm" selected>cm</option>
+                  <option value="m">m</option>
+                  <option value="km">km</option>
+                  <option value="in">in</option>
+                  <option value="ft">ft</option>
+                  <option value="yd">yd</option>
+                  <option value="mi">mi</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="m2-ratio" class="block text-sm font-semibold text-slate-700 mb-1">Scale Ratio (1:X)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-500 font-medium">1:</span>
+                <input type="number" id="m2-ratio" step="any" min="0" placeholder="e.g. 50" class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode 3: Find Ratio -->
+          <div id="mode-3-form" class="mode-form space-y-4 hidden">
+            <div>
+              <label for="m3-real" class="block text-sm font-semibold text-slate-700 mb-1">Real Size</label>
+              <div class="flex gap-2">
+                <input type="number" id="m3-real" step="any" min="0" placeholder="e.g. 500" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="m3-real-unit" class="w-24 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mm">mm</option>
+                  <option value="cm" selected>cm</option>
+                  <option value="m">m</option>
+                  <option value="km">km</option>
+                  <option value="in">in</option>
+                  <option value="ft">ft</option>
+                  <option value="yd">yd</option>
+                  <option value="mi">mi</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="m3-scale" class="block text-sm font-semibold text-slate-700 mb-1">Scale Size</label>
+              <div class="flex gap-2">
+                <input type="number" id="m3-scale" step="any" min="0" placeholder="e.g. 10" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="m3-scale-unit" class="w-24 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mm">mm</option>
+                  <option value="cm" selected>cm</option>
+                  <option value="m">m</option>
+                  <option value="km">km</option>
+                  <option value="in">in</option>
+                  <option value="ft">ft</option>
+                  <option value="yd">yd</option>
+                  <option value="mi">mi</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-msg" class="text-red-500 text-sm font-medium mb-4 hidden"></div>
+
+        <!-- Action Buttons -->
+        <button id="calculate-btn" type="button" class="w-full bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm">
+          Calculate
+        </button>
+
+        <!-- Result Display -->
+        <div id="result-container" class="mt-6 text-center hidden p-4 bg-slate-50 rounded-lg border border-slate-100">
+          <p class="text-sm text-slate-500 font-medium mb-1">Result</p>
+          <div id="result-text" class="text-3xl md:text-4xl font-bold text-[#1D9E75] tracking-tight mb-3"></div>
+          <button id="reset-btn" class="text-sm text-slate-400 hover:text-slate-600 underline transition-colors">Reset</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right Column: Sidebar Ad (40% on desktop) -->
+    <div class="w-full lg:w-[40%] flex justify-center lg:justify-end items-start">
+      <div class="w-full max-w-[300px] h-[250px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm">
+        Advertisement
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 3: In-content Ad -->
+  <div class="w-full max-w-[728px] mx-auto h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-12">
+    Advertisement
+  </div>
+
+  <!-- Content Sections -->
+  <div class="max-w-4xl">
+    
+    <!-- Row 4: Explanation -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">What Is a Scale Calculator?</h2>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      A scale calculator converts between real-world measurements and their scaled-down (or up) representations. Scale is expressed as a ratio like 1:50, meaning 1 unit on the model equals 50 units in real life. This tool is frequently used by architects drafting floor plans, model builders, map readers, and engineers to ensure perfect proportional accuracy.
+    </p>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      Looking for other useful tools? Check out our 
+      <a href="/tools/percent-decrease" class="text-[#1D9E75] hover:underline font-medium">Percent Decrease Calculator</a> or the 
+      <a href="/tools/download-time" class="text-[#1D9E75] hover:underline font-medium">Download Time Calculator</a>.
+    </p>
+
+    <!-- Row 5: How To Use -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">How To Use This Scale Calculator</h2>
+    <ol class="list-decimal pl-5 space-y-3 text-slate-600 leading-relaxed">
+      <li>Select your conversion mode — Real to Scale, Scale to Real, or Find Ratio.</li>
+      <li>Enter the known measurement in the input field.</li>
+      <li>Enter the scale ratio (just the number — e.g. 50 for a 1:50 scale).</li>
+      <li>Select your unit from the dropdown.</li>
+      <li>Click Calculate — your result appears instantly.</li>
+    </ol>
+
+    <!-- Row 6: Example -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">Example Calculation</h2>
+    <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-5 rounded-r-lg mb-6 text-slate-700 leading-relaxed">
+      <p class="mb-2">You are building a 1:50 scale model of a room that is 500cm long in real life.</p>
+      <p class="font-mono text-sm mb-1">Real Size = 500cm, Scale Ratio = 1:50</p>
+      <p class="font-mono text-sm mb-2">Scale Size = 500 &divide; 50 = <span class="font-bold text-[#1D9E75]">10cm</span></p>
+      <p>Your model room should be 10cm long.</p>
+    </div>
+
+    <!-- Row 7: FAQ -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-6">Frequently Asked Questions</h2>
+    <div class="space-y-6">
+      <div>
+        <p class="font-bold text-slate-900 mb-1">Q1: What does a scale ratio like 1:50 mean?</p>
+        <p class="text-slate-600 leading-relaxed">A: It means 1 unit on your model or drawing represents 50 units in real life. So 1cm on the model = 50cm in reality.</p>
+      </div>
+      <div>
+        <p class="font-bold text-slate-900 mb-1">Q2: How do I convert real size to scale size?</p>
+        <p class="text-slate-600 leading-relaxed">A: Divide the real size by the scale ratio. For example, a 300cm wall at 1:100 scale = 300 &divide; 100 = 3cm on your drawing.</p>
+      </div>
+      <div>
+        <p class="font-bold text-slate-900 mb-1">Q3: How do I convert scale size back to real size?</p>
+        <p class="text-slate-600 leading-relaxed">A: Multiply the scale size by the scale ratio. A 5cm model piece at 1:20 scale = 5 &times; 20 = 100cm in real life.</p>
+      </div>
+      <div>
+        <p class="font-bold text-slate-900 mb-1">Q4: What scale is used for architectural drawings?</p>
+        <p class="text-slate-600 leading-relaxed">A: Common architectural scales include 1:50, 1:100, and 1:200 for floor plans. 1:20 or 1:10 for detailed sections.</p>
+      </div>
+      <div>
+        <p class="font-bold text-slate-900 mb-1">Q5: What scale is used for model trains?</p>
+        <p class="text-slate-600 leading-relaxed">A: HO scale (1:87) is the most popular. N scale is 1:160. O scale is 1:48. G scale is 1:22.5.</p>
+      </div>
+      <div>
+        <p class="font-bold text-slate-900 mb-1">Q6: Can this calculator work with any unit?</p>
+        <p class="text-slate-600 leading-relaxed">A: Yes — as long as you use the same unit for both input and output, the math works. The ratio is unit-independent.</p>
+      </div>
+      <div>
+        <p class="font-bold text-slate-900 mb-1">Q7: What is the difference between scale up and scale down?</p>
+        <p class="text-slate-600 leading-relaxed">A: Scale down means your model is smaller than reality (ratio > 1, like 1:50). Scale up means your model is larger than reality (ratio < 1, like 2:1 used in circuit board design).</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 8: Bottom Ad -->
+  <div class="w-full max-w-[728px] mx-auto h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm mt-12 mb-4">
+    Advertisement
+  </div>
+
+  <!-- JS Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let currentMode = 1;
+      
+      const modeBtns = document.querySelectorAll('.mode-btn');
+      const modeForms = document.querySelectorAll('.mode-form');
+      const errorMsg = document.getElementById('error-msg');
+      const resultContainer = document.getElementById('result-container');
+      const resultText = document.getElementById('result-text');
+      const calcBtn = document.getElementById('calculate-btn');
+      const resetBtn = document.getElementById('reset-btn');
+
+      // Unit conversion multipliers (relative to meters) for accurate Mode 3 cross-unit division
+      const unitFactors = {
+        'mm': 0.001, 'cm': 0.01, 'm': 1, 'km': 1000,
+        'in': 0.0254, 'ft': 0.3048, 'yd': 0.9144, 'mi': 1609.344
+      };
+
+      // Mode Switching
+      modeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          // Reset Styles for all buttons
+          modeBtns.forEach(b => {
+            b.className = "mode-btn flex-1 bg-white border border-slate-200 text-slate-600 font-medium py-2 px-3 rounded-lg text-sm sm:text-base hover:bg-slate-50 transition-colors";
+          });
+          
+          // Set Active Style
+          const activeBtn = e.target;
+          activeBtn.className = "mode-btn flex-1 bg-[#1D9E75] text-white font-medium py-2 px-3 rounded-lg text-sm sm:text-base transition-colors border-transparent";
+          
+          // Toggle Forms
+          currentMode = parseInt(activeBtn.getAttribute('data-mode'));
+          modeForms.forEach((form, index) => {
+            if (index + 1 === currentMode) {
+              form.classList.remove('hidden');
+              form.classList.add('block');
+            } else {
+              form.classList.add('hidden');
+              form.classList.remove('block');
+            }
+          });
+          
+          resetCalculator();
+        });
+      });
+
+      // Calculate Logic
+      calcBtn.addEventListener('click', () => {
+        errorMsg.classList.add('hidden');
+        resultContainer.classList.add('hidden');
+        
+        try {
+          if (currentMode === 1) {
+            const real = parseFloat(document.getElementById('m1-real').value);
+            const ratio = parseFloat(document.getElementById('m1-ratio').value);
+            const unit = document.getElementById('m1-unit').value;
+            
+            if (isNaN(real) || isNaN(ratio)) throw new Error('Please fill in all fields');
+            if (real <= 0 || ratio <= 0) throw new Error('Please enter positive numbers only > 0');
+            
+            const scaleSize = real / ratio;
+            const formatted = Number.isInteger(scaleSize) ? scaleSize : parseFloat(scaleSize.toFixed(2));
+            resultText.innerHTML = `${formatted} <span class="text-xl text-slate-600 font-semibold ml-1">${unit}</span>`;
+            
+          } else if (currentMode === 2) {
+            const scale = parseFloat(document.getElementById('m2-scale').value);
+            const ratio = parseFloat(document.getElementById('m2-ratio').value);
+            const unit = document.getElementById('m2-unit').value;
+            
+            if (isNaN(scale) || isNaN(ratio)) throw new Error('Please fill in all fields');
+            if (scale <= 0 || ratio <= 0) throw new Error('Please enter positive numbers only > 0');
+            
+            const realSize = scale * ratio;
+            const formatted = Number.isInteger(realSize) ? realSize : parseFloat(realSize.toFixed(2));
+            resultText.innerHTML = `${formatted} <span class="text-xl text-slate-600 font-semibold ml-1">${unit}</span>`;
+            
+          } else if (currentMode === 3) {
+            const real = parseFloat(document.getElementById('m3-real').value);
+            const realUnit = document.getElementById('m3-real-unit').value;
+            const scale = parseFloat(document.getElementById('m3-scale').value);
+            const scaleUnit = document.getElementById('m3-scale-unit').value;
+            
+            if (isNaN(real) || isNaN(scale)) throw new Error('Please fill in all fields');
+            if (real <= 0 || scale <= 0) throw new Error('Please enter positive numbers only > 0');
+            
+            // Standardize units to meters to allow cross-unit ratio finding
+            const realMeters = real * unitFactors[realUnit];
+            const scaleMeters = scale * unitFactors[scaleUnit];
+            
+            const ratio = realMeters / scaleMeters;
+            const formatted = Number.isInteger(ratio) ? ratio : parseFloat(ratio.toFixed(2));
+            resultText.innerHTML = `<span class="text-2xl text-slate-600 font-semibold mr-1">1:</span>${formatted}`;
+          }
+          
+          resultContainer.classList.remove('hidden');
+        } catch (err) {
+          errorMsg.textContent = err.message;
+          errorMsg.classList.remove('hidden');
+        }
+      });
+
+      // Reset Logic
+      const resetCalculator = () => {
+        document.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+        errorMsg.classList.add('hidden');
+        resultContainer.classList.add('hidden');
+      };
+
+      resetBtn.addEventListener('click', resetCalculator);
+    });
+  </script>
+</ToolLayout>
