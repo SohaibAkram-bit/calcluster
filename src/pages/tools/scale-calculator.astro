@@ -7,6 +7,22 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
   description="Free scale calculator. Enter real size and scale ratio to get scale size instantly. Works for models, maps, architecture, and more."
   canonicalUrl="https://calcluster.com/tools/scale-calculator"
 >
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What does a scale ratio like 1:50 mean?", "acceptedAnswer": {"@type": "Answer", "text": "It means 1 unit on your model or drawing represents 50 units in real life. So 1cm on the model = 50cm in reality."}},
+    {"@type": "Question", "name": "How do I convert real size to scale size?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the real size by the scale ratio. For example, a 300cm wall at 1:100 scale = 300 ÷ 100 = 3cm on your drawing."}},
+    {"@type": "Question", "name": "How do I convert scale size back to real size?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply the scale size by the scale ratio. A 5cm model piece at 1:20 scale = 5 × 20 = 100cm in real life."}},
+    {"@type": "Question", "name": "What scale is used for architectural drawings?", "acceptedAnswer": {"@type": "Answer", "text": "Common architectural scales include 1:50, 1:100, and 1:200 for floor plans. 1:20 or 1:10 for detailed sections."}},
+    {"@type": "Question", "name": "What scale is used for model trains?", "acceptedAnswer": {"@type": "Answer", "text": "HO scale (1:87) is the most popular. N scale is 1:160. O scale is 1:48. G scale is 1:22.5."}},
+    {"@type": "Question", "name": "Can this calculator work with any unit?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — as long as you use the same unit for both input and output, the math works. The ratio is unit-independent."}},
+    {"@type": "Question", "name": "What is the difference between scale up and scale down?", "acceptedAnswer": {"@type": "Answer", "text": "Scale down means your model is smaller than reality (ratio > 1, like 1:50). Scale up means your model is larger than reality (ratio < 1, like 2:1 used in circuit board design)."}}
+  ]
+}
+</script>
   <!-- Row 1: H1 & Intro -->
   <div class="mb-8">
     <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Scale Calculator</h1>
