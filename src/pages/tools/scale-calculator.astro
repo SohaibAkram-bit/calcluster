@@ -60,11 +60,8 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
                   <option value="mm">mm</option>
                   <option value="cm" selected>cm</option>
                   <option value="m">m</option>
-                  <option value="km">km</option>
                   <option value="in">in</option>
                   <option value="ft">ft</option>
-                  <option value="yd">yd</option>
-                  <option value="mi">mi</option>
                 </select>
               </div>
             </div>
@@ -74,6 +71,30 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
                 <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-500 font-medium">1:</span>
                 <input type="number" id="m1-ratio" step="any" min="0" placeholder="e.g. 50" class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
               </div>
+              <label for="m1-preset" class="block text-xs text-slate-500 mt-2 mb-1">Quick presets</label>
+              <select id="m1-preset" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-700 bg-white text-sm">
+                <option value="">-- Select Preset --</option>
+                <option value="24">1:24 (Car models)</option>
+                <option value="35">1:35 (Military models)</option>
+                <option value="48">1:48 (Military aircraft)</option>
+                <option value="50">1:50 (Architecture)</option>
+                <option value="72">1:72 (Aircraft models)</option>
+                <option value="76">1:76 (Railway OO)</option>
+                <option value="87">1:87 (Railway HO)</option>
+                <option value="100">1:100 (Architecture)</option>
+                <option value="144">1:144 (Small aircraft)</option>
+                <option value="200">1:200 (Ship models)</option>
+              </select>
+            </div>
+            <div>
+              <label for="m1-out-unit" class="block text-sm font-semibold text-slate-700 mb-1">Output Unit</label>
+              <select id="m1-out-unit" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-700 bg-white">
+                <option value="mm">mm</option>
+                <option value="cm" selected>cm</option>
+                <option value="m">m</option>
+                <option value="in">in</option>
+                <option value="ft">ft</option>
+              </select>
             </div>
           </div>
 
@@ -87,11 +108,8 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
                   <option value="mm">mm</option>
                   <option value="cm" selected>cm</option>
                   <option value="m">m</option>
-                  <option value="km">km</option>
                   <option value="in">in</option>
                   <option value="ft">ft</option>
-                  <option value="yd">yd</option>
-                  <option value="mi">mi</option>
                 </select>
               </div>
             </div>
@@ -101,6 +119,30 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
                 <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-500 font-medium">1:</span>
                 <input type="number" id="m2-ratio" step="any" min="0" placeholder="e.g. 50" class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
               </div>
+              <label for="m2-preset" class="block text-xs text-slate-500 mt-2 mb-1">Quick presets</label>
+              <select id="m2-preset" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-700 bg-white text-sm">
+                <option value="">-- Select Preset --</option>
+                <option value="24">1:24 (Car models)</option>
+                <option value="35">1:35 (Military models)</option>
+                <option value="48">1:48 (Military aircraft)</option>
+                <option value="50">1:50 (Architecture)</option>
+                <option value="72">1:72 (Aircraft models)</option>
+                <option value="76">1:76 (Railway OO)</option>
+                <option value="87">1:87 (Railway HO)</option>
+                <option value="100">1:100 (Architecture)</option>
+                <option value="144">1:144 (Small aircraft)</option>
+                <option value="200">1:200 (Ship models)</option>
+              </select>
+            </div>
+            <div>
+              <label for="m2-out-unit" class="block text-sm font-semibold text-slate-700 mb-1">Output Unit</label>
+              <select id="m2-out-unit" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-700 bg-white">
+                <option value="mm">mm</option>
+                <option value="cm" selected>cm</option>
+                <option value="m">m</option>
+                <option value="in">in</option>
+                <option value="ft">ft</option>
+              </select>
             </div>
           </div>
 
@@ -114,11 +156,8 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
                   <option value="mm">mm</option>
                   <option value="cm" selected>cm</option>
                   <option value="m">m</option>
-                  <option value="km">km</option>
                   <option value="in">in</option>
                   <option value="ft">ft</option>
-                  <option value="yd">yd</option>
-                  <option value="mi">mi</option>
                 </select>
               </div>
             </div>
@@ -130,11 +169,8 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
                   <option value="mm">mm</option>
                   <option value="cm" selected>cm</option>
                   <option value="m">m</option>
-                  <option value="km">km</option>
                   <option value="in">in</option>
                   <option value="ft">ft</option>
-                  <option value="yd">yd</option>
-                  <option value="mi">mi</option>
                 </select>
               </div>
             </div>
@@ -193,8 +229,8 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
     <ol class="list-decimal pl-5 space-y-3 text-slate-600 leading-relaxed">
       <li>Select your conversion mode — Real to Scale, Scale to Real, or Find Ratio.</li>
       <li>Enter the known measurement in the input field.</li>
-      <li>Enter the scale ratio (just the number — e.g. 50 for a 1:50 scale).</li>
-      <li>Select your unit from the dropdown.</li>
+      <li>Enter the scale ratio manually or pick a quick preset (e.g. 1:50 for architecture).</li>
+      <li>Select your input unit and output unit from the dropdowns.</li>
       <li>Click Calculate — your result appears instantly.</li>
     </ol>
 
@@ -260,11 +296,29 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
       const calcBtn = document.getElementById('calculate-btn');
       const resetBtn = document.getElementById('reset-btn');
 
-      // Unit conversion multipliers (relative to meters) for accurate Mode 3 cross-unit division
-      const unitFactors = {
-        'mm': 0.001, 'cm': 0.01, 'm': 1, 'km': 1000,
-        'in': 0.0254, 'ft': 0.3048, 'yd': 0.9144, 'mi': 1609.344
+      // Unit conversion factors to meters
+      const toMeters = { mm: 0.001, cm: 0.01, m: 1, in: 0.0254, ft: 0.3048 };
+
+      // Presets Sync Logic
+      const syncPreset = (ratioId, presetId) => {
+        const ratioInput = document.getElementById(ratioId);
+        const presetSelect = document.getElementById(presetId);
+        
+        presetSelect.addEventListener('change', (e) => {
+          if (e.target.value) {
+            ratioInput.value = e.target.value;
+          }
+        });
+
+        ratioInput.addEventListener('input', (e) => {
+          const val = e.target.value;
+          const opts = Array.from(presetSelect.options).map(o => o.value);
+          presetSelect.value = opts.includes(val) ? val : "";
+        });
       };
+
+      syncPreset('m1-ratio', 'm1-preset');
+      syncPreset('m2-ratio', 'm2-preset');
 
       // Mode Switching
       modeBtns.forEach(btn => {
@@ -304,25 +358,31 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
             const real = parseFloat(document.getElementById('m1-real').value);
             const ratio = parseFloat(document.getElementById('m1-ratio').value);
             const unit = document.getElementById('m1-unit').value;
+            const outUnit = document.getElementById('m1-out-unit').value;
             
             if (isNaN(real) || isNaN(ratio)) throw new Error('Please fill in all fields');
             if (real <= 0 || ratio <= 0) throw new Error('Please enter positive numbers only > 0');
             
-            const scaleSize = real / ratio;
-            const formatted = Number.isInteger(scaleSize) ? scaleSize : parseFloat(scaleSize.toFixed(2));
-            resultText.innerHTML = `${formatted} <span class="text-xl text-slate-600 font-semibold ml-1">${unit}</span>`;
+            const realMeters = real * toMeters[unit];
+            const scaleMeters = realMeters / ratio;
+            const result = scaleMeters / toMeters[outUnit];
+            
+            resultText.innerHTML = `${result.toFixed(2)} <span class="text-xl text-slate-600 font-semibold ml-1">${outUnit}</span>`;
             
           } else if (currentMode === 2) {
             const scale = parseFloat(document.getElementById('m2-scale').value);
             const ratio = parseFloat(document.getElementById('m2-ratio').value);
             const unit = document.getElementById('m2-unit').value;
+            const outUnit = document.getElementById('m2-out-unit').value;
             
             if (isNaN(scale) || isNaN(ratio)) throw new Error('Please fill in all fields');
             if (scale <= 0 || ratio <= 0) throw new Error('Please enter positive numbers only > 0');
             
-            const realSize = scale * ratio;
-            const formatted = Number.isInteger(realSize) ? realSize : parseFloat(realSize.toFixed(2));
-            resultText.innerHTML = `${formatted} <span class="text-xl text-slate-600 font-semibold ml-1">${unit}</span>`;
+            const scaleMeters = scale * toMeters[unit];
+            const realMeters = scaleMeters * ratio;
+            const result = realMeters / toMeters[outUnit];
+            
+            resultText.innerHTML = `${result.toFixed(2)} <span class="text-xl text-slate-600 font-semibold ml-1">${outUnit}</span>`;
             
           } else if (currentMode === 3) {
             const real = parseFloat(document.getElementById('m3-real').value);
@@ -333,13 +393,11 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
             if (isNaN(real) || isNaN(scale)) throw new Error('Please fill in all fields');
             if (real <= 0 || scale <= 0) throw new Error('Please enter positive numbers only > 0');
             
-            // Standardize units to meters to allow cross-unit ratio finding
-            const realMeters = real * unitFactors[realUnit];
-            const scaleMeters = scale * unitFactors[scaleUnit];
+            const realMeters = real * toMeters[realUnit];
+            const scaleMeters = scale * toMeters[scaleUnit];
             
             const ratio = realMeters / scaleMeters;
-            const formatted = Number.isInteger(ratio) ? ratio : parseFloat(ratio.toFixed(2));
-            resultText.innerHTML = `<span class="text-2xl text-slate-600 font-semibold mr-1">1:</span>${formatted}`;
+            resultText.innerHTML = `<span class="text-2xl text-slate-600 font-semibold mr-1">1:</span>${ratio.toFixed(2)}`;
           }
           
           resultContainer.classList.remove('hidden');
