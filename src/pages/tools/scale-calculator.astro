@@ -3,8 +3,8 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
 ---
 
 <ToolLayout
-  title="Scale Calculator — Convert Any Scale Instantly"
-  description="Free scale calculator. Enter real size and scale ratio to get scale size instantly. Works for models, maps, architecture, and more."
+  title="Scale Calculator — Convert Any Scale Instantly (Free) | CalCluster"
+  description="Scale calculator — convert real measurements to scale size, scale to real, or find the ratio instantly. Free tool for architecture, models, maps, and engineering."
   canonicalUrl="https://calcluster.com/tools/scale-calculator/"
 >
 
@@ -13,23 +13,135 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "What does a scale ratio like 1:50 mean?", "acceptedAnswer": {"@type": "Answer", "text": "It means 1 unit on your model or drawing represents 50 units in real life. So 1cm on the model = 50cm in reality."}},
-    {"@type": "Question", "name": "How do I convert real size to scale size?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the real size by the scale ratio. For example, a 300cm wall at 1:100 scale = 300 ÷ 100 = 3cm on your drawing."}},
-    {"@type": "Question", "name": "How do I convert scale size back to real size?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply the scale size by the scale ratio. A 5cm model piece at 1:20 scale = 5 × 20 = 100cm in real life."}},
-    {"@type": "Question", "name": "What scale is used for architectural drawings?", "acceptedAnswer": {"@type": "Answer", "text": "Common architectural scales include 1:50, 1:100, and 1:200 for floor plans. 1:20 or 1:10 for detailed sections."}},
-    {"@type": "Question", "name": "What scale is used for model trains?", "acceptedAnswer": {"@type": "Answer", "text": "HO scale (1:87) is the most popular. N scale is 1:160. O scale is 1:48. G scale is 1:22.5."}},
-    {"@type": "Question", "name": "Can this calculator work with any unit?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — as long as you use the same unit for both input and output, the math works. The ratio is unit-independent."}},
-    {"@type": "Question", "name": "What is the difference between scale up and scale down?", "acceptedAnswer": {"@type": "Answer", "text": "Scale down means your model is smaller than reality (ratio > 1, like 1:50). Scale up means your model is larger than reality (ratio < 1, like 2:1 used in circuit board design)."}}
+    {
+      "@type": "Question",
+      "name": "What does a scale ratio like 1:50 mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It means one unit on the drawing or model represents fifty of those same units in reality. One centimeter on a 1:50 floor plan equals 50 centimeters — half a meter — on site. The notation is dimensionless, so it works identically in millimeters, centimeters, or inches, provided the same unit is used on both sides. The ratio makes no assumption about which measurement system you are working in — only that the units match."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert real size to scale size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Divide the real measurement by the ratio number. A 300cm wall at 1:100 scale becomes 300 ÷ 100 = 3cm on the drawing. The step most people skip is unit alignment — both the real size and the output need to be in the same unit before dividing. If the real measurement is in meters and the output is needed in centimeters, convert first. The scale calculator handles this automatically when input and output units differ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert scale size back to real size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply the drawing or model measurement by the ratio number. A 5cm measurement on a 1:20 drawing equals 5 × 20 = 100cm in reality. This is simply the inverse of scaling down — you are reversing the original division. The same unit alignment rule applies: ensure both the scale size and the output unit are consistent before multiplying, or select matching units in the calculator."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What scales are typically used for architectural drawings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The 1:50 and 1:100 scales handle the majority of day-to-day architectural work — interior layouts at 1:50, full building floor plans at 1:100. Site plans typically use 1:500 or 1:1000 depending on how much surrounding context is required. Construction details such as joinery, fixings, and structural connections use 1:10 or 1:20 to show the assembly clearly at a workable drawing size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What scale is used for model trains?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HO scale at 1:87 is the global standard and the most widely produced scale worldwide. In the UK, OO gauge at 1:76 is the dominant choice for model railway layouts. N scale at 1:160 suits hobbyists with limited layout space, while O scale at 1:48 is popular for larger, more detailed models. The scale factor calculator presets include all four, so no manual ratio entry is needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this scale calculator work with any unit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The calculator accepts millimeters, centimeters, meters, inches, and feet, and converts between units automatically when input and output selections differ. A real measurement entered in feet can produce a scale result in millimeters with no manual conversion required. The scale ratio itself is dimensionless — it applies equally to any unit system as long as both sides of the calculation are consistent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between scale up and scale down?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Scaling down reduces a large real-world dimension into a smaller drawing or model representation — the standard direction in architecture, cartography, and hobby modeling. A 1:50 scale produces something one-fiftieth the real size. Scaling up enlarges a small real measurement for a drawing, which occurs in engineering when small components need to be readable on paper — a 2:1 drawing shows the component at twice its actual size. Both directions use the same drawing scale calculator, just with the ratio applied in opposite directions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the most common scale for military models?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1:35 is the dominant scale for military ground vehicles — tanks, half-tracks, armored cars, and self-propelled artillery. Tamiya built much of its reputation on 1:35 armor kits, and Revell, Dragon, and Trumpeter have followed suit across their armor ranges. For military aircraft, 1:72 is the most widely available scale globally, with 1:48 popular for larger, more detailed builds when shelf space is not a constraint."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does scaling work for area and volume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Linear dimensions scale by the ratio itself. Area scales by the square of that ratio, and volume by the cube. A model at 1:10 scale is one-tenth the length of the original — but one-hundredth the surface area and one-thousandth the volume. This distinction matters in engineering analysis, fluid dynamics, heat transfer calculations, and structural modeling. The scale calculator returns the linear result — squaring or cubing the scale factor for area or volume must be done separately."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between scale factor and scale ratio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They describe the same relationship in different notations. A scale ratio is written as 1:50 — two numbers separated by a colon. A scale factor expresses the same relationship as a single decimal: for 1:50, the scale factor is 0.02. In drawing and modeling contexts, ratio notation is standard. In mathematics and software, the decimal form is more common. Either way, the meaning is identical — one unit on the model equals fifty units in the real object."
+      }
+    }
   ]
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Use the Scale Calculator",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Select a conversion mode",
+      "text": "Choose Real to Scale, Scale to Real, or Find Ratio depending on which values you have and what you need to calculate."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Enter the known measurement",
+      "text": "Type your measurement into the input field and select the correct unit — millimeters, centimeters, meters, inches, or feet."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Enter or select the scale ratio",
+      "text": "Type the ratio number manually or pick from the preset list. Common presets include 1:50, 1:100, 1:35, 1:87, and others."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Select your output unit",
+      "text": "Choose the unit you want the result displayed in. The calculator converts between metric and imperial automatically."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Click Calculate",
+      "text": "Press the Calculate button. The result appears instantly below the form."
+    }
+  ]
+}
+</script>
+
   <!-- Row 1: H1 & Intro -->
   <div class="mb-8">
     <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Scale Calculator</h1>
     <p class="text-slate-600 leading-relaxed text-lg max-w-3xl">
-      Convert any measurement between real size and scale size instantly. 
-      Whether you're building a model, reading a map, or working on an 
-      architectural drawing — enter your values and get accurate results in seconds.
+      The scale calculator converts real-world measurements to scaled drawing or model dimensions — and back again — across any scale ratio and any unit combination. Architects verifying floor plans at 1:100, engineers reading technical drawings at 1:50, model builders scaling scratch-built parts to fit a 1:35 kit, and students calculating map distances at 1:25,000 all rely on the same underlying math. The difficulty is rarely the formula itself — it is unit mismatches, direction errors, and the small mistakes that compound when switching between metric and imperial mid-project.
     </p>
   </div>
 
@@ -212,68 +324,274 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
 
   <!-- Content Sections -->
   <div class="max-w-4xl">
-    
-    <!-- Row 4: Explanation -->
+
+    <!-- What Is a Scale Calculator -->
     <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">What Is a Scale Calculator?</h2>
-    <p class="text-slate-600 leading-relaxed mb-6">
-      A scale calculator converts between real-world measurements and their scaled-down (or up) representations. Scale is expressed as a ratio like 1:50, meaning 1 unit on the model equals 50 units in real life. This tool is frequently used by architects drafting floor plans, model builders, map readers, and engineers to ensure perfect proportional accuracy.
+    <p class="text-slate-600 leading-relaxed mb-4">
+      A scale calculator converts between real-world dimensions and their proportional equivalent on a drawing, model, or map using the principles of scale drawing. Everything runs on one concept: the scale ratio. When a drawing carries the notation 1:50, it means one unit on paper equals fifty of those same units in reality. One centimeter on the plan represents fifty centimeters — half a meter — on site. That ratio is dimensionless, which is what makes it genuinely useful. It works in centimeters, millimeters, or inches without any modification, as long as both sides remain consistent.
+    </p>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      Three versions of this problem come up repeatedly: converting a real measurement down to drawing size (Real → Scale), converting a drawing measurement back to real size (Scale → Real), and determining the ratio when only the two dimensions are available (Find Ratio). Manual calculation is perfectly doable, but unit mismatches are easy to miss, and dividing in the wrong direction is a common error — especially when switching between metric and imperial mid-project. The drawing scale calculator handles all three reliably.
     </p>
     <p class="text-slate-600 leading-relaxed mb-6">
-      Looking for other useful tools? Check out our 
-      <a href="/tools/percent-decrease" class="text-[#1D9E75] hover:underline font-medium">Percent Decrease Calculator</a> or the 
-      <a href="/tools/download-time" class="text-[#1D9E75] hover:underline font-medium">Download Time Calculator</a>.
+      It is used by architects preparing planning submissions, engineers converting CAD dimensions, model builders checking scratch-built parts against commercial kits, geography students calculating map distances, and hobbyists planning railway layouts. Different fields, same arithmetic.
     </p>
 
-    <!-- Row 5: How To Use -->
-    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">How To Use This Scale Calculator</h2>
-    <ol class="list-decimal pl-5 space-y-3 text-slate-600 leading-relaxed">
-      <li>Select your conversion mode — Real to Scale, Scale to Real, or Find Ratio.</li>
-      <li>Enter the known measurement in the input field.</li>
-      <li>Enter the scale ratio manually or pick a quick preset (e.g. 1:50 for architecture).</li>
-      <li>Select your input unit and output unit from the dropdowns.</li>
-      <li>Click Calculate — your result appears instantly.</li>
-    </ol>
+    <!-- Scale Formulas -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">Scale Formulas Explained</h2>
+    <p class="text-slate-600 leading-relaxed mb-4">Understanding the math is worth the time — not just for checking the tool's output, but because it builds an intuition for what the numbers actually mean.</p>
 
-    <!-- Row 6: Example -->
-    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">Example Calculation</h2>
-    <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-5 rounded-r-lg mb-6 text-slate-700 leading-relaxed">
-      <p class="mb-2">You are building a 1:50 scale model of a room that is 500cm long in real life.</p>
-      <p class="font-mono text-sm mb-1">Real Size = 500cm, Scale Ratio = 1:50</p>
-      <p class="font-mono text-sm mb-2">Scale Size = 500 &divide; 50 = <span class="font-bold text-[#1D9E75]">10cm</span></p>
-      <p>Your model room should be 10cm long.</p>
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Scale Down Formula (Real → Scale)</h3>
+    <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-4 rounded-r-lg mb-4 font-mono text-sm text-slate-700">
+      Scale Size = Real Size ÷ Scale Ratio
+    </div>
+    <p class="text-slate-600 leading-relaxed mb-2">Divide the real measurement by the ratio number.</p>
+    <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg mb-6 text-slate-700 leading-relaxed text-sm">
+      <p class="font-semibold mb-1">Worked example:</p>
+      <p>Room wall = 600 cm, working at 1:100</p>
+      <p>Scale Size = 600 ÷ 100 = <span class="font-bold text-[#1D9E75]">6 cm</span></p>
+      <p class="mt-2 text-slate-500">Unit trap: both values must be in the same unit before dividing. The calculator handles this automatically — when working by hand, this is the step most people miss.</p>
     </div>
 
-    <!-- Row 7: FAQ -->
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Scale Up Formula (Scale → Real)</h3>
+    <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-4 rounded-r-lg mb-4 font-mono text-sm text-slate-700">
+      Real Size = Scale Size × Scale Ratio
+    </div>
+    <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg mb-6 text-slate-700 leading-relaxed text-sm">
+      <p class="font-semibold mb-1">Worked example:</p>
+      <p>Drawing line = 8 cm, scale = 1:50</p>
+      <p>Real Size = 8 × 50 = <span class="font-bold text-[#1D9E75]">400 cm</span> (4 meters)</p>
+    </div>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Scale Ratio Formula (Find the Ratio)</h3>
+    <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-4 rounded-r-lg mb-4 font-mono text-sm text-slate-700">
+      Scale Ratio = Real Size ÷ Scale Size (both in the same unit)
+    </div>
+    <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg mb-6 text-slate-700 leading-relaxed text-sm">
+      <p class="font-semibold mb-1">Worked example:</p>
+      <p>Real length = 3 m = 300 cm, drawing measurement = 6 cm</p>
+      <p>300 ÷ 6 = 50 → Scale is <span class="font-bold text-[#1D9E75]">1:50</span></p>
+    </div>
+
+    <!-- Area and Volume -->
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Area and Volume Scaling</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      This is where errors regularly occur, and it is worth understanding properly. Linear measurements scale by the ratio. Area and volume do not — and the difference is significant.
+    </p>
+    <ul class="list-disc pl-5 space-y-2 text-slate-600 leading-relaxed mb-4">
+      <li>Area scales by the <strong>square</strong> of the ratio: if the linear scale factor is f, the area ratio is f²</li>
+      <li>Volume scales by the <strong>cube</strong> of the ratio: volume ratio is f³</li>
+    </ul>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      At 1:10 scale, the model is one-tenth the length of the real object — but its surface area is one-hundredth (10²), and its volume is one-thousandth (10³). At 1:50, a real floor area of 50 m² becomes 50 ÷ 2,500 = 0.02 m² on paper — not 1 m². This matters in thermal calculations, structural load estimation, and fluid behaviour modelling. The scale calculator returns the linear result. For area or volume, apply the squared or cubed rule separately.
+    </p>
+
+    <!-- Types of Scale -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">Types of Scale</h2>
+    <p class="text-slate-600 leading-relaxed mb-4">Scale is not always expressed the same way. Three distinct formats exist, each suited to different situations.</p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Numerical Scale (Ratio Scale)</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      The standard in architecture, engineering, and model building. Written as 1:50, 1:100, 1:200 — two numbers separated by a colon. Because it is dimensionless, the same notation works in any unit system without adjustment. This is the format the scale ratio calculator uses, and the one that appears on most professional drawings.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Verbal (Lexical) Scale</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      Expressed in words: "1 centimeter equals 1 kilometer." Common in educational geography materials and older printed maps. The practical problem is that if the document is resized during printing or scanning, the words remain unchanged while the actual drawn measurement no longer matches. Unreliable for anything that may be reproduced at a different size.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Graphic (Linear) Scale</h3>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      A physical bar printed directly onto the map or drawing, where each segment represents a defined real-world distance. The key advantage is that it scales with the document — if the map is enlarged or reduced, the bar adjusts proportionally and remains accurate. Topographic maps and professionally produced cartographic materials include a graphic scale for this reason.
+    </p>
+
+    <!-- How To Use -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">How to Use the Scale Calculator</h2>
+    <p class="text-slate-600 leading-relaxed mb-4">Three modes, three different problems. Here is how each one works.</p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Mode 1 — Real Size to Scale Size</h3>
+    <p class="text-slate-600 leading-relaxed mb-3">The most common situation — a real-world dimension needs to appear correctly on a drawing or model.</p>
+    <ol class="list-decimal pl-5 space-y-2 text-slate-600 leading-relaxed mb-6">
+      <li>Select <strong>Real → Scale</strong> mode.</li>
+      <li>Enter the real-world measurement and select the unit.</li>
+      <li>Type the scale ratio, or choose from the preset list — 1:50, 1:100, 1:35, 1:87, and others are pre-loaded.</li>
+      <li>Select the output unit.</li>
+      <li>Click <strong>Calculate</strong>.</li>
+    </ol>
+    <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg mb-6 text-slate-700 text-sm leading-relaxed">
+      <strong>Example:</strong> A wall is 500 cm in reality. At 1:50 scale, the drawing measurement is 500 ÷ 50 = <span class="font-bold text-[#1D9E75]">10 cm</span>.
+    </div>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Mode 2 — Scale Size to Real Size</h3>
+    <p class="text-slate-600 leading-relaxed mb-3">A measurement taken from a drawing needs to be converted to its real-world equivalent.</p>
+    <ol class="list-decimal pl-5 space-y-2 text-slate-600 leading-relaxed mb-6">
+      <li>Select <strong>Scale → Real</strong> mode.</li>
+      <li>Enter the measurement from the drawing or model and select the unit.</li>
+      <li>Enter or select the scale ratio.</li>
+      <li>Select the output unit.</li>
+      <li>Click <strong>Calculate</strong>.</li>
+    </ol>
+    <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg mb-6 text-slate-700 text-sm leading-relaxed">
+      <strong>Example:</strong> A line on a 1:50 drawing measures 10 cm. The real dimension is 10 × 50 = <span class="font-bold text-[#1D9E75]">500 cm</span> (5 meters).
+    </div>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Mode 3 — Find the Scale Ratio</h3>
+    <p class="text-slate-600 leading-relaxed mb-3">The model or drawing is available, the real dimensions are known, but the scale is not documented anywhere.</p>
+    <ol class="list-decimal pl-5 space-y-2 text-slate-600 leading-relaxed mb-6">
+      <li>Select <strong>Find Ratio</strong> mode.</li>
+      <li>Enter the real size and its unit.</li>
+      <li>Enter the model or drawing size — different units are accepted, the calculator converts automatically.</li>
+      <li>Click <strong>Calculate</strong>.</li>
+    </ol>
+    <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg mb-6 text-slate-700 text-sm leading-relaxed">
+      <strong>Example:</strong> A real car is 450 cm long. The die-cast model is 18 cm. The scale is 450 ÷ 18 = <span class="font-bold text-[#1D9E75]">1:25</span>.
+    </div>
+
+    <!-- Common Scale Presets -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">Common Scale Presets and What They Mean</h2>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Architectural Scales</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      The 1:50 scale converter handles interior plans well — room dimensions and furniture are legible at that ratio. The 1:100 scale converter is the default for most standard floor plan submissions. Site plans step out to 1:500 or 1:1000 depending on how much surrounding context needs to be shown. Construction details — stair nosings, window sills, bracket connections — use 1:10 or 1:20 to provide enough drawing space to show what is actually happening.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Model and Hobby Scales</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      The 1:87 HO scale preset is the most widely used option for railway hobbyists. Military modelers building armor almost always work at 1:35 — Tamiya's catalog runs to hundreds of kits at that ratio. Aircraft modelers split mostly between 1:72 for the widest kit selection and 1:48 when detail matters more than shelf space. These ratios were not set by any standards body — they developed over decades, driven by kit manufacturers and hobbyist communities settling on what worked.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Map Scales</h3>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      A 1:25,000 map is described as "large scale" in geography, even though it covers a smaller physical area than a 1:1,000,000 map. The terminology is mathematical — 1/25,000 is a larger fraction than 1/1,000,000. More detail on the page means larger scale in cartographic language. It is counterintuitive, but used universally in professional mapping.
+    </p>
+
+    <!-- Use Cases -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">Scale Calculator Use Cases</h2>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Architecture and Interior Design</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      An architect preparing a planning application might produce drawings at five or six different scales in a single document set — site plan at 1:500, floor plans at 1:100, room layouts at 1:50, construction details at 1:10. Each sheet has its own conversion logic, and errors at this stage have real consequences downstream. The architectural scale calculator makes it straightforward to verify that dimensions translate correctly before anything is submitted or sent to site.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Model Building and Miniatures</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      Scratch-building a part that must fit a commercial kit is one of the more demanding problems in scale modeling. At 1:35, a few millimeters of error in a hull width or turret diameter is immediately obvious next to the kit parts. Model builders use the scale factor calculator to determine target dimensions from known real-world measurements, then check the result against the kit before committing to the material.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Map Reading and Geography</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      Five centimeters on a 1:50,000 map represents 2.5 kilometers on the ground — useful when planning a hiking route, estimating travel time, or conducting fieldwork. The map scale calculator converts a ruler measurement into a real distance without mental arithmetic, particularly when the scale is something like 1:42,000 or 1:63,360 (the old one-inch-to-the-mile standard that still appears on older Ordnance Survey sheets).
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Engineering and Technical Drawings</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      Engineering drawings sometimes scale up rather than down — a 2:1 drawing shows a component at twice its actual size, common when the part is small and detail needs to be readable on paper. Engineers also perform manual scale calculations when adapting drawings to new sheet sizes, converting between standards, or working from legacy drawings without a digital source file. For users working with AutoCAD or similar platforms, check out our <a href="/tools/right-triangle-calculator/" class="text-[#1D9E75] hover:underline font-medium">right triangle calculator</a> for geometry problems that come up alongside scale work.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Model Railways</h3>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      A model railway layout involves more interconnected scale dependencies than most hobbies. Track curve radii, platform lengths, signal heights, locomotive proportions, and scenic elements all need to work at the same ratio — otherwise the layout looks inconsistent even when no single element is obviously wrong. HO scale (1:87) is the global standard; OO gauge (1:76) dominates in the UK. Getting calculations right from the start avoids expensive corrections later.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Education and Classroom</h3>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      Scale problems are a standard fixture in secondary school mathematics and geography — ratio, proportion, and real-world measurement combined in one question type. Students who can immediately verify their manual calculations get faster, more useful feedback. Working through scale calculator math problems with a tool alongside tends to build the concept more effectively than checking answers at the back of a textbook the following day.
+    </p>
+
+    <!-- Worked Examples -->
+    <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-6">Worked Examples</h2>
+
+    <div class="space-y-4 mb-8">
+      <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-5 rounded-r-lg text-slate-700 leading-relaxed">
+        <p class="font-semibold mb-2">Example 1 — Architecture (Real → Scale)</p>
+        <p class="mb-1">An architect is drawing a 4-meter-wide room at 1:50 scale. What width appears on the drawing?</p>
+        <p class="font-mono text-sm">4 m = 400 cm → 400 ÷ 50 = <span class="font-bold text-[#1D9E75]">8 cm</span></p>
+      </div>
+
+      <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-5 rounded-r-lg text-slate-700 leading-relaxed">
+        <p class="font-semibold mb-2">Example 2 — Model Building (Scale → Real)</p>
+        <p class="mb-1">A 1:35 scale tank model is 14 cm long. What is the real vehicle length?</p>
+        <p class="font-mono text-sm">14 × 35 = 490 cm = <span class="font-bold text-[#1D9E75]">4.9 meters</span> — consistent with a T-34's actual hull length.</p>
+      </div>
+
+      <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-5 rounded-r-lg text-slate-700 leading-relaxed">
+        <p class="font-semibold mb-2">Example 3 — Find Ratio (Map)</p>
+        <p class="mb-1">A road is 250 meters long. On the map it measures 5 cm. What is the map scale?</p>
+        <p class="font-mono text-sm">250 m = 25,000 cm → 25,000 ÷ 5 = <span class="font-bold text-[#1D9E75]">1:5,000</span></p>
+      </div>
+
+      <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-5 rounded-r-lg text-slate-700 leading-relaxed">
+        <p class="font-semibold mb-2">Example 4 — Mixed Units (Engineering)</p>
+        <p class="mb-1">A component is 2 inches long in reality. A detail drawing shows it at 6 inches. What scale is the drawing?</p>
+        <p class="font-mono text-sm">6 ÷ 2 = 3 → Scale = <span class="font-bold text-[#1D9E75]">3:1</span> — a scaled-up engineering drawing used to show detail on a small part.</p>
+      </div>
+
+      <div class="bg-slate-50 border-l-4 border-[#1D9E75] p-5 rounded-r-lg text-slate-700 leading-relaxed">
+        <p class="font-semibold mb-2">Example 5 — Classroom (Scale Calculator Math)</p>
+        <p class="mb-1">A student is told that a 1:200 scale building model stands 15 cm tall. What is the real building height?</p>
+        <p class="font-mono text-sm">15 × 200 = 3,000 cm = <span class="font-bold text-[#1D9E75]">30 meters</span></p>
+      </div>
+    </div>
+
+    <!-- Internal Links -->
+    <p class="text-slate-600 leading-relaxed mb-8">
+      For related calculations, try the <a href="/tools/right-triangle-calculator/" class="text-[#1D9E75] hover:underline font-medium">right triangle calculator</a> for geometry problems in technical drawings, or the <a href="/tools/percentage-growth-calculator/" class="text-[#1D9E75] hover:underline font-medium">percentage growth calculator</a> for ratio and proportion problems.
+    </p>
+
+    <!-- FAQ -->
     <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-6">Frequently Asked Questions</h2>
     <div class="space-y-6">
+
       <div>
-        <p class="font-bold text-slate-900 mb-1">Q1: What does a scale ratio like 1:50 mean?</p>
-        <p class="text-slate-600 leading-relaxed">A: It means 1 unit on your model or drawing represents 50 units in real life. So 1cm on the model = 50cm in reality.</p>
+        <p class="font-bold text-slate-900 mb-2">What does a scale ratio like 1:50 mean?</p>
+        <p class="text-slate-600 leading-relaxed">It means one unit on the drawing or model represents fifty of those same units in reality. One centimeter on a 1:50 floor plan equals 50 centimeters — half a meter — on site. The notation is dimensionless, so it works identically in millimeters, centimeters, or inches, provided the same unit is used on both sides. The ratio makes no assumption about which measurement system you are working in — only that the units match.</p>
       </div>
+
       <div>
-        <p class="font-bold text-slate-900 mb-1">Q2: How do I convert real size to scale size?</p>
-        <p class="text-slate-600 leading-relaxed">A: Divide the real size by the scale ratio. For example, a 300cm wall at 1:100 scale = 300 &divide; 100 = 3cm on your drawing.</p>
+        <p class="font-bold text-slate-900 mb-2">How do I convert real size to scale size?</p>
+        <p class="text-slate-600 leading-relaxed">Divide the real measurement by the ratio number. A 300 cm wall at 1:100 scale becomes 300 ÷ 100 = 3 cm on the drawing. The step most people skip is unit alignment — both the real size and the output need to be in the same unit before dividing. If the real measurement is in meters and the output is needed in centimeters, convert first. The scale calculator handles this automatically when input and output units differ.</p>
       </div>
+
       <div>
-        <p class="font-bold text-slate-900 mb-1">Q3: How do I convert scale size back to real size?</p>
-        <p class="text-slate-600 leading-relaxed">A: Multiply the scale size by the scale ratio. A 5cm model piece at 1:20 scale = 5 &times; 20 = 100cm in real life.</p>
+        <p class="font-bold text-slate-900 mb-2">How do I convert scale size back to real size?</p>
+        <p class="text-slate-600 leading-relaxed">Multiply the drawing or model measurement by the ratio number. A 5 cm measurement on a 1:20 drawing equals 5 × 20 = 100 cm in reality. This is simply the inverse of scaling down — you are reversing the original division. The same unit alignment rule applies: ensure the scale size and the output unit are consistent before multiplying, or select matching units in the calculator.</p>
       </div>
+
       <div>
-        <p class="font-bold text-slate-900 mb-1">Q4: What scale is used for architectural drawings?</p>
-        <p class="text-slate-600 leading-relaxed">A: Common architectural scales include 1:50, 1:100, and 1:200 for floor plans. 1:20 or 1:10 for detailed sections.</p>
+        <p class="font-bold text-slate-900 mb-2">What scales are typically used for architectural drawings?</p>
+        <p class="text-slate-600 leading-relaxed">The 1:50 and 1:100 scales handle the majority of day-to-day architectural work — interior layouts at 1:50, full building floor plans at 1:100. Site plans typically use 1:500 or 1:1000 depending on how much surrounding context is required. Construction details such as joinery, fixings, and structural connections use 1:10 or 1:20 to show the assembly clearly at a workable drawing size.</p>
       </div>
+
       <div>
-        <p class="font-bold text-slate-900 mb-1">Q5: What scale is used for model trains?</p>
-        <p class="text-slate-600 leading-relaxed">A: HO scale (1:87) is the most popular. N scale is 1:160. O scale is 1:48. G scale is 1:22.5.</p>
+        <p class="font-bold text-slate-900 mb-2">What scale is used for model trains?</p>
+        <p class="text-slate-600 leading-relaxed">HO scale at 1:87 is the global standard and the most widely produced scale worldwide. In the UK, OO gauge at 1:76 is the dominant choice for model railway layouts. N scale at 1:160 suits hobbyists with limited layout space, while O scale at 1:48 is popular for larger, more detailed models. The scale factor calculator presets include all four, so no manual ratio entry is needed.</p>
       </div>
+
       <div>
-        <p class="font-bold text-slate-900 mb-1">Q6: Can this calculator work with any unit?</p>
-        <p class="text-slate-600 leading-relaxed">A: Yes — as long as you use the same unit for both input and output, the math works. The ratio is unit-independent.</p>
+        <p class="font-bold text-slate-900 mb-2">Can this scale calculator work with any unit?</p>
+        <p class="text-slate-600 leading-relaxed">Yes. The calculator accepts millimeters, centimeters, meters, inches, and feet, and converts between units automatically when input and output selections differ. A real measurement entered in feet can produce a scale result in millimeters with no manual conversion required. The scale ratio itself is dimensionless — it applies equally to any unit system as long as both sides of the calculation are consistent.</p>
       </div>
+
       <div>
-        <p class="font-bold text-slate-900 mb-1">Q7: What is the difference between scale up and scale down?</p>
-        <p class="text-slate-600 leading-relaxed">A: Scale down means your model is smaller than reality (ratio > 1, like 1:50). Scale up means your model is larger than reality (ratio < 1, like 2:1 used in circuit board design).</p>
+        <p class="font-bold text-slate-900 mb-2">What is the difference between scale up and scale down?</p>
+        <p class="text-slate-600 leading-relaxed">Scaling down reduces a large real-world dimension into a smaller drawing or model representation — the standard direction in architecture, cartography, and hobby modeling. A 1:50 scale produces something one-fiftieth the real size. Scaling up enlarges a small real measurement for a drawing, which occurs in engineering when small components need to be readable on paper — a 2:1 drawing shows the component at twice its actual size. Both directions use the same drawing scale calculator, with the ratio applied in opposite directions.</p>
       </div>
+
+      <div>
+        <p class="font-bold text-slate-900 mb-2">What is the most common scale for military models?</p>
+        <p class="text-slate-600 leading-relaxed">1:35 is the dominant scale for military ground vehicles — tanks, half-tracks, armored cars, and self-propelled artillery. Tamiya built much of its reputation on 1:35 armor kits, and Revell, Dragon, and Trumpeter have followed suit across their ranges. For military aircraft, 1:72 is the most widely available scale globally, with 1:48 popular for larger, more detailed builds when shelf space is not a constraint.</p>
+      </div>
+
+      <div>
+        <p class="font-bold text-slate-900 mb-2">How does scaling work for area and volume?</p>
+        <p class="text-slate-600 leading-relaxed">Linear dimensions scale by the ratio itself. Area scales by the square of that ratio, and volume by the cube. A model at 1:10 scale is one-tenth the length of the original — but one-hundredth the surface area and one-thousandth the volume. This distinction matters in engineering analysis, fluid dynamics, heat transfer calculations, and structural modeling. The scale calculator returns the linear result — squaring or cubing the scale factor for area or volume must be done separately.</p>
+      </div>
+
+      <div>
+        <p class="font-bold text-slate-900 mb-2">What is the difference between scale factor and scale ratio?</p>
+        <p class="text-slate-600 leading-relaxed">They describe the same relationship in different notations. A scale ratio is written as 1:50 — two numbers separated by a colon. A scale factor expresses the same relationship as a single decimal: for 1:50, the scale factor is 0.02. In drawing and modeling contexts, ratio notation is standard. In mathematics and software, the decimal form is more common. Either way, the meaning is identical — one unit on the model equals fifty units in the real object.</p>
+      </div>
+
     </div>
 
   </div>
@@ -296,10 +614,8 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
       const calcBtn = document.getElementById('calculate-btn');
       const resetBtn = document.getElementById('reset-btn');
 
-      // Unit conversion factors to meters
       const toMeters = { mm: 0.001, cm: 0.01, m: 1, in: 0.0254, ft: 0.3048 };
 
-      // Presets Sync Logic
       const syncPreset = (ratioId, presetId) => {
         const ratioInput = document.getElementById(ratioId);
         const presetSelect = document.getElementById(presetId);
@@ -320,19 +636,15 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
       syncPreset('m1-ratio', 'm1-preset');
       syncPreset('m2-ratio', 'm2-preset');
 
-      // Mode Switching
       modeBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-          // Reset Styles for all buttons
           modeBtns.forEach(b => {
             b.className = "mode-btn flex-1 bg-white border border-slate-200 text-slate-600 font-medium py-2 px-3 rounded-lg text-sm sm:text-base hover:bg-slate-50 transition-colors";
           });
           
-          // Set Active Style
           const activeBtn = e.target;
           activeBtn.className = "mode-btn flex-1 bg-[#1D9E75] text-white font-medium py-2 px-3 rounded-lg text-sm sm:text-base transition-colors border-transparent";
           
-          // Toggle Forms
           currentMode = parseInt(activeBtn.getAttribute('data-mode'));
           modeForms.forEach((form, index) => {
             if (index + 1 === currentMode) {
@@ -348,7 +660,6 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
         });
       });
 
-      // Calculate Logic
       calcBtn.addEventListener('click', () => {
         errorMsg.classList.add('hidden');
         resultContainer.classList.add('hidden');
@@ -407,7 +718,6 @@ import ToolLayout from '../../Layouts/ToolLayout.astro';
         }
       });
 
-      // Reset Logic
       const resetCalculator = () => {
         document.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
         errorMsg.classList.add('hidden');
