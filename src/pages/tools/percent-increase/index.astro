@@ -1,0 +1,213 @@
+---
+import ToolLayout from '../../../Layouts/ToolLayout.astro';
+import PercentIncreaseContent from '../../../components/content/PercentIncreaseContent.astro';
+---
+
+<ToolLayout
+  title="Percent Increase Calculator | Calculate Percentage Growth Instantly"
+  description="Use our free percent increase calculator to find the percentage growth between any two numbers instantly. Perfect for salaries, prices, revenue, and investments."
+  relatedTools={[
+    { name: "Percent Decrease Calculator", link: "/tools/percent-decrease/" },
+    { name: "Scale Calculator", link: "/tools/scale-calculator/" }
+  ]}
+>
+
+ <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the formula for percentage increase?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "((New Value − Original Value) / Original Value) × 100. Subtract the original from the new. Divide by the original. Multiply by 100."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate a 20% increase on a number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply the original number by 1.20. A 20% increase means you keep the original (100%) and add 20%. So 120% total. 120% as a decimal is 1.20. Example: 50 × 1.20 = 60."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between percentage increase and percentage change?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Percentage increase only applies when numbers go up. Percentage change applies to both increases and decreases. The formula is the same. The only difference is that percentage change can be negative."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do we divide by the original value and not the new value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because percentage increase measures growth from where you started. The original is your baseline. Dividing by the new number answers a different question: What fraction of the new number came from growth? That is not the same thing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my result is negative — does that mean there was a decrease?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A negative result means the new value is smaller than the original. That is a percentage decrease, not an increase. Use the Percent Decrease Calculator for those situations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this calculator for salary increases?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Put your old salary as the original value. Put your new salary as the new value. The calculator will show your exact percentage raise."
+      }
+    }
+  ]
+}
+</script>
+
+  <div class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Percent Increase Calculator — Find Percentage Growth Instantly</h1>
+    <p class="text-slate-600 leading-relaxed text-lg max-w-3xl">
+      Use this free percent increase calculator to instantly find the percentage increase between two values. Enter your original and new value below to get started.
+    </p>
+  </div>
+
+  <div class="flex flex-col lg:flex-row gap-8 mb-8">
+    <div class="w-full lg:w-[60%]">
+      <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 sm:p-6">
+        
+        <div class="space-y-4 mb-6">
+          <div>
+            <label for="original-value" class="block text-sm font-semibold text-slate-700 mb-1">Original Value</label>
+            <input type="number" id="original-value" step="any" placeholder="e.g. 100" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+          </div>
+          <div>
+            <label for="new-value" class="block text-sm font-semibold text-slate-700 mb-1">New Value</label>
+            <input type="number" id="new-value" step="any" placeholder="e.g. 150" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+          </div>
+        </div>
+
+        <div id="error-msg" class="text-red-500 text-sm font-medium mb-4 hidden"></div>
+
+        <button id="calculate-btn" type="button" class="w-full bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm">
+          Calculate
+        </button>
+
+        <div id="result-container" class="mt-6 text-center hidden p-4 bg-slate-50 rounded-lg border border-slate-100">
+          <p class="text-sm text-slate-500 font-medium mb-1">Result</p>
+          <div id="result-text" class="text-3xl md:text-4xl font-bold text-[#1D9E75] tracking-tight mb-3"></div>
+          <div id="formula-text" class="text-sm text-slate-600 font-mono bg-white p-2 rounded border border-slate-200 mb-3 hidden"></div>
+          <button id="reset-btn" class="text-sm text-slate-400 hover:text-slate-600 underline transition-colors">Reset</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="w-full lg:w-[40%] flex justify-center lg:justify-end items-start">
+          <div class="w-full max-w-[300px] h-[250px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm">Advertisement</div>
+    </div>
+  </div>
+
+  <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+  <PercentIncreaseContent />
+
+  <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const originalInput = document.getElementById('original-value');
+      const newInput = document.getElementById('new-value');
+      const calculateBtn = document.getElementById('calculate-btn');
+      const errorMsg = document.getElementById('error-msg');
+      const resultContainer = document.getElementById('result-container');
+      const resultText = document.getElementById('result-text');
+      const formulaText = document.getElementById('formula-text');
+      const resetBtn = document.getElementById('reset-btn');
+
+      const calculateIncrease = () => {
+        if (errorMsg) {
+          errorMsg.classList.add('hidden');
+          errorMsg.textContent = '';
+        }
+        if (resultContainer) resultContainer.classList.add('hidden');
+        if (formulaText) formulaText.classList.add('hidden');
+
+        const originalStr = originalInput?.value.trim();
+        const newStr = newInput?.value.trim();
+
+        if (!originalStr || !newStr) {
+          if (errorMsg) {
+            errorMsg.textContent = "Please fill in both fields.";
+            errorMsg.classList.remove('hidden');
+          }
+          return;
+        }
+
+        const original = parseFloat(originalStr);
+        const newValue = parseFloat(newStr);
+
+        if (original === 0) {
+          if (errorMsg) {
+            errorMsg.textContent = "Original value cannot be zero.";
+            errorMsg.classList.remove('hidden');
+          }
+          return;
+        }
+
+        if (newValue < original) {
+          if (errorMsg) {
+            errorMsg.innerHTML = "This is a decrease, not an increase. Use our <a href='/tools/percent-decrease/' class='underline hover:text-red-700'>Percent Decrease Calculator</a>.";
+            errorMsg.classList.remove('hidden');
+          }
+          return;
+        }
+
+        if (newValue === original) {
+          if (resultText && resultContainer) {
+            resultText.innerHTML = "No change &mdash; 0% increase.";
+            resultContainer.classList.remove('hidden');
+          }
+          return;
+        }
+
+        const increase = newValue - original;
+        const percent = (increase / Math.abs(original)) * 100;
+        const formattedPercent = +percent.toFixed(2);
+        
+        if (resultText && formulaText && resultContainer) {
+          resultText.innerHTML = `${formattedPercent}% <span class="text-xl text-slate-600 font-semibold ml-1">increase</span><br><span class="text-base text-slate-500 font-normal">Exact difference: +${(newValue - original)}</span>`;
+          formulaText.innerHTML = `((${newValue} - ${original}) / ${Math.abs(original)}) &times; 100 = ${formattedPercent}%`;
+          formulaText.classList.remove('hidden');
+          resultContainer.classList.remove('hidden');
+        }
+      };
+
+      calculateBtn?.addEventListener('click', calculateIncrease);
+
+      const handleEnter = (e) => {
+        if (e.key === 'Enter') {
+          calculateIncrease();
+        }
+      };
+
+      originalInput?.addEventListener('keydown', handleEnter);
+      newInput?.addEventListener('keydown', handleEnter);
+
+      resetBtn?.addEventListener('click', () => {
+        if (originalInput) originalInput.value = '';
+        if (newInput) newInput.value = '';
+        if (errorMsg) {
+          errorMsg.classList.add('hidden');
+          errorMsg.textContent = '';
+        }
+        if (resultContainer) resultContainer.classList.add('hidden');
+        if (formulaText) formulaText.classList.add('hidden');
+      });
+    });
+  </script>
+</ToolLayout>

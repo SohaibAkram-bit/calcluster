@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-const { title, description, canonicalUrl } = Astro.props;
+const { title, description, canonicalUrl, relatedTools = [] } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -51,6 +51,18 @@ const { title, description, canonicalUrl } = Astro.props;
 
     <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
       <slot />
+      {relatedTools.length > 0 && (
+        <section class="mt-12 pt-8 border-t border-slate-200">
+          <h2 class="text-xl font-bold text-slate-900 mb-4">Related Tools</h2>
+          <div class="flex flex-wrap gap-3">
+            {relatedTools.map((tool) => (
+              <a href={tool.link} class="inline-block bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm font-medium text-slate-700 hover:border-[#1D9E75] hover:text-[#1D9E75] transition-colors shadow-sm">
+                {tool.name}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
 
     <footer class="bg-white border-t border-slate-200 mt-auto">
