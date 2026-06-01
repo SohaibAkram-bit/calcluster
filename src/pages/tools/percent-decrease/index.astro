@@ -4,8 +4,8 @@ import PercentDecreaseContent from '../../../components/content/PercentDecreaseC
 ---
 
 <ToolLayout
-  title="Percent Decrease Calculator"
-  description="Calculate the percentage decrease between two numbers instantly. Free, fast, and accurate percent decrease calculator."
+  title="Percent Decrease Calculator | Calculate Percentage Drop Instantly"
+  description="Use our free percent decrease calculator to find the percentage drop between two values instantly. Includes formula, examples, and reverse calculation."
   canonicalUrl="https://calcluster.com/tools/percent-decrease/"
   relatedTools={[
     { name: "Percent Increase Calculator", link: "/tools/percent-increase/" },
@@ -14,29 +14,77 @@ import PercentDecreaseContent from '../../../components/content/PercentDecreaseC
 >
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Placeholder Question 1?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Placeholder Answer 1."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Placeholder Question 2?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Placeholder Answer 2."
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the formula for percentage decrease?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "((Original Value − New Value) / Original Value) × 100."
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate the percentage decrease in Excel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Put original in A1, new in B1. Use =(A1−B1)/A1. Then format the cell as a percentage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between percentage decrease and percentage change?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Percentage decrease only applies when numbers go down. Percentage change works for both, but the result is negative for decreases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I decrease a number by a specific percentage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "New Value = Original Value × (1 − Percentage / 100). Example: $100 decreased by 20% = $80."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between percentage decrease and percentage points?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Percentage decrease measures relative shrinkage. Percentage points measure the raw gap. A drop from 5% to 4% is a 1 percentage point drop but a 20% percentage decrease."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find the original value before a percentage decrease?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Original Value = New Value / (1 − Percentage / 100). Example: You paid $68 after a 15% discount. Original price was $80."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can percentage decrease exceed 100%?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. From 100 to 0 is 100%. From 100 to −50 is 150%. But for most everyday situations — prices, salaries, weights — it stays between 0% and 100%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I track percentage decrease over multiple periods?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the start and end values only. Do not average percentages. The middle periods do not matter for the total."
+      }
+    }
+  ]
+}
+</script>
 
   <div class="mb-8">
     <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Percent Decrease Calculator</h1>
@@ -47,37 +95,73 @@ import PercentDecreaseContent from '../../../components/content/PercentDecreaseC
 
   <div class="flex flex-col lg:flex-row gap-8 mb-8">
     <div class="w-full lg:w-[60%]">
-      <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 sm:p-6">
+      <div class="bg-white rounded-2xl shadow-md p-4 sm:p-6">
         
-        <div class="space-y-4 mb-6">
-          <div>
-            <label for="original-value" class="block text-sm font-semibold text-slate-700 mb-1">Original Value</label>
-            <input type="number" id="original-value" step="any" placeholder="e.g. 200" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+        <!-- Tabs -->
+        <div class="flex w-full gap-2 mb-6">
+          <button id="tab1-btn" type="button" class="flex-1 bg-[#1D9E75] text-white font-semibold py-2 px-4 rounded-lg transition-colors">Find % Decrease</button>
+          <button id="tab2-btn" type="button" class="flex-1 bg-slate-100 text-slate-600 hover:bg-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors">Decrease by %</button>
+        </div>
+
+        <!-- Tab 1: Find % Decrease -->
+        <div id="tab1-content" class="block">
+          <div class="space-y-4 mb-6">
+            <div>
+              <label for="original-value" class="block text-sm font-semibold text-slate-700 mb-1">Original Value</label>
+              <input type="number" id="original-value" step="any" placeholder="e.g. 200" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] focus:outline-none text-slate-900 bg-white" />
+            </div>
+            <div>
+              <label for="new-value" class="block text-sm font-semibold text-slate-700 mb-1">New Value</label>
+              <input type="number" id="new-value" step="any" placeholder="e.g. 150" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] focus:outline-none text-slate-900 bg-white" />
+            </div>
           </div>
-          <div>
-            <label for="new-value" class="block text-sm font-semibold text-slate-700 mb-1">New Value</label>
-            <input type="number" id="new-value" step="any" placeholder="e.g. 150" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+
+          <div id="error-msg" class="text-red-500 text-sm font-medium mb-4 hidden"></div>
+
+          <button id="calculate-btn" type="button" class="w-full bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
+            Calculate
+          </button>
+
+          <div id="result-container" class="mt-6 text-center hidden p-4 bg-[#1D9E75]/10 rounded-lg border border-[#1D9E75]/30">
+            <p class="text-sm text-slate-500 font-medium mb-1">Result</p>
+            <div id="result-text" class="text-3xl md:text-4xl font-bold text-[#1D9E75] tracking-tight mb-3"></div>
+            <div id="formula-text" class="text-sm text-slate-600 font-mono bg-white p-2 rounded border border-slate-200 mb-3 hidden"></div>
+            <button id="reset-btn" class="text-sm text-slate-400 hover:text-slate-600 underline transition-colors">Reset</button>
           </div>
         </div>
 
-        <div id="error-msg" class="text-red-500 text-sm font-medium mb-4 hidden"></div>
+        <!-- Tab 2: Decrease by % -->
+        <div id="tab2-content" class="hidden">
+          <div class="space-y-4 mb-6">
+            <div>
+              <label for="t2-original-value" class="block text-sm font-semibold text-slate-700 mb-1">Original Value</label>
+              <input type="number" id="t2-original-value" step="any" placeholder="e.g. 100" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] focus:outline-none text-slate-900 bg-white" />
+            </div>
+            <div>
+              <label for="t2-percent-value" class="block text-sm font-semibold text-slate-700 mb-1">Decrease by %</label>
+              <input type="number" id="t2-percent-value" step="any" placeholder="e.g. 15" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] focus:outline-none text-slate-900 bg-white" />
+            </div>
+          </div>
 
-        <button id="calculate-btn" type="button" class="w-full bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm">
-          Calculate
-        </button>
+          <div id="t2-error-msg" class="text-red-500 text-sm font-medium mb-4 hidden"></div>
 
-        <div id="result-container" class="mt-6 text-center hidden p-4 bg-slate-50 rounded-lg border border-slate-100">
-          <p class="text-sm text-slate-500 font-medium mb-1">Result</p>
-          <div id="result-text" class="text-3xl md:text-4xl font-bold text-[#1D9E75] tracking-tight mb-3"></div>
-          <div id="formula-text" class="text-sm text-slate-600 font-mono bg-white p-2 rounded border border-slate-200 mb-3 hidden"></div>
-          <button id="reset-btn" class="text-sm text-slate-400 hover:text-slate-600 underline transition-colors">Reset</button>
+          <button id="t2-calculate-btn" type="button" class="w-full bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
+            Calculate
+          </button>
+
+          <div id="t2-result-container" class="mt-6 text-center hidden p-4 bg-[#1D9E75]/10 rounded-lg border border-[#1D9E75]/30">
+            <p class="text-sm text-slate-500 font-medium mb-1">Result</p>
+            <div id="t2-result-text" class="text-3xl md:text-4xl font-bold text-[#1D9E75] tracking-tight mb-3"></div>
+            <div id="t2-formula-text" class="text-sm text-slate-600 font-mono bg-white p-2 rounded border border-slate-200 mb-3 hidden"></div>
+            <button id="t2-reset-btn" class="text-sm text-slate-400 hover:text-slate-600 underline transition-colors">Reset</button>
+          </div>
         </div>
 
       </div>
     </div>
 
     <div class="w-full lg:w-[40%] flex justify-center lg:justify-end items-start">
-      <div class="w-[300px] h-[250px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm">Advertisement</div>
+      <div class="w-full max-w-[300px] h-[250px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm">Advertisement</div>
     </div>
   </div>
 
@@ -89,6 +173,7 @@ import PercentDecreaseContent from '../../../components/content/PercentDecreaseC
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // Tab 1 Elements
       const originalInput = document.getElementById('original-value');
       const newInput = document.getElementById('new-value');
       const calculateBtn = document.getElementById('calculate-btn');
@@ -98,6 +183,44 @@ import PercentDecreaseContent from '../../../components/content/PercentDecreaseC
       const formulaText = document.getElementById('formula-text');
       const resetBtn = document.getElementById('reset-btn');
 
+      // Tab 2 Elements
+      const t2OriginalInput = document.getElementById('t2-original-value');
+      const t2PercentInput = document.getElementById('t2-percent-value');
+      const t2CalculateBtn = document.getElementById('t2-calculate-btn');
+      const t2ErrorMsg = document.getElementById('t2-error-msg');
+      const t2ResultContainer = document.getElementById('t2-result-container');
+      const t2ResultText = document.getElementById('t2-result-text');
+      const t2FormulaText = document.getElementById('t2-formula-text');
+      const t2ResetBtn = document.getElementById('t2-reset-btn');
+
+      // Tab Controls
+      const tab1Btn = document.getElementById('tab1-btn');
+      const tab2Btn = document.getElementById('tab2-btn');
+      const tab1Content = document.getElementById('tab1-content');
+      const tab2Content = document.getElementById('tab2-content');
+
+      const switchTab = (tab) => {
+        // Reset forms when switching
+        resetBtn?.click();
+        t2ResetBtn?.click();
+
+        if (tab === 1) {
+          tab1Btn.className = "flex-1 bg-[#1D9E75] text-white font-semibold py-2 px-4 rounded-lg transition-colors";
+          tab2Btn.className = "flex-1 bg-slate-100 text-slate-600 hover:bg-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors";
+          tab1Content?.classList.remove('hidden');
+          tab2Content?.classList.add('hidden');
+        } else {
+          tab2Btn.className = "flex-1 bg-[#1D9E75] text-white font-semibold py-2 px-4 rounded-lg transition-colors";
+          tab1Btn.className = "flex-1 bg-slate-100 text-slate-600 hover:bg-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors";
+          tab2Content?.classList.remove('hidden');
+          tab1Content?.classList.add('hidden');
+        }
+      };
+
+      tab1Btn?.addEventListener('click', () => switchTab(1));
+      tab2Btn?.addEventListener('click', () => switchTab(2));
+
+      // Tab 1 Logic
       const calculateDecrease = () => {
         errorMsg?.classList.add('hidden');
         resultContainer?.classList.add('hidden');
@@ -117,17 +240,9 @@ import PercentDecreaseContent from '../../../components/content/PercentDecreaseC
         const original = parseFloat(originalStr);
         const newValue = parseFloat(newStr);
 
-        if (original < 0 || newValue < 0) {
+        if (original <= 0 || newValue < 0) {
           if (errorMsg) {
-            errorMsg.textContent = "Please enter positive numbers only.";
-            errorMsg.classList.remove('hidden');
-          }
-          return;
-        }
-
-        if (original === 0) {
-          if (errorMsg) {
-            errorMsg.textContent = "Original value cannot be zero.";
+            errorMsg.textContent = "Original value must be greater than 0, and new value cannot be negative.";
             errorMsg.classList.remove('hidden');
           }
           return;
@@ -178,6 +293,72 @@ import PercentDecreaseContent from '../../../components/content/PercentDecreaseC
         errorMsg?.classList.add('hidden');
         resultContainer?.classList.add('hidden');
         formulaText?.classList.add('hidden');
+      });
+
+      // Tab 2 Logic
+      const calculateTab2 = () => {
+        t2ErrorMsg?.classList.add('hidden');
+        t2ResultContainer?.classList.add('hidden');
+        t2FormulaText?.classList.add('hidden');
+
+        const originalStr = t2OriginalInput?.value.trim();
+        const percentStr = t2PercentInput?.value.trim();
+
+        if (!originalStr || !percentStr) {
+          if (t2ErrorMsg) {
+            t2ErrorMsg.textContent = "Please fill in both fields.";
+            t2ErrorMsg.classList.remove('hidden');
+          }
+          return;
+        }
+
+        const original = parseFloat(originalStr);
+        const percent = parseFloat(percentStr);
+
+        if (original <= 0) {
+          if (t2ErrorMsg) {
+            t2ErrorMsg.textContent = "Original value must be greater than 0.";
+            t2ErrorMsg.classList.remove('hidden');
+          }
+          return;
+        }
+
+        if (percent < 0 || percent > 100) {
+          if (t2ErrorMsg) {
+            t2ErrorMsg.textContent = "Percentage must be between 0 and 100.";
+            t2ErrorMsg.classList.remove('hidden');
+          }
+          return;
+        }
+
+        const newValue = original * (1 - percent / 100);
+        const formattedNewValue = +newValue.toFixed(4);
+
+        if (t2ResultText && t2FormulaText && t2ResultContainer) {
+          t2ResultText.innerHTML = `${formattedNewValue} <span class="text-xl text-slate-600 font-semibold ml-1">new value</span><br><span class="text-base text-slate-500 font-normal">Decreased from ${original} by ${percent}%</span>`;
+          t2FormulaText.innerHTML = `${original} &times; (1 &minus; ${percent} / 100) = ${formattedNewValue}`;
+          t2FormulaText.classList.remove('hidden');
+          t2ResultContainer.classList.remove('hidden');
+        }
+      };
+
+      t2CalculateBtn?.addEventListener('click', calculateTab2);
+
+      const t2HandleEnter = (e) => {
+        if (e.key === 'Enter') {
+          calculateTab2();
+        }
+      };
+
+      t2OriginalInput?.addEventListener('keydown', t2HandleEnter);
+      t2PercentInput?.addEventListener('keydown', t2HandleEnter);
+
+      t2ResetBtn?.addEventListener('click', () => {
+        if (t2OriginalInput) t2OriginalInput.value = '';
+        if (t2PercentInput) t2PercentInput.value = '';
+        t2ErrorMsg?.classList.add('hidden');
+        t2ResultContainer?.classList.add('hidden');
+        t2FormulaText?.classList.add('hidden');
       });
     });
   </script>
