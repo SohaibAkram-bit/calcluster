@@ -26,32 +26,162 @@ const tools = [
   canonicalUrl="https://calcluster.com/"
 >
   <!-- Hero Section -->
-  <section class="py-16 md:py-24 flex flex-col items-center text-center">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-      Free Online Calculators
-    </h1>
-    <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-8">
-      Fast, accurate tools for math, science, health, and more.
-    </p>
-    <a href="/tools/" class="bg-[#1D9E75] hover:bg-[#168561] text-white font-medium text-lg px-8 py-3 rounded-lg transition-colors shadow-sm">
-      Explore Tools
-    </a>
-  </section>
+<section class="py-16 md:py-24 flex flex-col items-center text-center">
+  <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+    Free Online Calculators
+  </h1>
+  <p class="text-2xl md:text-3xl font-semibold text-slate-700 mb-6">
+    Your Answers, One Calculation Away
+  </p>
+  <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-4">
+    We all hit those moments — a discount you can't figure out in your head, a scale drawing that needs exact numbers, a health metric you want to double-check. Life is full of little calculations, and most of us don't want to open a spreadsheet just to get a quick instant calculator tool answer.
+  </p>
+  <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-8">
+    That's exactly why CalCluster exists. We've built a growing collection of free online calculators that give you the answer you need — without the clutter, the ads, or the sign-up forms. Just type your numbers and get your result. That's it.
+  </p>
+  <p class="text-base text-slate-500 max-w-2xl mb-8 italic">
+    Fast, accurate tools for math, science, health, and everyday life. No account needed. No sign-up required. No cost. Ever.
+  </p>
+  <a href="/tools/" class="bg-[#1D9E75] hover:bg-[#168561] text-white font-medium text-lg px-8 py-3 rounded-lg transition-colors shadow-sm">
+    Explore Tools
+  </a>
+</section>
 
-  <!-- Featured Tools Section -->
-  <section class="py-12 border-t border-slate-200">
-    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-8 text-center md:text-left">Popular Tools</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {tools.map((tool) => (
-        <a href={tool.link} class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
-          <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">{tool.name}</h3>
-          <p class="text-slate-600 mb-6 flex-grow">{tool.description}</p>
-          <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
-            Open Tool
-            <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
-          </span>
-        </a>
-      ))}
+<!-- About Section -->
+<section class="py-12 border-t border-slate-200">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">
+      What Is CalCluster?
+    </h2>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      CalCluster is a free online calculator platform built for real people in real situations. Whether you're a student solving homework problems, a professional crunching work numbers, a fitness enthusiast tracking your health, or just someone who wants to split a bill correctly — there's a tool here for you.
+    </p>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      We started with a simple frustration: most calculator websites are either too complicated, too slow, or buried under a pile of ads. We wanted something better — a clean, honest free calculator tool that respects your time and gives you what you came for instantly.
+    </p>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      Every accurate online calculator on CalCluster is built with care. We test each one, keep the interface distraction-free, and update the library regularly with new tools based on what people actually need.
+    </p>
+  </div>
+</section>
+
+<!-- Why CalCluster Section -->
+<section class="py-12 border-t border-slate-200">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">
+      Why People Choose CalCluster
+    </h2>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      There's no shortage of free calculator tools online. So why do people keep coming back to CalCluster? Here's what makes us different:
+    </p>
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">⚡ Results as You Type</h3>
+        <p class="text-slate-600 leading-relaxed mb-4">No submit button, no waiting. Your instant calculator results appear as you enter your numbers.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">✅ Always Accurate</h3>
+        <p class="text-slate-600 leading-relaxed mb-4">Every accurate online calculator is carefully built and tested. You can trust every number you see.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">📱 Works Everywhere</h3>
+        <p class="text-slate-600 leading-relaxed mb-4">Fully responsive on desktop, tablet, and phone. Calculate from wherever you are.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">🔓 100% Free, Always</h3>
+        <p class="text-slate-600 leading-relaxed mb-4">No trials, no premium tiers, no hidden fees. Every tool is free — today and always.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">🧹 No Clutter</h3>
+        <p class="text-slate-600 leading-relaxed mb-4">No pop-ups, no overwhelming layouts. Just the tool you need, front and center.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">🔄 Always Growing</h3>
+        <p class="text-slate-600 leading-relaxed mb-4">We add new calculators regularly based on what our users actually ask for.</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+  <!-- Popular Tools Section -->
+<section class="py-12 border-t border-slate-200">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 text-center md:text-left">
+    Our Most-Used Tools Right Now
+  </h2>
+  <p class="text-slate-600 leading-relaxed mb-6">
+    Not sure where to start? These are the free calculator tools people reach for most on CalCluster. Each one is simple, focused, and gives you a clear answer in seconds.
+  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <a href="/tools/scale-calculator/" class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
+      <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">Scale Calculator</h3>
+      <p class="text-slate-600 mb-6 flex-grow">Working on a model, a technical drawing, or an architectural plan? The scale calculator online lets you instantly convert between real-world measurements and any scale ratio — no manual math, no second-guessing. Whether you're a hobbyist or a professional, this tool saves you time every single time.</p>
+      <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
+        Open Tool <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
+      </span>
+    </a>
+    <a href="/tools/percent-increase/" class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
+      <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">Percent Increase Calculator</h3>
+      <p class="text-slate-600 mb-6 flex-grow">Whether you're evaluating a salary raise, tracking business growth, comparing prices, or checking how much something has gone up — this tool gives you the exact percentage increase between any two numbers. Fast, clean, and reliable.</p>
+      <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
+        Open Tool <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
+      </span>
+    </a>
+    <a href="/tools/percent-decrease/" class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
+      <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">Percent Decrease Calculator</h3>
+      <p class="text-slate-600 mb-6 flex-grow">Got a sale price and want to know the real discount? Tracking a drop in performance or stock value? The Percent Decrease Calculator tells you exactly how much something has fallen and by what percentage — in one click.</p>
+      <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
+        Open Tool <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-12 border-t border-slate-200">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">
+      Tools for Every Area of Your Life
+    </h2>
+    <p class="text-slate-600 leading-relaxed mb-6">
+      CalCluster is organized into categories so you can always find what you need quickly. We currently cover the areas people use most — and we're actively expanding into new ones every week.
+    </p>
+    <ul class="list-disc list-inside text-slate-600 space-y-2 mb-4 ml-4">
+      <li><span class="font-semibold text-slate-800">Math</span> — Online math calculators for percentages, scale conversions, ratios, and number tools for students and professionals.</li>
+      <li><span class="font-semibold text-slate-800">Health & Fitness</span> — Free health calculators for BMI, calories, body measurements, and tools to help you understand your body better.</li>
+      <li><span class="font-semibold text-slate-800">Science & Engineering</span> — Precise calculators for students, researchers, and technical professionals.</li>
+      <li><span class="font-semibold text-slate-800">Fun & Entertainment</span> — Lighthearted tools for everyday curiosity — because not every calculation has to be serious.</li>
+      <li><span class="font-semibold text-slate-800">Everyday Utility</span> — Everyday calculator tools for tips, unit conversions, and practical calculations for real everyday situations.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Built by a Person Section -->
+<!-- Built by a Person Section -->
+<section class="py-12 border-t border-slate-200">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">
+      Built by a Person, for People
+    </h2>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      CalCluster is built by a high school math teacher with 3 years of teaching experience and an ML engineer with a strong CS background — two people who know firsthand where students and professionals get stuck with free math calculators and everyday calculations. We were tired of calculator websites that were slow, complicated, and buried under clutter, so we built something better.
+    </p>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      Every online calculator tool on CalCluster is reviewed by both of us before it goes live. We're a small independent startup, and we're committed to keeping CalCluster accurate, fast, and always improving.
+    </p>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      If something doesn't work the way you expect, or if there's a calculator you wish existed, we want to hear about it. We read every message sent through our <a href="/contact/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">contact page</a>, and many of our upcoming tools have come directly from user suggestions. <a href="/about/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">Learn more about how CalCluster is built</a>.
+    </p>
+  </div>
+</section>
+<!-- SEO Footer Text -->
+<section class="py-12 border-t border-slate-200">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">
+      Free Online Calculators for Every Need
+    </h2>
+    <p class="text-slate-600 leading-relaxed mb-4">
+      CalCluster is your go-to source for free online calculators. From percentage tools to scale converters, our growing library helps you solve everyday problems quickly, accurately, and without any fuss. Whether you're a student, a working professional, a home cook, or just someone who needs a quick answer — CalCluster has a tool for you. No account required. No payment. No catch. Just accurate answers, instantly.
+    </p>
+  </div>
+</section>
 </ToolLayout>
