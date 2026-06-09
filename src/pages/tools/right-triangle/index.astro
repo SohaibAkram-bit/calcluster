@@ -1,0 +1,638 @@
+---
+import ToolLayout from '../../../Layouts/ToolLayout.astro';
+import RightTriangleContent from '../../../components/content/RightTriangleContent.astro';
+
+const title = "Right Triangle Calculator | Sides, Angles, Area & More";
+const description = "Free right triangle calculator. Enter any 2 values to instantly find all sides, angles, area, perimeter, and altitude — with step-by-step formula breakdown.";
+const canonicalUrl = "https://calcluster.com/tools/right-triangle/";
+const relatedTools = [
+  { name: "Scale Calculator", link: "/tools/scale-calculator/" },
+  { name: "Percent Increase Calculator", link: "/tools/percent-increase/" },
+  { name: "Percent Decrease Calculator", link: "/tools/percent-decrease/" }
+];
+---
+
+<ToolLayout title={title} description={description} canonicalUrl={canonicalUrl} relatedTools={relatedTools}>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I use a right triangle calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter any 2 known values — sides or angles — and click Calculate. The calculator will instantly solve all remaining sides, angles, area, perimeter, and altitude."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the hypotenuse of a right triangle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The hypotenuse is the longest side of a right triangle, opposite the 90° angle. It is calculated using the Pythagorean theorem: c = √(a² + b²)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find a missing side of a right triangle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Pythagorean theorem if you know two sides. If you know one side and one angle, use trigonometry: a = c × sin(α) or b = c × cos(α)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find the angles of a right triangle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use inverse trigonometric functions. α = arctan(a/b), β = arctan(b/a). The third angle is always 90°. All three angles always sum to 180°."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the altitude of a right triangle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The altitude (h) is the perpendicular height from the right angle vertex to the hypotenuse. It is calculated as h = (a × b) / c."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a 30-60-90 triangle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 30-60-90 triangle is a special right triangle with angles of 30°, 60°, and 90°. Its sides always follow the ratio 1 : √3 : 2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a 45-45-90 triangle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 45-45-90 triangle is an isosceles right triangle with two equal legs. Its sides follow the ratio 1 : 1 : √2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a right triangle have two equal sides?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A 45-45-90 triangle has two equal legs. It cannot have all three sides equal — that would require all angles to be 60°, which contradicts the 90° requirement."
+      }
+    }
+  ]
+}
+</script>
+
+  <div class="max-w-5xl mx-auto px-4 py-8">
+
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">Right Triangle Calculator</h1>
+    <p class="text-slate-600 mb-8">Enter any 2 known values — sides or angles — and instantly solve the entire triangle.</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+      <!-- LEFT: Calculator -->
+      <div class="lg:col-span-3">
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
+
+          <h2 class="text-lg font-semibold text-slate-900 mb-4">Enter any 2 values</h2>
+
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-sm font-medium text-slate-600">Angle unit:</span>
+            <button id="unit-deg" class="px-3 py-1 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors">Degrees</button>
+            <button id="unit-rad" class="px-3 py-1 text-sm font-semibold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">Radians</button>
+          </div>
+
+          <!-- Input grid -->
+          <div class="grid grid-cols-2 gap-4">
+
+            <!-- Leg a -->
+            <div>
+              <label for="input-a" class="block text-sm font-medium text-slate-700 mb-1">Leg a</label>
+              <input type="number" id="input-a" min="0" step="any" placeholder="e.g. 3"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75]" />
+            </div>
+
+            <!-- Leg b -->
+            <div>
+              <label for="input-b" class="block text-sm font-medium text-slate-700 mb-1">Leg b</label>
+              <input type="number" id="input-b" min="0" step="any" placeholder="e.g. 4"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75]" />
+            </div>
+
+            <!-- Hypotenuse c -->
+            <div>
+              <label for="input-c" class="block text-sm font-medium text-slate-700 mb-1">Hypotenuse (c)</label>
+              <input type="number" id="input-c" min="0" step="any" placeholder="e.g. 5"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75]" />
+            </div>
+
+            <!-- Angle alpha -->
+            <div>
+              <label for="input-alpha" class="block text-sm font-medium text-slate-700 mb-1">Angle α <span id="unit-label-alpha" class="text-slate-400 font-normal">(degrees)</span></label>
+              <input type="number" id="input-alpha" min="0" step="any" placeholder="e.g. 36.87" data-placeholder-deg="e.g. 36.87" data-placeholder-rad="e.g. 0.6435"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75]" />
+            </div>
+
+            <!-- Angle beta — full width -->
+            <div class="col-span-2">
+              <label for="input-beta" class="block text-sm font-medium text-slate-700 mb-1">Angle β <span id="unit-label-beta" class="text-slate-400 font-normal">(degrees)</span></label>
+              <input type="number" id="input-beta" min="0" step="any" placeholder="e.g. 53.13" data-placeholder-deg="e.g. 53.13" data-placeholder-rad="e.g. 0.9273"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75]" />
+            </div>
+
+          </div>
+          <!-- end input grid -->
+
+          <!-- Triangle diagram -->
+          <div class="flex justify-center mt-4 mb-2">
+            <svg id="triangle-diagram" width="280" height="180" viewBox="0 0 280 180" xmlns="http://www.w3.org/2000/svg">
+              <!-- drawn by JS -->
+            </svg>
+          </div>
+
+          <!-- Hint -->
+          <p class="text-sm text-slate-500 mt-3">Fill in any 2 fields. Leave the rest empty.</p>
+
+          <!-- Buttons -->
+          <div class="flex gap-3 mt-4">
+            <button id="btn-calculate"
+              class="bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold px-6 py-2 rounded-lg transition-colors">
+              Calculate
+            </button>
+            <button id="btn-reset"
+              class="border border-slate-300 text-slate-600 hover:bg-slate-50 font-semibold px-6 py-2 rounded-lg transition-colors">
+              Reset
+            </button>
+          </div>
+
+          <!-- Error message -->
+          <div id="error-msg" class="hidden mt-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm"></div>
+
+        </div>
+      </div>
+      <!-- end left column -->
+
+      <!-- RIGHT: Ad -->
+      <div class="lg:col-span-2 flex justify-center items-start pt-2">
+        <div class="w-[300px] h-[250px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm">Advertisement</div>
+      </div>
+
+    </div>
+    <!-- end two-column grid -->
+
+    <!-- Results -->
+    <div id="results-section" class="hidden mb-8">
+
+      <h2 class="text-xl font-semibold text-slate-900 mb-4">Results</h2>
+
+      <!-- 8 result cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Leg a</div>
+          <div class="text-lg font-bold text-slate-900" id="result-a">—</div>
+        </div>
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Leg b</div>
+          <div class="text-lg font-bold text-slate-900" id="result-b">—</div>
+        </div>
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Hypotenuse c</div>
+          <div class="text-lg font-bold text-slate-900" id="result-c">—</div>
+        </div>
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Angle α</div>
+          <div class="text-lg font-bold text-slate-900" id="result-alpha">—</div>
+        </div>
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Angle β</div>
+          <div class="text-lg font-bold text-slate-900" id="result-beta">—</div>
+        </div>
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Area</div>
+          <div class="text-lg font-bold text-slate-900" id="result-area">—</div>
+        </div>
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Perimeter</div>
+          <div class="text-lg font-bold text-slate-900" id="result-perimeter">—</div>
+        </div>
+
+        <div class="bg-slate-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-slate-500 mb-1 uppercase tracking-wide">Altitude h</div>
+          <div class="text-lg font-bold text-slate-900" id="result-h">—</div>
+        </div>
+
+      </div>
+      <!-- end result cards -->
+
+      <!-- Formula breakdown -->
+      <div class="p-4 bg-white border border-slate-200 rounded-lg mb-3">
+        <h3 class="text-sm font-semibold text-slate-700 mb-2">How we solved this</h3>
+        <ol id="formula-steps" class="text-sm text-slate-600 space-y-1 list-decimal list-inside"></ol>
+      </div>
+
+      <!-- Special triangle notice -->
+      <div id="special-triangle" class="hidden p-3 bg-[#1D9E75]/10 border border-[#1D9E75]/30 rounded-lg text-sm text-[#1D9E75] font-medium"></div>
+
+    </div>
+    <!-- end results section -->
+
+    <!-- In-content ad -->
+    <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+    <RightTriangleContent />
+
+    <!-- Bottom ad -->
+    <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+  </div>
+
+<script>
+(function () {
+
+  // --- Element references ---
+  const inputA     = document.getElementById('input-a');
+  const inputB     = document.getElementById('input-b');
+  const inputC     = document.getElementById('input-c');
+  const inputAlpha = document.getElementById('input-alpha');
+  const inputBeta  = document.getElementById('input-beta');
+  const btnCalc    = document.getElementById('btn-calculate');
+  const btnReset   = document.getElementById('btn-reset');
+  const errorMsg   = document.getElementById('error-msg');
+  const resultsSection  = document.getElementById('results-section');
+  const formulaSteps    = document.getElementById('formula-steps');
+  const specialTriangle = document.getElementById('special-triangle');
+
+  const resultA         = document.getElementById('result-a');
+  const resultB         = document.getElementById('result-b');
+  const resultC         = document.getElementById('result-c');
+  const resultAlpha     = document.getElementById('result-alpha');
+  const resultBeta      = document.getElementById('result-beta');
+  const resultArea      = document.getElementById('result-area');
+  const resultPerimeter = document.getElementById('result-perimeter');
+  const resultH         = document.getElementById('result-h');
+
+  let angleUnit = 'deg'; // 'deg' or 'rad'
+  const btnDeg = document.getElementById('unit-deg');
+  const btnRad = document.getElementById('unit-rad');
+  const unitLabelAlpha = document.getElementById('unit-label-alpha');
+  const unitLabelBeta  = document.getElementById('unit-label-beta');
+
+  // --- Helpers ---
+  function r4(n) { return parseFloat(n.toFixed(4)).toString(); }
+  function toRad(d) { return d * Math.PI / 180; }
+  function toDeg(r) { return r * 180 / Math.PI; }
+  function fmtAngle(deg) { return angleUnit === 'rad' ? r4(toRad(deg)) + ' rad' : r4(deg) + '°'; }
+  function fmt90() { return angleUnit === 'rad' ? r4(Math.PI/2) + ' rad' : '90°'; }
+
+  function setUnit(unit) {
+    angleUnit = unit;
+    if (unit === 'deg') {
+      btnDeg.className = 'px-3 py-1 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+      btnRad.className = 'px-3 py-1 text-sm font-semibold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors';
+      unitLabelAlpha.textContent = '(degrees)';
+      unitLabelBeta.textContent = '(degrees)';
+    } else {
+      btnRad.className = 'px-3 py-1 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+      btnDeg.className = 'px-3 py-1 text-sm font-semibold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors';
+      unitLabelAlpha.textContent = '(radians)';
+      unitLabelBeta.textContent = '(radians)';
+    }
+    inputAlpha.placeholder = inputAlpha.getAttribute(unit === 'deg' ? 'data-placeholder-deg' : 'data-placeholder-rad');
+    inputBeta.placeholder  = inputBeta.getAttribute(unit === 'deg' ? 'data-placeholder-deg' : 'data-placeholder-rad');
+    handleReset();
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.classList.remove('hidden');
+    resultsSection.classList.add('hidden');
+  }
+
+  function clearError() {
+    errorMsg.classList.add('hidden');
+  }
+
+  function displayResults(res, steps) {
+    resultA.textContent         = r4(res.a);
+    resultB.textContent         = r4(res.b);
+    resultC.textContent         = r4(res.c);
+    resultAlpha.textContent     = fmtAngle(res.alpha);
+    resultBeta.textContent      = fmtAngle(res.beta);
+    resultArea.textContent      = r4(res.area);
+    resultPerimeter.textContent = r4(res.perimeter);
+    resultH.textContent         = r4(res.h);
+
+    formulaSteps.innerHTML = steps.map(s => `<li>${s}</li>`).join('');
+    resultsSection.classList.remove('hidden');
+    checkSpecialTriangle(res.alpha, res.beta, res.a, res.b, res.c);
+
+    drawTriangle({
+      aLabel: r4(res.a),
+      bLabel: r4(res.b),
+      cLabel: r4(res.c),
+      alphaLabel: fmtAngle(res.alpha),
+      betaLabel:  fmtAngle(res.beta),
+      hLabel: 'h=' + r4(res.h),
+      rawA: res.a,
+      rawB: res.b
+    });
+  }
+
+  function checkSpecialTriangle(alpha, beta, a, b, c) {
+    const tol = 0.1;
+    const isInt = n => Math.abs(n - Math.round(n)) < 0.01;
+
+    if (Math.abs(alpha - 30) < tol && Math.abs(beta - 60) < tol ||
+        Math.abs(alpha - 60) < tol && Math.abs(beta - 30) < tol) {
+      specialTriangle.textContent = '✓ This is a 30-60-90 triangle — sides follow the ratio 1 : √3 : 2';
+      specialTriangle.classList.remove('hidden');
+    } else if (Math.abs(alpha - 45) < tol && Math.abs(beta - 45) < tol) {
+      specialTriangle.textContent = '✓ This is a 45-45-90 triangle — sides follow the ratio 1 : 1 : √2';
+      specialTriangle.classList.remove('hidden');
+    } else if (isInt(a) && isInt(b) && isInt(c)) {
+      specialTriangle.textContent = '✓ Pythagorean triple detected — all three sides are whole numbers';
+      specialTriangle.classList.remove('hidden');
+    } else {
+      specialTriangle.classList.add('hidden');
+    }
+  }
+
+  // --- Triangle diagram ---
+  const diagram = document.getElementById('triangle-diagram');
+
+  function drawTriangle(vals) {
+    const aLabel     = vals ? vals.aLabel     : 'a';
+    const bLabel     = vals ? vals.bLabel     : 'b';
+    const cLabel     = vals ? vals.cLabel     : 'c';
+    const alphaLabel = vals ? vals.alphaLabel : 'α';
+    const betaLabel  = vals ? vals.betaLabel  : 'β';
+    const green = '#1D9E75';
+    const slate = '#64748b';
+
+    // Fixed vertices — right angle at bottom-left
+    // A = bottom-left, B = bottom-right, C = top-left
+    let ax = 70,  ay = 150;
+    let bx = 250, by = 150;
+    let cx = 70,  cy = 30;
+
+    if (vals && vals.rawA && vals.rawB) {
+      const scale = Math.min(184 / vals.rawB, 84 / vals.rawA);
+      ax = 55;
+      ay = 145;
+      bx = ax + (vals.rawB * scale);
+      by = ay;
+      cx = ax;
+      cy = ay - (vals.rawA * scale);
+    }
+
+    diagram.innerHTML = `
+      <!-- Triangle fill -->
+      <polygon points="${ax},${ay} ${bx},${by} ${cx},${cy}"
+        fill="#1D9E75" fill-opacity="0.08" stroke="${green}" stroke-width="2" stroke-linejoin="round"/>
+
+      <!-- Right angle box at A -->
+      <polyline points="${ax+13},${ay} ${ax+13},${ay-13} ${ax},${ay-13}"
+        fill="none" stroke="${slate}" stroke-width="1.5"/>
+
+      <!-- Label a: left side, aligned to the outside -->
+      <text x="${ax - 12}" y="${(ay + cy) / 2}"
+        text-anchor="end" dominant-baseline="middle"
+        font-size="12" font-weight="600" fill="${green}">${aLabel}</text>
+
+      <!-- Label b: bottom side, centered -->
+      <text x="${(ax + bx) / 2}" y="${ay + 20}"
+        text-anchor="middle" dominant-baseline="middle"
+        font-size="12" font-weight="600" fill="${green}">${bLabel}</text>
+
+      <!-- Label c: hypotenuse, offset from midpoint -->
+      <text x="${(cx + bx) / 2 + 18}" y="${(cy + by) / 2 - 15}"
+        text-anchor="middle" dominant-baseline="middle"
+        font-size="12" font-weight="600" fill="${green}">${cLabel}</text>
+
+      <!-- Angle α at C (top-left) -->
+      <text x="${cx + 12}" y="${cy + 45}"
+        text-anchor="start" dominant-baseline="middle"
+        font-size="11" fill="${slate}">${alphaLabel}</text>
+
+      <!-- Angle β at B (bottom-right) -->
+      <text x="${bx - 15}" y="${by - 45}"
+        text-anchor="end" dominant-baseline="middle"
+        font-size="11" fill="${slate}">${betaLabel}</text>
+
+      <!-- Altitude h: dashed line from A toward hypotenuse midpoint -->
+      ${vals && vals.hLabel ? `
+      <line x1="${ax}" y1="${ay}" x2="${Math.round((cx + bx) / 2)}" y2="${Math.round((cy + by) / 2)}"
+        stroke="${slate}" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+      <text x="${ax + 42}" y="${ay - 25}"
+        text-anchor="start" dominant-baseline="middle"
+        font-size="11" fill="${slate}">${vals.hLabel}</text>
+      ` : ''}
+    `;
+  }
+
+  // Draw default on load
+  drawTriangle(null);
+
+  // --- Solver ---
+  function solve(f) {
+    if (angleUnit === 'rad') {
+      if ('alpha' in f) f.alpha = toDeg(f.alpha);
+      if ('beta' in f) f.beta = toDeg(f.beta);
+    }
+
+    let a, b, c, alpha, beta;
+    const steps = [];
+
+    if ('a' in f && 'b' in f) {
+      a = f.a; b = f.b;
+      c = Math.sqrt(a*a + b*b);
+      alpha = toDeg(Math.atan(a / b));
+      beta = 90 - alpha;
+      steps.push(`c = √(a² + b²) = √(${r4(a*a)} + ${r4(b*b)}) = √${r4(a*a+b*b)} = ${r4(c)}`);
+      steps.push(`α = arctan(a/b) = arctan(${r4(a/b)}) = ${fmtAngle(alpha)}`);
+      steps.push(`β = ${fmt90()} − α = ${fmt90()} − ${fmtAngle(alpha)} = ${fmtAngle(beta)}`);
+
+    } else if ('a' in f && 'c' in f) {
+      a = f.a; c = f.c;
+      b = Math.sqrt(c*c - a*a);
+      alpha = toDeg(Math.asin(a / c));
+      beta = 90 - alpha;
+      steps.push(`b = √(c² − a²) = √(${r4(c*c)} − ${r4(a*a)}) = ${r4(b)}`);
+      steps.push(`α = arcsin(a/c) = arcsin(${r4(a/c)}) = ${fmtAngle(alpha)}`);
+      steps.push(`β = ${fmt90()} − α = ${fmtAngle(beta)}`);
+
+    } else if ('b' in f && 'c' in f) {
+      b = f.b; c = f.c;
+      a = Math.sqrt(c*c - b*b);
+      beta = toDeg(Math.asin(b / c));
+      alpha = 90 - beta;
+      steps.push(`a = √(c² − b²) = √(${r4(c*c)} − ${r4(b*b)}) = ${r4(a)}`);
+      steps.push(`β = arcsin(b/c) = arcsin(${r4(b/c)}) = ${fmtAngle(beta)}`);
+      steps.push(`α = ${fmt90()} − β = ${fmtAngle(alpha)}`);
+
+    } else if ('a' in f && 'alpha' in f) {
+      a = f.a; alpha = f.alpha;
+      beta = 90 - alpha;
+      b = a / Math.tan(toRad(alpha));
+      c = a / Math.sin(toRad(alpha));
+      steps.push(`β = ${fmt90()} − α = ${fmt90()} − ${fmtAngle(alpha)} = ${fmtAngle(beta)}`);
+      steps.push(`b = a / tan(α) = ${r4(a)} / tan(${fmtAngle(alpha)}) = ${r4(b)}`);
+      steps.push(`c = a / sin(α) = ${r4(a)} / sin(${fmtAngle(alpha)}) = ${r4(c)}`);
+
+    } else if ('a' in f && 'beta' in f) {
+      a = f.a; beta = f.beta;
+      alpha = 90 - beta;
+      b = a * Math.tan(toRad(beta));
+      c = a / Math.cos(toRad(beta));
+      steps.push(`α = ${fmt90()} − β = ${fmt90()} − ${fmtAngle(beta)} = ${fmtAngle(alpha)}`);
+      steps.push(`b = a × tan(β) = ${r4(a)} × tan(${fmtAngle(beta)}) = ${r4(b)}`);
+      steps.push(`c = a / cos(β) = ${r4(a)} / cos(${fmtAngle(beta)}) = ${r4(c)}`);
+
+    } else if ('b' in f && 'alpha' in f) {
+      b = f.b; alpha = f.alpha;
+      beta = 90 - alpha;
+      a = b * Math.tan(toRad(alpha));
+      c = b / Math.cos(toRad(alpha));
+      steps.push(`β = ${fmt90()} − α = ${fmtAngle(beta)}`);
+      steps.push(`a = b × tan(α) = ${r4(b)} × tan(${fmtAngle(alpha)}) = ${r4(a)}`);
+      steps.push(`c = b / cos(α) = ${r4(b)} / cos(${fmtAngle(alpha)}) = ${r4(c)}`);
+
+    } else if ('b' in f && 'beta' in f) {
+      b = f.b; beta = f.beta;
+      alpha = 90 - beta;
+      a = b / Math.tan(toRad(beta));
+      c = b / Math.sin(toRad(beta));
+      steps.push(`α = ${fmt90()} − β = ${fmtAngle(alpha)}`);
+      steps.push(`a = b / tan(β) = ${r4(b)} / tan(${fmtAngle(beta)}) = ${r4(a)}`);
+      steps.push(`c = b / sin(β) = ${r4(b)} / sin(${fmtAngle(beta)}) = ${r4(c)}`);
+
+    } else if ('c' in f && 'alpha' in f) {
+      c = f.c; alpha = f.alpha;
+      beta = 90 - alpha;
+      a = c * Math.sin(toRad(alpha));
+      b = c * Math.cos(toRad(alpha));
+      steps.push(`β = ${fmt90()} − α = ${fmtAngle(beta)}`);
+      steps.push(`a = c × sin(α) = ${r4(c)} × sin(${fmtAngle(alpha)}) = ${r4(a)}`);
+      steps.push(`b = c × cos(α) = ${r4(c)} × cos(${fmtAngle(alpha)}) = ${r4(b)}`);
+
+    } else if ('c' in f && 'beta' in f) {
+      c = f.c; beta = f.beta;
+      alpha = 90 - beta;
+      b = c * Math.sin(toRad(beta));
+      a = c * Math.cos(toRad(beta));
+      steps.push(`α = ${fmt90()} − β = ${fmtAngle(alpha)}`);
+      steps.push(`b = c × sin(β) = ${r4(c)} × sin(${fmtAngle(beta)}) = ${r4(b)}`);
+      steps.push(`a = c × cos(β) = ${r4(c)} × cos(${fmtAngle(beta)}) = ${r4(a)}`);
+
+    } else if ('alpha' in f && 'beta' in f) {
+      return { error: 'Two angles alone cannot determine side lengths. Please include at least one side.' };
+    }
+
+    const area      = 0.5 * a * b;
+    const perimeter = a + b + c;
+    const h         = (a * b) / c;
+
+    steps.push(`Area = ½ × a × b = ½ × ${r4(a)} × ${r4(b)} = ${r4(area)}`);
+    steps.push(`Perimeter = a + b + c = ${r4(a)} + ${r4(b)} + ${r4(c)} = ${r4(perimeter)}`);
+    steps.push(`Altitude h = (a × b) / c = (${r4(a)} × ${r4(b)}) / ${r4(c)} = ${r4(h)}`);
+
+    return { a, b, c, alpha, beta, area, perimeter, h, steps };
+  }
+
+  // --- Calculate handler ---
+  function handleCalculate() {
+    clearError();
+
+    const fields = {
+      a:     inputA.value.trim(),
+      b:     inputB.value.trim(),
+      c:     inputC.value.trim(),
+      alpha: inputAlpha.value.trim(),
+      beta:  inputBeta.value.trim()
+    };
+
+    const filled = {};
+    for (const [key, val] of Object.entries(fields)) {
+      if (val !== '' && !isNaN(val)) filled[key] = parseFloat(val);
+    }
+
+    const count = Object.keys(filled).length;
+
+    if (count < 2) { showError('Please enter any 2 values to solve the triangle.'); return; }
+    if (count > 2) { showError('Please fill exactly 2 fields and leave the rest empty.'); return; }
+
+    for (const [key, val] of Object.entries(filled)) {
+      if (val <= 0) { showError('All values must be greater than zero.'); return; }
+      if (key === 'alpha' || key === 'beta') {
+        if (angleUnit === 'deg' && val >= 90) {
+          showError('Each angle must be less than 90°.'); return;
+        } else if (angleUnit === 'rad' && val >= Math.PI / 2) {
+          showError('Each angle must be less than π/2 radians (approx 1.5708).'); return;
+        }
+      }
+    }
+
+    if ('alpha' in filled && 'beta' in filled) {
+      if (angleUnit === 'deg') {
+        if (Math.abs(filled.alpha + filled.beta - 90) > 0.01) {
+          showError('The two angles must add up to 90°.'); return;
+        }
+      } else {
+        if (Math.abs(filled.alpha + filled.beta - Math.PI / 2) > 0.0001) {
+          showError('The two angles must add up to π/2 radians (approx 1.5708).'); return;
+        }
+      }
+    }
+
+    const res = solve(filled);
+
+    if (res.error) { showError(res.error); return; }
+
+    if (!isFinite(res.a) || !isFinite(res.b) || !isFinite(res.c) ||
+        res.a <= 0 || res.b <= 0 || res.c <= 0) {
+      showError('Invalid combination — please check your values.'); return;
+    }
+
+    if (res.c <= res.a || res.c <= res.b) {
+      showError('Invalid triangle: hypotenuse must be longer than either leg.'); return;
+    }
+
+    displayResults(res, res.steps);
+  }
+
+  // --- Reset handler ---
+  function handleReset() {
+    [inputA, inputB, inputC, inputAlpha, inputBeta].forEach(el => el.value = '');
+    resultsSection.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+    specialTriangle.classList.add('hidden');
+    formulaSteps.innerHTML = '';
+    drawTriangle(null);
+  }
+
+  // --- Event listeners ---
+  btnCalc.addEventListener('click', handleCalculate);
+  btnReset.addEventListener('click', handleReset);
+
+  btnDeg.addEventListener('click', () => setUnit('deg'));
+  btnRad.addEventListener('click', () => setUnit('rad'));
+
+  [inputA, inputB, inputC, inputAlpha, inputBeta].forEach(el => {
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') handleCalculate();
+    });
+  });
+
+})();
+</script>
+
+</ToolLayout>
