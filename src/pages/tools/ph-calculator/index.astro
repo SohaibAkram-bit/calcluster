@@ -1,0 +1,847 @@
+---
+import ToolLayout from '../../../Layouts/ToolLayout.astro';
+import PhCalculatorContent from '../../../components/content/PhCalculatorContent.astro';
+
+const title = "pH Calculator";
+const description = "Calculate pH, pOH, [H+], and [OH-] from any input. Mix solutions to find resulting pH.";
+const canonicalUrl = "https://calcluster.com/tools/ph-calculator/";
+const relatedTools = [];
+---
+
+<ToolLayout title={title} description={description} canonicalUrl={canonicalUrl} relatedTools={relatedTools}>
+  <div class="max-w-5xl mx-auto px-4 py-8">
+
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">pH Calculator</h1>
+    <p class="text-slate-600 mb-8">Calculate pH, pOH, [H+], and [OH-] from any input. Mix solutions to find resulting pH.</p>
+
+    <!-- Calculator Widget -->
+    <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+      
+      <!-- Tab Navigation -->
+      <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-100 pb-4">
+        <button id="btn-tab-1" class="tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium">From [H+]</button>
+        <button id="btn-tab-2" class="tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium">From pH</button>
+        <button id="btn-tab-3" class="tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium">From [OH-]</button>
+        <button id="btn-tab-4" class="tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium">Mix Solutions</button>
+      </div>
+
+      <!-- Tab 1: From [H+] -->
+      <div id="tab-1-content" class="tab-content block">
+        <div class="mb-4">
+          <label for="h-input" class="block text-sm font-semibold text-slate-700 mb-1">[H+] Concentration (mol/L)</label>
+          <div class="flex gap-2">
+            <input type="number" id="h-input" step="any" placeholder="e.g. 1e-7" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+            <select id="h-unit" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+              <option value="mol/L">mol/L</option>
+              <option value="mmol/L">mmol/L</option>
+              <option value="µmol/L">µmol/L</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Error Area -->
+        <div id="error-area" class="text-red-600 text-sm mb-4 hidden"></div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3">
+          <button id="calc-btn" class="bg-[#1D9E75] text-white hover:bg-[#168561] rounded px-4 py-2 font-semibold transition-colors">Calculate</button>
+          <button id="reset-btn" class="border border-slate-300 text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-semibold transition-colors">Reset</button>
+        </div>
+
+        <!-- Result Area -->
+        <div id="result-area" class="mt-6 hidden">
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">pH</div>
+              <div id="res-ph" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">pOH</div>
+              <div id="res-poh" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">[H+]</div>
+              <div id="res-h" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">[OH-]</div>
+              <div id="res-oh" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-sm text-slate-600">Classification:</span>
+            <span id="res-classification" class="font-semibold"></span>
+            <span class="text-sm text-slate-600 ml-4">Litmus:</span>
+            <span id="res-litmus-swatch" class="inline-block w-5 h-5 rounded-full border border-slate-300"></span>
+            <span id="res-litmus-label" class="text-sm text-slate-700"></span>
+          </div>
+
+          <div class="bg-slate-50 rounded p-4 text-sm text-slate-600 font-mono whitespace-pre-line" id="res-formula"></div>
+
+          <div class="mt-6">
+            <div class="text-sm text-slate-600 mb-2">pH Scale</div>
+            <div class="relative h-6 rounded-full" style="background: linear-gradient(to right, #dc2626 0%, #f97316 21%, #eab308 36%, #22c55e 50%, #3b82f6 71%, #1e3a8a 100%);">
+              <div id="ph-marker" class="absolute top-[-6px] w-0 h-0" style="left: 50%; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 10px solid #1e293b;"></div>
+            </div>
+            <div class="relative mt-1 text-xs text-slate-500" style="height: 1rem;">
+              <span class="absolute" style="left: 0%;">0</span>
+              <span class="absolute" style="left: 50%; transform: translateX(-50%);">7</span>
+              <span class="absolute" style="left: 100%; transform: translateX(-100%);">14</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Tab 2: From pH -->
+      <div id="tab-2-content" class="tab-content hidden">
+        <div class="mb-4">
+          <label for="ph-input" class="block text-sm font-semibold text-slate-700 mb-1">pH Value</label>
+          <input type="number" id="ph-input" step="any" placeholder="e.g. 7" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white mb-4" />
+          
+          <label for="ph-result-unit" class="block text-sm font-semibold text-slate-700 mb-1">Display Unit for [H+]/[OH-]</label>
+          <select id="ph-result-unit" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+            <option value="mol/L">mol/L</option>
+            <option value="mmol/L">mmol/L</option>
+            <option value="µmol/L">µmol/L</option>
+          </select>
+        </div>
+
+        <!-- Error Area -->
+        <div id="error-area-2" class="text-red-600 text-sm mb-4 hidden"></div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3">
+          <button id="calc-btn-2" class="bg-[#1D9E75] text-white hover:bg-[#168561] rounded px-4 py-2 font-semibold transition-colors">Calculate</button>
+          <button id="reset-btn-2" class="border border-slate-300 text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-semibold transition-colors">Reset</button>
+        </div>
+
+        <!-- Result Area -->
+        <div id="result-area-2" class="mt-6 hidden">
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">pH</div>
+              <div id="res-ph-2" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">pOH</div>
+              <div id="res-poh-2" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">[H+]</div>
+              <div id="res-h-2" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">[OH-]</div>
+              <div id="res-oh-2" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-sm text-slate-600">Classification:</span>
+            <span id="res-classification-2" class="font-semibold"></span>
+            <span class="text-sm text-slate-600 ml-4">Litmus:</span>
+            <span id="res-litmus-swatch-2" class="inline-block w-5 h-5 rounded-full border border-slate-300"></span>
+            <span id="res-litmus-label-2" class="text-sm text-slate-700"></span>
+          </div>
+
+          <div class="bg-slate-50 rounded p-4 text-sm text-slate-600 font-mono whitespace-pre-line" id="res-formula-2"></div>
+
+          <div class="mt-6">
+            <div class="text-sm text-slate-600 mb-2">pH Scale</div>
+            <div class="relative h-6 rounded-full" style="background: linear-gradient(to right, #dc2626 0%, #f97316 21%, #eab308 36%, #22c55e 50%, #3b82f6 71%, #1e3a8a 100%);">
+              <div id="ph-marker-2" class="absolute top-[-6px] w-0 h-0" style="left: 50%; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 10px solid #1e293b;"></div>
+            </div>
+            <div class="relative mt-1 text-xs text-slate-500" style="height: 1rem;">
+              <span class="absolute" style="left: 0%;">0</span>
+              <span class="absolute" style="left: 50%; transform: translateX(-50%);">7</span>
+              <span class="absolute" style="left: 100%; transform: translateX(-100%);">14</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: From [OH-] -->
+      <div id="tab-3-content" class="tab-content hidden">
+        <div class="mb-4">
+          <label for="oh-input" class="block text-sm font-semibold text-slate-700 mb-1">[OH-] Concentration (mol/L)</label>
+          <div class="flex gap-2">
+            <input type="number" id="oh-input" step="any" placeholder="e.g. 1e-7" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+            <select id="oh-unit" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+              <option value="mol/L">mol/L</option>
+              <option value="mmol/L">mmol/L</option>
+              <option value="µmol/L">µmol/L</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Error Area -->
+        <div id="error-area-3" class="text-red-600 text-sm mb-4 hidden"></div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3">
+          <button id="calc-btn-3" class="bg-[#1D9E75] text-white hover:bg-[#168561] rounded px-4 py-2 font-semibold transition-colors">Calculate</button>
+          <button id="reset-btn-3" class="border border-slate-300 text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-semibold transition-colors">Reset</button>
+        </div>
+
+        <!-- Result Area -->
+        <div id="result-area-3" class="mt-6 hidden">
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">pH</div>
+              <div id="res-ph-3" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">pOH</div>
+              <div id="res-poh-3" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">[H+]</div>
+              <div id="res-h-3" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+            <div class="bg-slate-50 rounded p-4">
+              <div class="text-sm text-slate-600">[OH-]</div>
+              <div id="res-oh-3" class="text-2xl font-bold text-slate-900"></div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-sm text-slate-600">Classification:</span>
+            <span id="res-classification-3" class="font-semibold"></span>
+            <span class="text-sm text-slate-600 ml-4">Litmus:</span>
+            <span id="res-litmus-swatch-3" class="inline-block w-5 h-5 rounded-full border border-slate-300"></span>
+            <span id="res-litmus-label-3" class="text-sm text-slate-700"></span>
+          </div>
+
+          <div class="bg-slate-50 rounded p-4 text-sm text-slate-600 font-mono whitespace-pre-line" id="res-formula-3"></div>
+
+          <div class="mt-6">
+            <div class="text-sm text-slate-600 mb-2">pH Scale</div>
+            <div class="relative h-6 rounded-full" style="background: linear-gradient(to right, #dc2626 0%, #f97316 21%, #eab308 36%, #22c55e 50%, #3b82f6 71%, #1e3a8a 100%);">
+              <div id="ph-marker-3" class="absolute top-[-6px] w-0 h-0" style="left: 50%; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 10px solid #1e293b;"></div>
+            </div>
+            <div class="relative mt-1 text-xs text-slate-500" style="height: 1rem;">
+              <span class="absolute" style="left: 0%;">0</span>
+              <span class="absolute" style="left: 50%; transform: translateX(-50%);">7</span>
+              <span class="absolute" style="left: 100%; transform: translateX(-100%);">14</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Mix Solutions -->
+      <div id="tab-4-content" class="tab-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          
+          <!-- Solution 1 -->
+          <div>
+            <h3 class="font-semibold text-slate-900 mb-2">Solution 1</h3>
+            
+            <div class="mb-4">
+              <select id="mix-type-a" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700 mb-2">
+                <option value="ph">pH value</option>
+                <option value="h">[H+] concentration</option>
+                <option value="oh">[OH-] concentration</option>
+              </select>
+              <div class="flex gap-2">
+                <input type="number" id="mix-value-a" step="any" placeholder="Enter value" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="mix-unit-a" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mol/L">mol/L</option>
+                  <option value="mmol/L">mmol/L</option>
+                  <option value="µmol/L">µmol/L</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="mix-vol-a" class="block text-sm font-semibold text-slate-700 mb-1">Volume</label>
+              <div class="flex gap-2">
+                <input type="number" id="mix-vol-a" step="any" placeholder="Volume" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="mix-vol-unit-a" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mL">mL</option>
+                  <option value="L">L</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution 2 -->
+          <div>
+            <h3 class="font-semibold text-slate-900 mb-2">Solution 2</h3>
+            
+            <div class="mb-4">
+              <select id="mix-type-b" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700 mb-2">
+                <option value="ph">pH value</option>
+                <option value="h">[H+] concentration</option>
+                <option value="oh">[OH-] concentration</option>
+              </select>
+              <div class="flex gap-2">
+                <input type="number" id="mix-value-b" step="any" placeholder="Enter value" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="mix-unit-b" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mol/L">mol/L</option>
+                  <option value="mmol/L">mmol/L</option>
+                  <option value="µmol/L">µmol/L</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="mix-vol-b" class="block text-sm font-semibold text-slate-700 mb-1">Volume</label>
+              <div class="flex gap-2">
+                <input type="number" id="mix-vol-b" step="any" placeholder="Volume" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
+                <select id="mix-vol-unit-b" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                  <option value="mL">mL</option>
+                  <option value="L">L</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Error Area -->
+        <div id="error-area-4" class="text-red-600 text-sm mb-4 hidden"></div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3">
+          <button id="calc-btn-4" class="bg-[#1D9E75] text-white hover:bg-[#168561] rounded px-4 py-2 font-semibold transition-colors">Calculate</button>
+          <button id="reset-btn-4" class="border border-slate-300 text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-semibold transition-colors">Reset</button>
+        </div>
+
+        <!-- Result Area -->
+        <div id="result-area-4" class="mt-6 hidden">
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-slate-50 rounded p-4"><div class="text-sm text-slate-600">pH</div><div id="res-ph-4" class="text-2xl font-bold text-slate-900"></div></div>
+            <div class="bg-slate-50 rounded p-4"><div class="text-sm text-slate-600">pOH</div><div id="res-poh-4" class="text-2xl font-bold text-slate-900"></div></div>
+            <div class="bg-slate-50 rounded p-4"><div class="text-sm text-slate-600">[H+]</div><div id="res-h-4" class="text-2xl font-bold text-slate-900"></div></div>
+            <div class="bg-slate-50 rounded p-4"><div class="text-sm text-slate-600">[OH-]</div><div id="res-oh-4" class="text-2xl font-bold text-slate-900"></div></div>
+          </div>
+          <div class="flex items-center gap-3 mb-4"><span class="text-sm text-slate-600">Classification:</span><span id="res-classification-4" class="font-semibold"></span><span class="text-sm text-slate-600 ml-4">Litmus:</span><span id="res-litmus-swatch-4" class="inline-block w-5 h-5 rounded-full border border-slate-300"></span><span id="res-litmus-label-4" class="text-sm text-slate-700"></span></div>
+          <div class="bg-slate-50 rounded p-4 text-sm text-slate-600 font-mono whitespace-pre-line" id="res-formula-4"></div>
+          <div class="mt-6">
+            <div class="text-sm text-slate-600 mb-2">pH Scale</div>
+            <div class="relative h-6 rounded-full" style="background: linear-gradient(to right, #dc2626 0%, #f97316 21%, #eab308 36%, #22c55e 50%, #3b82f6 71%, #1e3a8a 100%);"><div id="ph-marker-4" class="absolute top-[-6px] w-0 h-0" style="left: 50%; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 10px solid #1e293b;"></div></div>
+            <div class="relative mt-1 text-xs text-slate-500" style="height: 1rem;"><span class="absolute" style="left: 0%;">0</span><span class="absolute" style="left: 50%; transform: translateX(-50%);">7</span><span class="absolute" style="left: 100%; transform: translateX(-100%);">14</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <PhCalculatorContent />
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      const hInput = document.getElementById('h-input');
+      const hUnit = document.getElementById('h-unit');
+      const calcBtn = document.getElementById('calc-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      const errorArea = document.getElementById('error-area');
+      const resultArea = document.getElementById('result-area');
+      
+      const resPh = document.getElementById('res-ph');
+      const resPoh = document.getElementById('res-poh');
+      const resH = document.getElementById('res-h');
+      const resOh = document.getElementById('res-oh');
+      const resClassification = document.getElementById('res-classification');
+      const resLitmusSwatch = document.getElementById('res-litmus-swatch');
+      const resLitmusLabel = document.getElementById('res-litmus-label');
+      const resFormula = document.getElementById('res-formula');
+
+      const formatSci = (num) => {
+        const parts = num.toExponential(2).split('e');
+        const base = parts[0];
+        const exp = parts[1].replace('+', '');
+        const superscripts = {
+          '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³',
+          '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹'
+        };
+        const superExp = Array.from(exp).map(c => superscripts[c] || c).join('');
+        return `${base} × 10${superExp}`;
+      };
+
+      // Tab switching logic
+      tabBtns.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          // Reset all tabs
+          tabBtns.forEach(b => b.className = 'tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium');
+          tabContents.forEach(c => {
+            c.classList.remove('block');
+            c.classList.add('hidden');
+          });
+
+          // Activate selected tab
+          btn.className = 'tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium';
+          tabContents[index].classList.remove('hidden');
+          tabContents[index].classList.add('block');
+        });
+      });
+
+      // Calculate click logic
+      const handleCalculate = () => {
+        errorArea.classList.add('hidden');
+        resultArea.classList.add('hidden');
+
+        const val = hInput.value.trim();
+
+        if (!val) {
+          errorArea.textContent = 'Please enter a concentration value.';
+          errorArea.classList.remove('hidden');
+          return;
+        }
+
+        const num = parseFloat(val);
+        if (isNaN(num) || num <= 0) {
+          errorArea.textContent = 'Concentration must be a number greater than 0.';
+          errorArea.classList.remove('hidden');
+          return;
+        }
+
+        let hConcMolar = num;
+        let unitMultiplier = 1;
+        if (hUnit.value === 'mmol/L') {
+          hConcMolar = num / 1000;
+          unitMultiplier = 1000;
+        } else if (hUnit.value === 'µmol/L') {
+          hConcMolar = num / 1000000;
+          unitMultiplier = 1000000;
+        }
+
+        const pH = -Math.log10(hConcMolar);
+        const pOH = 14 - pH;
+        const ohConcMolar = Math.pow(10, -pOH);
+
+        resPh.textContent = pH.toFixed(2);
+        resPoh.textContent = pOH.toFixed(2);
+        resH.textContent = formatSci(num) + " " + hUnit.value;
+        resOh.textContent = formatSci(ohConcMolar * unitMultiplier) + " " + hUnit.value;
+
+        if (pH < 7) {
+          resClassification.textContent = "Acidic";
+          resClassification.className = "font-semibold text-red-600";
+          resLitmusSwatch.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-red-500";
+          resLitmusLabel.textContent = "Red";
+        } else if (pH === 7) {
+          resClassification.textContent = "Neutral";
+          resClassification.className = "font-semibold text-slate-600";
+          resLitmusSwatch.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-purple-500";
+          resLitmusLabel.textContent = "Purple (no change)";
+        } else {
+          resClassification.textContent = "Basic";
+          resClassification.className = "font-semibold text-blue-600";
+          resLitmusSwatch.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-blue-500";
+          resLitmusLabel.textContent = "Blue";
+        }
+
+        resFormula.textContent = `pH = -log10([H+])\npH = -log10(${formatSci(hConcMolar)} mol/L)\npH = ${pH.toFixed(2)}\n\npOH = 14 - pH = ${pOH.toFixed(2)}\n[OH-] = 10^(-pOH) = ${formatSci(ohConcMolar)} mol/L`;
+        
+        const clampedPh = Math.min(14, Math.max(0, pH));
+        document.getElementById('ph-marker').style.left = `calc(${(clampedPh / 14) * 100}% - 6px)`;
+
+        resultArea.classList.remove('hidden');
+      };
+
+      calcBtn.addEventListener('click', handleCalculate);
+
+      // Enter key handler
+      hInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleCalculate();
+      });
+
+      // Reset logic
+      resetBtn.addEventListener('click', () => {
+        hInput.value = '';
+        hUnit.value = 'mol/L';
+        errorArea.classList.add('hidden');
+        resultArea.classList.add('hidden');
+      });
+
+      // --- Tab 2 Logic ---
+      const phInput = document.getElementById('ph-input');
+      const phResultUnit = document.getElementById('ph-result-unit');
+      const calcBtn2 = document.getElementById('calc-btn-2');
+      const resetBtn2 = document.getElementById('reset-btn-2');
+      const errorArea2 = document.getElementById('error-area-2');
+      const resultArea2 = document.getElementById('result-area-2');
+      
+      const resPh2 = document.getElementById('res-ph-2');
+      const resPoh2 = document.getElementById('res-poh-2');
+      const resH2 = document.getElementById('res-h-2');
+      const resOh2 = document.getElementById('res-oh-2');
+      const resClassification2 = document.getElementById('res-classification-2');
+      const resLitmusSwatch2 = document.getElementById('res-litmus-swatch-2');
+      const resLitmusLabel2 = document.getElementById('res-litmus-label-2');
+      const resFormula2 = document.getElementById('res-formula-2');
+      const phMarker2 = document.getElementById('ph-marker-2');
+
+      const handleCalculate2 = () => {
+        errorArea2.className = 'text-sm mb-4 hidden';
+        resultArea2.classList.add('hidden');
+
+        const val = phInput.value.trim();
+
+        if (!val) {
+          errorArea2.textContent = 'Please enter a pH value.';
+          errorArea2.className = 'text-red-600 text-sm mb-4';
+          return;
+        }
+
+        const num = parseFloat(val);
+        if (isNaN(num)) {
+          errorArea2.textContent = 'Please enter a valid number.';
+          errorArea2.className = 'text-red-600 text-sm mb-4';
+          return;
+        }
+
+        if (num < 0 || num > 14) {
+          errorArea2.textContent = 'Note: outside typical 0-14 range';
+          errorArea2.className = 'text-amber-600 text-sm mb-4';
+        }
+
+        const pH = num;
+        const hConcMolar = Math.pow(10, -pH);
+        const pOH = 14 - pH;
+        const ohConcMolar = Math.pow(10, -pOH);
+
+        let unitMultiplier = 1;
+        if (phResultUnit.value === 'mmol/L') unitMultiplier = 1000;
+        else if (phResultUnit.value === 'µmol/L') unitMultiplier = 1000000;
+
+        resPh2.textContent = pH.toFixed(2);
+        resPoh2.textContent = pOH.toFixed(2);
+        resH2.textContent = formatSci(hConcMolar * unitMultiplier) + " " + phResultUnit.value;
+        resOh2.textContent = formatSci(ohConcMolar * unitMultiplier) + " " + phResultUnit.value;
+
+        if (pH < 7) {
+          resClassification2.textContent = "Acidic";
+          resClassification2.className = "font-semibold text-red-600";
+          resLitmusSwatch2.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-red-500";
+          resLitmusLabel2.textContent = "Red";
+        } else if (pH === 7) {
+          resClassification2.textContent = "Neutral";
+          resClassification2.className = "font-semibold text-slate-600";
+          resLitmusSwatch2.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-purple-500";
+          resLitmusLabel2.textContent = "Purple (no change)";
+        } else {
+          resClassification2.textContent = "Basic";
+          resClassification2.className = "font-semibold text-blue-600";
+          resLitmusSwatch2.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-blue-500";
+          resLitmusLabel2.textContent = "Blue";
+        }
+
+        resFormula2.textContent = `pH = ${pH.toFixed(2)} (given)\n[H+] = 10^(-pH) = ${formatSci(hConcMolar)} mol/L\n\npOH = 14 - pH = ${pOH.toFixed(2)}\n[OH-] = 10^(-pOH) = ${formatSci(ohConcMolar)} mol/L`;
+
+        const clampedPh = Math.min(14, Math.max(0, pH));
+        phMarker2.style.left = `calc(${(clampedPh / 14) * 100}% - 6px)`;
+
+        resultArea2.classList.remove('hidden');
+      };
+
+      calcBtn2.addEventListener('click', handleCalculate2);
+
+      phInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleCalculate2();
+      });
+
+      resetBtn2.addEventListener('click', () => {
+        phInput.value = '';
+        phResultUnit.value = 'mol/L';
+        errorArea2.className = 'text-sm mb-4 hidden';
+        resultArea2.classList.add('hidden');
+      });
+
+      // --- Tab 3 Logic ---
+      const ohInput = document.getElementById('oh-input');
+      const ohUnit = document.getElementById('oh-unit');
+      const calcBtn3 = document.getElementById('calc-btn-3');
+      const resetBtn3 = document.getElementById('reset-btn-3');
+      const errorArea3 = document.getElementById('error-area-3');
+      const resultArea3 = document.getElementById('result-area-3');
+
+      const resPh3 = document.getElementById('res-ph-3');
+      const resPoh3 = document.getElementById('res-poh-3');
+      const resH3 = document.getElementById('res-h-3');
+      const resOh3 = document.getElementById('res-oh-3');
+      const resClassification3 = document.getElementById('res-classification-3');
+      const resLitmusSwatch3 = document.getElementById('res-litmus-swatch-3');
+      const resLitmusLabel3 = document.getElementById('res-litmus-label-3');
+      const resFormula3 = document.getElementById('res-formula-3');
+      const phMarker3 = document.getElementById('ph-marker-3');
+
+      const handleCalculate3 = () => {
+        errorArea3.classList.add('hidden');
+        resultArea3.classList.add('hidden');
+
+        const val = ohInput.value.trim();
+
+        if (!val) {
+          errorArea3.textContent = 'Please enter a concentration value.';
+          errorArea3.classList.remove('hidden');
+          return;
+        }
+
+        const num = parseFloat(val);
+        if (isNaN(num) || num <= 0) {
+          errorArea3.textContent = 'Concentration must be a number greater than 0.';
+          errorArea3.classList.remove('hidden');
+          return;
+        }
+
+        let ohConcMolar = num;
+        let unitMultiplier = 1;
+        if (ohUnit.value === 'mmol/L') {
+          ohConcMolar = num / 1000;
+          unitMultiplier = 1000;
+        } else if (ohUnit.value === 'µmol/L') {
+          ohConcMolar = num / 1000000;
+          unitMultiplier = 1000000;
+        }
+
+        const pOH = -Math.log10(ohConcMolar);
+        const pH = 14 - pOH;
+        const hConcMolar = Math.pow(10, -pH);
+
+        resPoh3.textContent = pOH.toFixed(2);
+        resPh3.textContent = pH.toFixed(2);
+        resOh3.textContent = formatSci(num) + " " + ohUnit.value;
+        resH3.textContent = formatSci(hConcMolar * unitMultiplier) + " " + ohUnit.value;
+
+        if (pH < 7) {
+          resClassification3.textContent = "Acidic";
+          resClassification3.className = "font-semibold text-red-600";
+          resLitmusSwatch3.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-red-500";
+          resLitmusLabel3.textContent = "Red";
+        } else if (pH === 7) {
+          resClassification3.textContent = "Neutral";
+          resClassification3.className = "font-semibold text-slate-600";
+          resLitmusSwatch3.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-purple-500";
+          resLitmusLabel3.textContent = "Purple (no change)";
+        } else {
+          resClassification3.textContent = "Basic";
+          resClassification3.className = "font-semibold text-blue-600";
+          resLitmusSwatch3.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-blue-500";
+          resLitmusLabel3.textContent = "Blue";
+        }
+
+        resFormula3.textContent = `pOH = -log10([OH-])\npOH = -log10(${formatSci(ohConcMolar)} mol/L)\npOH = ${pOH.toFixed(2)}\n\npH = 14 - pOH = ${pH.toFixed(2)}\n[H+] = 10^(-pH) = ${formatSci(hConcMolar)} mol/L`;
+
+        const clampedPh = Math.min(14, Math.max(0, pH));
+        phMarker3.style.left = `calc(${(clampedPh / 14) * 100}% - 6px)`;
+
+        resultArea3.classList.remove('hidden');
+      };
+
+      calcBtn3.addEventListener('click', handleCalculate3);
+
+      ohInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleCalculate3();
+      });
+
+      resetBtn3.addEventListener('click', () => {
+        ohInput.value = '';
+        ohUnit.value = 'mol/L';
+        errorArea3.classList.add('hidden');
+        resultArea3.classList.add('hidden');
+      });
+
+      // --- Tab 4 Logic ---
+      const mixTypeA = document.getElementById('mix-type-a');
+      const mixValueA = document.getElementById('mix-value-a');
+      const mixUnitA = document.getElementById('mix-unit-a');
+      const mixVolA = document.getElementById('mix-vol-a');
+      const mixVolUnitA = document.getElementById('mix-vol-unit-a');
+
+      const mixTypeB = document.getElementById('mix-type-b');
+      const mixValueB = document.getElementById('mix-value-b');
+      const mixUnitB = document.getElementById('mix-unit-b');
+      const mixVolB = document.getElementById('mix-vol-b');
+      const mixVolUnitB = document.getElementById('mix-vol-unit-b');
+
+      const calcBtn4 = document.getElementById('calc-btn-4');
+      const resetBtn4 = document.getElementById('reset-btn-4');
+      const errorArea4 = document.getElementById('error-area-4');
+      const resultArea4 = document.getElementById('result-area-4');
+
+      const resPh4 = document.getElementById('res-ph-4');
+      const resPoh4 = document.getElementById('res-poh-4');
+      const resH4 = document.getElementById('res-h-4');
+      const resOh4 = document.getElementById('res-oh-4');
+      const resClassification4 = document.getElementById('res-classification-4');
+      const resLitmusSwatch4 = document.getElementById('res-litmus-swatch-4');
+      const resLitmusLabel4 = document.getElementById('res-litmus-label-4');
+      const resFormula4 = document.getElementById('res-formula-4');
+      const phMarker4 = document.getElementById('ph-marker-4');
+
+      const getConcentrations = (type, value, unit) => {
+        let hConc, ohConc;
+        if (type === 'ph') {
+          hConc = Math.pow(10, -value);
+          ohConc = Math.pow(10, value - 14);
+        } else {
+          let molarVal = value;
+          if (unit === 'mmol/L') molarVal = value / 1000;
+          else if (unit === 'µmol/L') molarVal = value / 1000000;
+
+          if (type === 'h') {
+            hConc = molarVal;
+            ohConc = 1e-14 / hConc;
+          } else if (type === 'oh') {
+            ohConc = molarVal;
+            hConc = 1e-14 / ohConc;
+          }
+        }
+        return { hConc, ohConc };
+      };
+
+      const handleCalculate4 = () => {
+        errorArea4.className = 'text-sm mb-4 hidden';
+        resultArea4.classList.add('hidden');
+
+        const valA = mixValueA.value.trim();
+        const valB = mixValueB.value.trim();
+        const volA = mixVolA.value.trim();
+        const volB = mixVolB.value.trim();
+
+        if (!valA || !valB || !volA || !volB) {
+          errorArea4.textContent = 'Please fill in all values and volumes.';
+          errorArea4.className = 'text-red-600 text-sm mb-4';
+          return;
+        }
+
+        const numA = parseFloat(valA);
+        const numB = parseFloat(valB);
+        const numVolA = parseFloat(volA);
+        const numVolB = parseFloat(volB);
+
+        if (isNaN(numA) || isNaN(numB) || isNaN(numVolA) || isNaN(numVolB)) {
+          errorArea4.textContent = 'Please enter valid numbers.';
+          errorArea4.className = 'text-red-600 text-sm mb-4';
+          return;
+        }
+
+        if (numVolA <= 0 || numVolB <= 0) {
+          errorArea4.textContent = 'Volumes must be greater than 0.';
+          errorArea4.className = 'text-red-600 text-sm mb-4';
+          return;
+        }
+
+        let warnings = [];
+        const checkSolution = (type, val, label) => {
+          if (type === 'ph') {
+            if (val < 0 || val > 14) warnings.push(`Note: ${label} pH outside typical range`);
+          } else {
+            if (val <= 0) return `${label} concentration must be greater than 0.`;
+          }
+          return null;
+        };
+
+        const errA = checkSolution(mixTypeA.value, numA, 'Solution 1');
+        const errB = checkSolution(mixTypeB.value, numB, 'Solution 2');
+
+        if (errA || errB) {
+          errorArea4.innerHTML = [errA, errB].filter(Boolean).join('<br>');
+          errorArea4.className = 'text-red-600 text-sm mb-4';
+          return;
+        }
+
+        if (warnings.length > 0) {
+          errorArea4.innerHTML = warnings.join('<br>');
+          errorArea4.className = 'text-amber-600 text-sm mb-4';
+        }
+
+        const volALiters = mixVolUnitA.value === 'mL' ? numVolA / 1000 : numVolA;
+        const volBLiters = mixVolUnitB.value === 'mL' ? numVolB / 1000 : numVolB;
+
+        const solA = getConcentrations(mixTypeA.value, numA, mixUnitA.value);
+        const solB = getConcentrations(mixTypeB.value, numB, mixUnitB.value);
+
+        const molesHA = solA.hConc * volALiters;
+        const molesOHA = solA.ohConc * volALiters;
+        const molesHB = solB.hConc * volBLiters;
+        const molesOHB = solB.ohConc * volBLiters;
+
+        const totalVol = volALiters + volBLiters;
+        const totalMolesH = molesHA + molesHB;
+        const totalMolesOH = molesOHA + molesOHB;
+        const netMolesH = totalMolesH - totalMolesOH;
+
+        let resultPh, resultPoh, resultHConc, resultOhConc;
+
+        if (netMolesH > 0) {
+          resultHConc = netMolesH / totalVol;
+          resultPh = -Math.log10(resultHConc);
+        } else if (netMolesH < 0) {
+          const netMolesOH = -netMolesH;
+          resultOhConc = netMolesOH / totalVol;
+          resultPoh = -Math.log10(resultOhConc);
+          resultPh = 14 - resultPoh;
+        } else {
+          resultPh = 7;
+        }
+
+        resultPoh = 14 - resultPh;
+        resultHConc = Math.pow(10, -resultPh);
+        resultOhConc = Math.pow(10, -resultPoh);
+
+        resPh4.textContent = resultPh.toFixed(2);
+        resPoh4.textContent = resultPoh.toFixed(2);
+        resH4.textContent = formatSci(resultHConc) + " mol/L";
+        resOh4.textContent = formatSci(resultOhConc) + " mol/L";
+
+        if (resultPh < 7) {
+          resClassification4.textContent = "Acidic";
+          resClassification4.className = "font-semibold text-red-600";
+          resLitmusSwatch4.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-red-500";
+          resLitmusLabel4.textContent = "Red";
+        } else if (resultPh === 7) {
+          resClassification4.textContent = "Neutral";
+          resClassification4.className = "font-semibold text-slate-600";
+          resLitmusSwatch4.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-purple-500";
+          resLitmusLabel4.textContent = "Purple (no change)";
+        } else {
+          resClassification4.textContent = "Basic";
+          resClassification4.className = "font-semibold text-blue-600";
+          resLitmusSwatch4.className = "inline-block w-5 h-5 rounded-full border border-slate-300 bg-blue-500";
+          resLitmusLabel4.textContent = "Blue";
+        }
+
+        resFormula4.textContent = `Mole Balance:\nSolution 1: moles H+ = ${formatSci(molesHA)} mol, moles OH- = ${formatSci(molesOHA)} mol\nSolution 2: moles H+ = ${formatSci(molesHB)} mol, moles OH- = ${formatSci(molesOHB)} mol\nTotal volume = ${totalVol.toFixed(4)} L\n\nNet moles H+ = ${formatSci(netMolesH)} mol\nResulting [H+] = ${formatSci(resultHConc)} mol/L\nResulting pH = ${resultPh.toFixed(2)}`;
+
+        const clampedPh = Math.min(14, Math.max(0, resultPh));
+        phMarker4.style.left = `calc(${(clampedPh / 14) * 100}% - 6px)`;
+
+        resultArea4.classList.remove('hidden');
+      };
+
+      calcBtn4.addEventListener('click', handleCalculate4);
+
+      [mixValueA, mixValueB, mixVolA, mixVolB].forEach(input => {
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') handleCalculate4();
+        });
+      });
+
+      resetBtn4.addEventListener('click', () => {
+        mixValueA.value = '';
+        mixValueB.value = '';
+        mixVolA.value = '';
+        mixVolB.value = '';
+        mixTypeA.value = 'ph';
+        mixTypeB.value = 'ph';
+        mixUnitA.value = 'mol/L';
+        mixUnitB.value = 'mol/L';
+        mixVolUnitA.value = 'mL';
+        mixVolUnitB.value = 'mL';
+        
+        errorArea4.className = 'text-sm mb-4 hidden';
+        resultArea4.classList.add('hidden');
+      });
+    });
+  </script>
+</ToolLayout>
