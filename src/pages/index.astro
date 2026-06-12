@@ -4,19 +4,24 @@ import ToolLayout from '../Layouts/ToolLayout.astro';
 const tools = [
   {
     name: "Scale Calculator",
-    description: "Easily convert measurements for scale models and drawings.",
+    description: "Working on a model, a technical drawing, or an architectural plan? The scale calculator online lets you instantly convert between real-world measurements and any scale ratio — no manual math, no second-guessing. Whether you're a hobbyist or a professional, this tool saves you time every single time.",
     link: "/tools/scale-calculator/"
   },
   {
-  name: "Percent Decrease Calculator",
-  description: "Calculate the percentage decrease between two numbers instantly.",
-  link: "/tools/percent-decrease/"
-},
-{
-  name: "Percent Increase Calculator",
-  description: "Calculate the percentage increase between two numbers instantly.",
-  link: "/tools/percent-increase/"
-},
+    name: "Right Triangle Calculator",
+    description: "Need to solve for sides, angles, area, or perimeter? Just enter any two known values — sides or angles — and this right triangle calculator instantly solves the rest, complete with a step-by-step breakdown and diagram. Perfect for homework, construction, and everyday measurements.",
+    link: "/tools/right-triangle/"
+  },
+  {
+    name: "Percent Increase Calculator",
+    description: "Whether you're evaluating a salary raise, tracking business growth, comparing prices, or checking how much something has gone up — this tool gives you the exact percentage increase between any two numbers. Fast, clean, and reliable.",
+    link: "/tools/percent-increase/"
+  },
+  {
+    name: "Percent Decrease Calculator",
+    description: "Got a sale price and want to know the real discount? Tracking a drop in performance or stock value? The Percent Decrease Calculator tells you exactly how much something has fallen and by what percentage — in one click.",
+    link: "/tools/percent-decrease/"
+  }
 ];
 ---
 
@@ -111,28 +116,16 @@ const tools = [
   <p class="text-slate-600 leading-relaxed mb-6">
     Not sure where to start? These are the free calculator tools people reach for most on CalCluster. Each one is simple, focused, and gives you a clear answer in seconds.
   </p>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <a href="/tools/scale-calculator/" class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
-      <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">Scale Calculator</h3>
-      <p class="text-slate-600 mb-6 flex-grow">Working on a model, a technical drawing, or an architectural plan? The scale calculator online lets you instantly convert between real-world measurements and any scale ratio — no manual math, no second-guessing. Whether you're a hobbyist or a professional, this tool saves you time every single time.</p>
-      <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
-        Open Tool <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
-      </span>
-    </a>
-    <a href="/tools/percent-increase/" class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
-      <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">Percent Increase Calculator</h3>
-      <p class="text-slate-600 mb-6 flex-grow">Whether you're evaluating a salary raise, tracking business growth, comparing prices, or checking how much something has gone up — this tool gives you the exact percentage increase between any two numbers. Fast, clean, and reliable.</p>
-      <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
-        Open Tool <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
-      </span>
-    </a>
-    <a href="/tools/percent-decrease/" class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
-      <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">Percent Decrease Calculator</h3>
-      <p class="text-slate-600 mb-6 flex-grow">Got a sale price and want to know the real discount? Tracking a drop in performance or stock value? The Percent Decrease Calculator tells you exactly how much something has fallen and by what percentage — in one click.</p>
-      <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
-        Open Tool <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
-      </span>
-    </a>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+    {tools.map((tool) => (
+      <a href={tool.link} class="block group bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all flex flex-col cursor-pointer">
+        <h3 class="text-xl font-semibold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">{tool.name}</h3>
+        <p class="text-slate-600 mb-6 flex-grow">{tool.description}</p>
+        <span class="text-[#1D9E75] group-hover:text-[#168561] font-medium inline-flex items-center">
+          Open Tool <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
+        </span>
+      </a>
+    ))}
   </div>
 </section>
 
