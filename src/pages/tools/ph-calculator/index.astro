@@ -19,19 +19,19 @@ const relatedTools = [];
       
       <!-- Tab Navigation -->
       <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-100 pb-4">
-        <button id="btn-tab-1" class="tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium">From [H+]</button>
-        <button id="btn-tab-2" class="tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium">From pH</button>
-        <button id="btn-tab-3" class="tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium">From [OH-]</button>
-        <button id="btn-tab-4" class="tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium">Mix Solutions</button>
+        <button id="btn-tab-1" class="tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium shadow-sm">From [H+]</button>
+        <button id="btn-tab-2" class="tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium">From pH</button>
+        <button id="btn-tab-3" class="tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium">From [OH-]</button>
+        <button id="btn-tab-4" class="tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium">Mix Solutions</button>
       </div>
 
       <!-- Tab 1: From [H+] -->
       <div id="tab-1-content" class="tab-content block">
         <div class="mb-4">
           <label for="h-input" class="block text-sm font-semibold text-slate-700 mb-1">[H+] Concentration (mol/L)</label>
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <input type="number" id="h-input" step="any" placeholder="e.g. 1e-7" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
-            <select id="h-unit" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+            <select id="h-unit" class="w-full sm:w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
               <option value="mol/L">mol/L</option>
               <option value="mmol/L">mmol/L</option>
               <option value="µmol/L">µmol/L</option>
@@ -166,9 +166,9 @@ const relatedTools = [];
       <div id="tab-3-content" class="tab-content hidden">
         <div class="mb-4">
           <label for="oh-input" class="block text-sm font-semibold text-slate-700 mb-1">[OH-] Concentration (mol/L)</label>
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <input type="number" id="oh-input" step="any" placeholder="e.g. 1e-7" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
-            <select id="oh-unit" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+            <select id="oh-unit" class="w-full sm:w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
               <option value="mol/L">mol/L</option>
               <option value="mmol/L">mmol/L</option>
               <option value="µmol/L">µmol/L</option>
@@ -244,9 +244,9 @@ const relatedTools = [];
                 <option value="h">[H+] concentration</option>
                 <option value="oh">[OH-] concentration</option>
               </select>
-              <div class="flex gap-2">
+              <div class="flex flex-col sm:flex-row gap-2">
                 <input type="number" id="mix-value-a" step="any" placeholder="Enter value" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
-                <select id="mix-unit-a" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                <select id="mix-unit-a" class="w-full sm:w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
                   <option value="mol/L">mol/L</option>
                   <option value="mmol/L">mmol/L</option>
                   <option value="µmol/L">µmol/L</option>
@@ -256,9 +256,9 @@ const relatedTools = [];
 
             <div>
               <label for="mix-vol-a" class="block text-sm font-semibold text-slate-700 mb-1">Volume</label>
-              <div class="flex gap-2">
+              <div class="flex flex-col sm:flex-row gap-2">
                 <input type="number" id="mix-vol-a" step="any" placeholder="Volume" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
-                <select id="mix-vol-unit-a" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                <select id="mix-vol-unit-a" class="w-full sm:w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
                   <option value="mL">mL</option>
                   <option value="L">L</option>
                 </select>
@@ -276,9 +276,9 @@ const relatedTools = [];
                 <option value="h">[H+] concentration</option>
                 <option value="oh">[OH-] concentration</option>
               </select>
-              <div class="flex gap-2">
+              <div class="flex flex-col sm:flex-row gap-2">
                 <input type="number" id="mix-value-b" step="any" placeholder="Enter value" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
-                <select id="mix-unit-b" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                <select id="mix-unit-b" class="w-full sm:w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
                   <option value="mol/L">mol/L</option>
                   <option value="mmol/L">mmol/L</option>
                   <option value="µmol/L">µmol/L</option>
@@ -288,9 +288,9 @@ const relatedTools = [];
 
             <div>
               <label for="mix-vol-b" class="block text-sm font-semibold text-slate-700 mb-1">Volume</label>
-              <div class="flex gap-2">
+              <div class="flex flex-col sm:flex-row gap-2">
                 <input type="number" id="mix-vol-b" step="any" placeholder="Volume" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none text-slate-900 bg-white" />
-                <select id="mix-vol-unit-b" class="w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
+                <select id="mix-vol-unit-b" class="w-full sm:w-32 px-2 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#1D9E75] focus:border-[#1D9E75] outline-none bg-white text-slate-700">
                   <option value="mL">mL</option>
                   <option value="L">L</option>
                 </select>
@@ -370,14 +370,14 @@ const relatedTools = [];
       tabBtns.forEach((btn, index) => {
         btn.addEventListener('click', () => {
           // Reset all tabs
-          tabBtns.forEach(b => b.className = 'tab-btn text-slate-600 hover:bg-slate-50 rounded px-4 py-2 font-medium');
+          tabBtns.forEach(b => b.className = 'tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium');
           tabContents.forEach(c => {
             c.classList.remove('block');
             c.classList.add('hidden');
           });
 
           // Activate selected tab
-          btn.className = 'tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium';
+          btn.className = 'tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium shadow-sm';
           tabContents[index].classList.remove('hidden');
           tabContents[index].classList.add('block');
         });
