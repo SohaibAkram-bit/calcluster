@@ -19,10 +19,10 @@ const relatedTools = [];
       
       <!-- Tab Navigation -->
       <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-100 pb-4">
-        <button id="btn-tab-1" class="tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium shadow-sm">From [H+]</button>
-        <button id="btn-tab-2" class="tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium">From pH</button>
-        <button id="btn-tab-3" class="tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium">From [OH-]</button>
-        <button id="btn-tab-4" class="tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium">Mix Solutions</button>
+        <button id="btn-tab-1" class="tab-btn bg-[#1D9E75] text-white border border-[#1D9E75] rounded px-4 py-2 font-medium shadow-sm">From [H+]</button>
+        <button id="btn-tab-2" class="tab-btn text-slate-600 hover:bg-slate-100 border border-slate-200 rounded px-4 py-2 font-medium shadow-sm">From pH</button>
+        <button id="btn-tab-3" class="tab-btn text-slate-600 hover:bg-slate-100 border border-slate-200 rounded px-4 py-2 font-medium shadow-sm">From [OH-]</button>
+        <button id="btn-tab-4" class="tab-btn text-slate-600 hover:bg-slate-100 border border-slate-200 rounded px-4 py-2 font-medium shadow-sm">Mix Solutions</button>
       </div>
 
       <!-- Tab 1: From [H+] -->
@@ -370,14 +370,14 @@ const relatedTools = [];
       tabBtns.forEach((btn, index) => {
         btn.addEventListener('click', () => {
           // Reset all tabs
-          tabBtns.forEach(b => b.className = 'tab-btn text-slate-600 hover:bg-slate-100 rounded px-4 py-2 font-medium');
+          tabBtns.forEach(b => b.className = 'tab-btn text-slate-600 hover:bg-slate-100 border border-slate-200 rounded px-4 py-2 font-medium shadow-sm');
           tabContents.forEach(c => {
             c.classList.remove('block');
             c.classList.add('hidden');
           });
 
           // Activate selected tab
-          btn.className = 'tab-btn bg-[#1D9E75] text-white rounded px-4 py-2 font-medium shadow-sm';
+          btn.className = 'tab-btn bg-[#1D9E75] text-white border border-[#1D9E75] rounded px-4 py-2 font-medium shadow-sm';
           tabContents[index].classList.remove('hidden');
           tabContents[index].classList.add('block');
         });
