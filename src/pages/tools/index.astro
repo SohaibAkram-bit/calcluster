@@ -23,6 +23,14 @@ const mathTools = [
     description: "Solve any right triangle — find sides, angles, area, and altitude from any 2 known values."
   }
 ];
+
+const scienceTools = [
+  {
+    name: "pH Calculator",
+    link: "/tools/ph-calculator/",
+    description: "Instantly calculate pH, pOH, hydrogen ion concentration [H+], and hydroxide ion concentration [OH-]."
+  }
+];
 ---
 
 <ToolLayout
@@ -66,10 +74,12 @@ const mathTools = [
     <section>
       <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-2">Science & Engineering</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="block bg-slate-50 border border-slate-200 rounded-xl p-6 opacity-60 cursor-default">
-          <h3 class="text-xl font-bold text-slate-500 mb-2">More tools coming soon</h3>
-          <p class="text-slate-400 text-sm">We are actively building more calculators for this category.</p>
-        </div>
+        {scienceTools.map(tool => (
+          <a href={tool.link} class="block bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#1D9E75] transition-all group">
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-[#1D9E75] transition-colors mb-2">{tool.name}</h3>
+            <p class="text-slate-600 text-sm">{tool.description}</p>
+          </a>
+        ))}
       </div>
     </section>
 
