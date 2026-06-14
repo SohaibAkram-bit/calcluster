@@ -1,0 +1,675 @@
+---
+import ToolLayout from '../../../Layouts/ToolLayout.astro';
+import RpeCalculatorContent from '../../../components/content/RpeCalculatorContent.astro';
+---
+
+<ToolLayout
+  title="RPE Calculator | Weight from RPE, Estimate 1RM & RPE Chart"
+  description="Free RPE calculator for strength training. Calculate training weight from RPE, estimate your 1RM, and reference the full RPE-by-reps percentage chart. Mobile-friendly."
+  canonicalUrl="https://calcluster.com/tools/rpe-calculator/"
+  relatedTools={[
+    { name: 'Scale Calculator', link: '/tools/scale-calculator/' },
+    { name: 'Right Triangle Calculator', link: '/tools/right-triangle/' }
+  ]}
+>
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">RPE Calculator</h1>
+    <p class="text-slate-600 mb-8">Calculate your working weight based on RPE, estimate your 1RM, or check the RPE chart.</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+      <!-- LEFT: Calculator Area -->
+      <div class="lg:col-span-3">
+        
+        <!-- Global Unit Toggle -->
+        <div class="grid grid-cols-2 gap-2 mb-6" id="unit-toggle">
+          <button id="unit-kg-btn" class="w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors">kg</button>
+          <button id="unit-lb-btn" class="w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors">lb</button>
+        </div>
+
+        <!-- Tab Switcher -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6" id="tab-buttons">
+          <button data-tab="tab-weight-from-rpe" class="tab-btn w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors">Weight from RPE</button>
+          <button data-tab="tab-estimate-1rm" class="tab-btn w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors">Estimate 1RM</button>
+          <button data-tab="tab-rpe-chart" class="tab-btn w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors">RPE Chart</button>
+        </div>
+
+        <!-- TAB 1: Weight from RPE -->
+        <div id="tab-weight-from-rpe" class="tab-content bg-slate-50 border border-slate-200 rounded-xl shadow-sm p-4 sm:p-6 relative">
+          
+          <div class="bg-white border border-slate-200 rounded-lg p-4 sm:p-6 space-y-5 mb-6">
+            <!-- 1RM Input -->
+            <div>
+              <label for="tm-input" class="block text-sm font-medium text-slate-700 mb-1">Your 1RM / Training Max (<span class="unit-label">kg</span>)</label>
+              <input type="number" id="tm-input" inputmode="decimal" min="0" step="any" placeholder="e.g. 100" class="w-full min-h-[48px] text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75] transition-all duration-300" />
+              <div id="error-tm-1" class="hidden mt-1 text-sm text-red-600"></div>
+            </div>
+            
+            <!-- Reps Input -->
+            <div>
+              <label for="reps-input-1" class="block text-sm font-medium text-slate-700 mb-1">Target Reps</label>
+              <input type="number" id="reps-input-1" inputmode="decimal" min="1" max="12" step="1" placeholder="e.g. 5" class="w-full min-h-[48px] text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75]" />
+              <div id="error-reps-1" class="hidden mt-1 text-sm text-red-600"></div>
+            </div>
+            
+            <!-- RPE Input -->
+            <div>
+              <label for="rpe-input-1" class="block text-sm font-medium text-slate-700 mb-1">Target RPE</label>
+              <select id="rpe-input-1" class="w-full min-h-[48px] text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#1D9E75]">
+                <option value="10">10</option>
+                <option value="9.5">9.5</option>
+                <option value="9">9</option>
+                <option value="8.5">8.5</option>
+                <option value="8" selected>8</option>
+                <option value="7.5">7.5</option>
+                <option value="7">7</option>
+                <option value="6.5">6.5</option>
+                <option value="6">6</option>
+              </select>
+              <div id="warning-rpe-1" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 text-amber-700 rounded-lg text-sm"></div>
+            </div>
+          </div>
+
+          <button id="calculate-btn-1" class="w-full min-h-[48px] bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold rounded-lg transition-colors">
+            Calculate
+          </button>
+
+          <!-- Result Card -->
+          <div id="result-card-1" class="hidden mt-6 p-6 bg-white border border-[#1D9E75] rounded-xl shadow-sm text-center transition-colors">
+            <div class="text-sm font-medium text-slate-500 uppercase tracking-wide mb-1">Working Weight</div>
+            <div id="result-weight-1" class="text-4xl sm:text-5xl font-bold text-slate-900 mb-2 transition-colors">-- <span class="unit-label">kg</span></div>
+            <div id="result-percent-1" class="text-slate-600 font-medium">(--% of your 1RM)</div>
+          </div>
+
+        </div>
+
+        <!-- TAB 2: Estimate 1RM -->
+        <div id="tab-estimate-1rm" class="tab-content hidden bg-slate-50 border border-slate-200 rounded-xl shadow-sm p-4 sm:p-6 relative">
+          
+          <div class="bg-white border border-slate-200 rounded-lg p-4 sm:p-6 space-y-5 mb-6">
+            <!-- Weight Input -->
+            <div>
+              <label for="weight-input-2" class="block text-sm font-medium text-slate-700 mb-1">Weight Lifted (<span class="unit-label">kg</span>)</label>
+              <input type="number" id="weight-input-2" inputmode="decimal" min="0" step="any" placeholder="e.g. 80" class="w-full min-h-[48px] text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75] transition-colors duration-300" />
+              <div id="error-weight-2" class="hidden mt-1 text-sm text-red-600"></div>
+            </div>
+            
+            <!-- Reps Input -->
+            <div>
+              <label for="reps-input-2" class="block text-sm font-medium text-slate-700 mb-1">Reps Performed</label>
+              <input type="number" id="reps-input-2" inputmode="decimal" min="1" max="12" step="1" placeholder="e.g. 5" class="w-full min-h-[48px] text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1D9E75]" />
+              <div id="error-reps-2" class="hidden mt-1 text-sm text-red-600"></div>
+            </div>
+            
+            <!-- RPE Input -->
+            <div>
+              <label for="rpe-input-2" class="block text-sm font-medium text-slate-700 mb-1">RPE of Set</label>
+              <select id="rpe-input-2" class="w-full min-h-[48px] text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#1D9E75]">
+                <option value="10">10</option>
+                <option value="9.5">9.5</option>
+                <option value="9">9</option>
+                <option value="8.5">8.5</option>
+                <option value="8" selected>8</option>
+                <option value="7.5">7.5</option>
+                <option value="7">7</option>
+                <option value="6.5">6.5</option>
+                <option value="6">6</option>
+              </select>
+              <div id="warning-rpe-2" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 text-amber-700 rounded-lg text-sm"></div>
+            </div>
+          </div>
+
+          <button id="calculate-btn-2" class="w-full min-h-[48px] bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold rounded-lg transition-colors">
+            Calculate
+          </button>
+
+          <!-- Result Area -->
+          <div id="result-area-2" class="hidden mt-6 flex flex-col gap-3">
+            <div id="result-card-2" class="p-6 bg-white border border-[#1D9E75] rounded-xl shadow-sm text-center transition-colors">
+              <div class="text-sm font-medium text-slate-500 uppercase tracking-wide mb-1">Estimated 1RM</div>
+              <div id="result-1rm-2" class="text-4xl sm:text-5xl font-bold text-slate-900 mb-2 transition-colors">-- <span class="unit-label">kg</span></div>
+              <div id="result-percent-2" class="text-slate-600 font-medium">(based on --% of 1RM at RPE --)</div>
+            </div>
+            <button id="use-1rm-btn" class="w-full min-h-[48px] border-2 border-[#1D9E75] text-[#1D9E75] hover:bg-[#1D9E75] hover:text-white font-semibold rounded-lg transition-colors">
+              Use this 1RM in Weight from RPE &rarr;
+            </button>
+          </div>
+
+        </div>
+
+        <!-- TAB 3: RPE Chart -->
+        <div id="tab-rpe-chart" class="tab-content hidden bg-slate-50 border border-slate-200 rounded-xl shadow-sm p-4 sm:p-6 relative">
+          
+          <!-- View Toggle -->
+          <div class="grid grid-cols-2 gap-2 mb-6">
+            <button id="chart-view-list" class="w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors">List View</button>
+            <button id="chart-view-grid" class="w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors">Full Grid</button>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-lg p-4 sm:p-6 mb-6">
+            
+            <!-- View 1: List View -->
+            <div id="chart-view-list-container">
+              <!-- Sub-Mode Toggle -->
+              <div class="grid grid-cols-2 gap-2 mb-6">
+                <button id="chart-mode-reps" class="w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors">By Reps</button>
+                <button id="chart-mode-rpe" class="w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors">By RPE</button>
+              </div>
+
+              <!-- Mode 1: By Reps -->
+              <div id="chart-reps-container">
+                <label for="chart-reps-select" class="block text-sm font-medium text-slate-700 mb-1">Select Reps</label>
+                <select id="chart-reps-select" class="w-full min-h-[48px] mb-4 text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#1D9E75]">
+                  <!-- Populated by JS (1-12) -->
+                </select>
+                <div id="chart-reps-list" class="space-y-2 border-t border-slate-100 pt-4">
+                  <!-- Rendered by JS -->
+                </div>
+              </div>
+
+              <!-- Mode 2: By RPE -->
+              <div id="chart-rpe-container" class="hidden">
+                <label for="chart-rpe-select" class="block text-sm font-medium text-slate-700 mb-1">Select RPE</label>
+                <select id="chart-rpe-select" class="w-full min-h-[48px] mb-4 text-base border border-slate-300 rounded-lg px-3 py-2 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#1D9E75]">
+                  <option value="10">10</option>
+                  <option value="9.5">9.5</option>
+                  <option value="9">9</option>
+                  <option value="8.5">8.5</option>
+                  <option value="8" selected>8</option>
+                  <option value="7.5">7.5</option>
+                  <option value="7">7</option>
+                  <option value="6.5">6.5</option>
+                  <option value="6">6</option>
+                </select>
+                <div id="chart-rpe-list" class="space-y-2 border-t border-slate-100 pt-4">
+                  <!-- Rendered by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- View 2: Full Grid -->
+            <div id="chart-view-grid-container" class="hidden">
+              <p class="text-xs text-slate-400 mb-2 block sm:hidden">Scroll &rarr; to see all RPE values</p>
+              <div class="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 pb-2">
+                <table class="w-full min-w-[600px] border-collapse bg-white text-sm text-center">
+                  <thead class="bg-[#1D9E75]/10 font-semibold text-slate-700">
+                    <tr id="chart-grid-header">
+                      <!-- Rendered by JS -->
+                    </tr>
+                  </thead>
+                  <tbody id="chart-grid-body">
+                    <!-- Rendered by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-sm text-slate-500 italic mb-2">Based on the Reactive Training Systems (RTS) RPE chart by Mike Tuchscherer. &mdash; values are estimates; individual results vary.</p>
+          <p class="text-sm text-slate-500 italic">&mdash; indicates no published data for this rep/RPE combination.</p>
+        </div>
+
+      </div>
+      <!-- end left column -->
+
+      <!-- RIGHT: Ad Sidebar -->
+      <div class="lg:col-span-2 flex justify-center items-start pt-2">
+        <div class="w-[300px] h-[250px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm">Advertisement</div>
+      </div>
+
+    </div>
+
+    <!-- In-content ad -->
+    <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+    <RpeCalculatorContent />
+
+    <!-- Bottom ad -->
+    <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+  </div>
+
+  <script>
+    (function() {
+      // Shared Data across tabs
+      // Source: Mike Tuchscherer / Reactive Training Systems RPE chart
+      // Values = %1RM for given reps (rows) and RPE (columns)
+      // null = no published data for that combination
+      const RPE_TABLE = {
+        1:  { 10: 100,  9.5: 97.8, 9: 95.5, 8.5: 93.9, 8: 92.2, 7.5: 90.7, 7: 89.2, 6.5: 87.8, 6: 86.3 },
+        2:  { 10: 95.5, 9.5: 93.9, 9: 92.2, 8.5: 90.7, 8: 89.2, 7.5: 87.8, 7: 86.3, 6.5: 85.0, 6: 83.7 },
+        3:  { 10: 92.2, 9.5: 90.7, 9: 89.2, 8.5: 87.8, 8: 86.3, 7.5: 85.0, 7: 83.7, 6.5: 82.4, 6: 81.1 },
+        4:  { 10: 89.2, 9.5: 87.8, 9: 86.3, 8.5: 85.0, 8: 83.7, 7.5: 82.4, 7: 81.1, 6.5: 80.0, 6: 78.9 },
+        5:  { 10: 86.3, 9.5: 85.0, 9: 83.7, 8.5: 82.4, 8: 81.1, 7.5: 80.0, 7: 78.9, 6.5: 77.6, 6: 76.2 },
+        6:  { 10: 83.7, 9.5: 82.4, 9: 81.1, 8.5: 80.0, 8: 78.9, 7.5: 77.6, 7: 76.2, 6.5: 75.1, 6: 74.0 },
+        7:  { 10: 81.1, 9.5: 80.0, 9: 78.9, 8.5: 77.6, 8: 76.2, 7.5: 75.1, 7: 74.0, 6.5: 72.9, 6: 71.7 },
+        8:  { 10: 78.9, 9.5: 77.6, 9: 76.2, 8.5: 75.1, 8: 74.0, 7.5: 72.9, 7: 71.7, 6.5: 70.7, 6: 69.4 },
+        9:  { 10: 76.2, 9.5: 75.1, 9: 74.0, 8.5: 72.9, 8: 71.7, 7.5: 70.7, 7: 69.4, 6.5: 68.0, 6: 67.4 },
+        10: { 10: 74.0, 9.5: 72.9, 9: 71.7, 8.5: 70.7, 8: 69.4, 7.5: 68.0, 7: 67.4, 6.5: 66.0, 6: 65.0 },
+        11: { 10: 71.7, 9.5: null, 9: 69.4, 8.5: null, 8: 67.4, 7.5: null, 7: 65.0, 6.5: null, 6: 62.9 },
+        12: { 10: 69.4, 9.5: null, 9: 67.4, 8.5: null, 8: 65.0, 7.5: null, 7: 62.9, 6.5: null, 6: 60.8 }
+      };
+      
+      let currentUnit = 'kg';
+      const KG_TO_LB = 2.20462;
+
+      function roundWeight(value, unit) {
+        const increment = unit === 'kg' ? 2.5 : 5;
+        return Math.round(value / increment) * increment;
+      }
+
+      // --- Unit Toggle Logic ---
+      const unitKgBtn = document.getElementById('unit-kg-btn');
+      const unitLbBtn = document.getElementById('unit-lb-btn');
+      
+      function switchUnit(newUnit) {
+        if (newUnit === currentUnit) return;
+        const isToLb = newUnit === 'lb';
+        currentUnit = newUnit;
+        
+        if (isToLb) {
+          unitLbBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+          unitKgBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors';
+        } else {
+          unitKgBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+          unitLbBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors';
+        }
+
+        // Convert input fields
+        if (tmInput.value !== '') {
+          const val = parseFloat(tmInput.value);
+          tmInput.value = isToLb ? roundWeight(val * KG_TO_LB, 'lb') : roundWeight(val / KG_TO_LB, 'kg');
+        }
+        if (weightInput2.value !== '') {
+          const val = parseFloat(weightInput2.value);
+          weightInput2.value = isToLb ? roundWeight(val * KG_TO_LB, 'lb') : roundWeight(val / KG_TO_LB, 'kg');
+        }
+
+        // Update DOM labels
+        document.querySelectorAll('.unit-label').forEach(el => el.textContent = currentUnit);
+        
+        // Recalculate results if they are visible, otherwise just reset the empty placeholder labels
+        if (!resultCard1.classList.contains('hidden')) {
+          calculateTab1();
+        } else {
+          resultWeight1.innerHTML = `-- <span class="unit-label">${currentUnit}</span>`;
+        }
+        
+        if (!resultArea2.classList.contains('hidden')) {
+          calculateTab2();
+        } else {
+          result1rm2.innerHTML = `-- <span class="unit-label">${currentUnit}</span>`;
+        }
+      }
+
+      unitKgBtn.addEventListener('click', () => switchUnit('kg'));
+      unitLbBtn.addEventListener('click', () => switchUnit('lb'));
+
+      // --- Tab Switching Logic ---
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-tab');
+          
+          tabBtns.forEach(b => {
+            if (b.getAttribute('data-tab') === target) {
+              b.className = 'tab-btn w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+            } else {
+              b.className = 'tab-btn w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors';
+            }
+          });
+          
+          tabContents.forEach(c => {
+            if (c.id === target) {
+              c.classList.remove('hidden');
+            } else {
+              c.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // --- Tab 1: Weight from RPE ---
+      const tmInput = document.getElementById('tm-input');
+      const repsInput = document.getElementById('reps-input-1');
+      const rpeInput = document.getElementById('rpe-input-1');
+      const calcBtn1 = document.getElementById('calculate-btn-1');
+      
+      const errorTm1 = document.getElementById('error-tm-1');
+      const errorReps1 = document.getElementById('error-reps-1');
+      const warningRpe1 = document.getElementById('warning-rpe-1');
+      
+      const resultCard1 = document.getElementById('result-card-1');
+      const resultWeight1 = document.getElementById('result-weight-1');
+      const resultPercent1 = document.getElementById('result-percent-1');
+
+      function validateTab1(showErrors = false) {
+        let isValid = true;
+        
+        errorTm1.classList.add('hidden');
+        errorReps1.classList.add('hidden');
+        warningRpe1.classList.add('hidden');
+        
+        const tm = parseFloat(tmInput.value);
+        if (isNaN(tm) || tm <= 0) {
+          if (showErrors || tmInput.value !== '') {
+            errorTm1.textContent = 'Please enter a valid 1RM > 0.';
+            errorTm1.classList.remove('hidden');
+          }
+          isValid = false;
+        }
+        
+        const reps = parseInt(repsInput.value, 10);
+        if (isNaN(reps) || reps < 1 || reps > 12) {
+          if (showErrors || repsInput.value !== '') {
+            errorReps1.textContent = 'Reps must be between 1 and 12.';
+            errorReps1.classList.remove('hidden');
+          }
+          isValid = false;
+        }
+        
+        const rpe = parseFloat(rpeInput.value);
+        if ((reps === 11 || reps === 12) && !Number.isInteger(rpe)) {
+          warningRpe1.textContent = "Half-RPE values aren't available for 11-12 reps — please choose a whole-number RPE.";
+          warningRpe1.classList.remove('hidden');
+          isValid = false;
+        }
+        
+        const disableCalc = (reps === 11 || reps === 12) && !Number.isInteger(rpe);
+        calcBtn1.disabled = disableCalc;
+        calcBtn1.classList.toggle('opacity-50', disableCalc);
+        calcBtn1.classList.toggle('cursor-not-allowed', disableCalc);
+        
+        return isValid;
+      }
+
+      function calculateTab1() {
+        if (!validateTab1(true)) return;
+        
+        const tm = parseFloat(tmInput.value);
+        const reps = parseInt(repsInput.value, 10);
+        const rpe = parseFloat(rpeInput.value);
+        
+        const percent = RPE_TABLE[reps][rpe];
+        
+        if (percent === null || percent === undefined) {
+          warningRpe1.textContent = "No data available for this combination.";
+          warningRpe1.classList.remove('hidden');
+          return;
+        }
+        
+        const rawWeight = (tm * percent) / 100;
+        const roundedWeight = roundWeight(rawWeight, currentUnit);
+        
+        resultWeight1.innerHTML = `${roundedWeight} <span class="unit-label">${currentUnit}</span>`;
+        resultPercent1.textContent = `(${percent}% of your 1RM)`;
+        resultCard1.classList.remove('hidden');
+        
+        if (window.innerWidth < 640) {
+           resultCard1.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+
+      [tmInput, repsInput, rpeInput].forEach(el => {
+        el.addEventListener('input', () => validateTab1(false));
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') calculateTab1();
+        });
+      });
+
+      calcBtn1.addEventListener('click', calculateTab1);
+
+      // --- Tab 2: Estimate 1RM ---
+      const weightInput2 = document.getElementById('weight-input-2');
+      const repsInput2 = document.getElementById('reps-input-2');
+      const rpeInput2 = document.getElementById('rpe-input-2');
+      const calcBtn2 = document.getElementById('calculate-btn-2');
+      
+      const errorWeight2 = document.getElementById('error-weight-2');
+      const errorReps2 = document.getElementById('error-reps-2');
+      const warningRpe2 = document.getElementById('warning-rpe-2');
+      
+      const resultArea2 = document.getElementById('result-area-2');
+      const result1rm2 = document.getElementById('result-1rm-2');
+      const resultPercent2 = document.getElementById('result-percent-2');
+      const use1rmBtn = document.getElementById('use-1rm-btn');
+      
+      let lastCalculated1RM = 0;
+
+      function validateTab2(showErrors = false) {
+        let isValid = true;
+        
+        errorWeight2.classList.add('hidden');
+        errorReps2.classList.add('hidden');
+        warningRpe2.classList.add('hidden');
+        
+        const weight = parseFloat(weightInput2.value);
+        if (isNaN(weight) || weight <= 0) {
+          if (showErrors || weightInput2.value !== '') {
+            errorWeight2.textContent = 'Please enter a valid weight > 0.';
+            errorWeight2.classList.remove('hidden');
+          }
+          isValid = false;
+        }
+        
+        const reps = parseInt(repsInput2.value, 10);
+        if (isNaN(reps) || reps < 1 || reps > 12) {
+          if (showErrors || repsInput2.value !== '') {
+            errorReps2.textContent = 'Reps must be between 1 and 12.';
+            errorReps2.classList.remove('hidden');
+          }
+          isValid = false;
+        }
+        
+        const rpe = parseFloat(rpeInput2.value);
+        if ((reps === 11 || reps === 12) && !Number.isInteger(rpe)) {
+          warningRpe2.textContent = "Half-RPE values aren't available for 11-12 reps — please choose a whole-number RPE.";
+          warningRpe2.classList.remove('hidden');
+          isValid = false;
+        }
+        
+        const disableCalc = (reps === 11 || reps === 12) && !Number.isInteger(rpe);
+        calcBtn2.disabled = disableCalc;
+        calcBtn2.classList.toggle('opacity-50', disableCalc);
+        calcBtn2.classList.toggle('cursor-not-allowed', disableCalc);
+        
+        return isValid;
+      }
+
+      function calculateTab2() {
+        if (!validateTab2(true)) return;
+        
+        const weight = parseFloat(weightInput2.value);
+        const reps = parseInt(repsInput2.value, 10);
+        const rpe = parseFloat(rpeInput2.value);
+        
+        const percent = RPE_TABLE[reps][rpe];
+        
+        if (percent === null || percent === undefined) {
+          warningRpe2.textContent = "No data available for this combination.";
+          warningRpe2.classList.remove('hidden');
+          return;
+        }
+        
+        const estimated1RM = weight / (percent / 100);
+        const roundedResult = roundWeight(estimated1RM, currentUnit);
+        lastCalculated1RM = roundedResult;
+        
+        result1rm2.innerHTML = `${roundedResult} <span class="unit-label">${currentUnit}</span>`;
+        resultPercent2.textContent = `(based on ${percent}% of 1RM at RPE ${rpe})`;
+        resultArea2.classList.remove('hidden');
+        
+        if (window.innerWidth < 640) {
+           resultArea2.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+
+      [weightInput2, repsInput2, rpeInput2].forEach(el => {
+        el.addEventListener('input', () => validateTab2(false));
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') calculateTab2();
+        });
+      });
+
+      calcBtn2.addEventListener('click', calculateTab2);
+
+      // Cross-tab handoff logic
+      use1rmBtn.addEventListener('click', () => {
+        // Switch to Tab 1
+        const tab1Btn = document.querySelector('.tab-btn[data-tab="tab-weight-from-rpe"]');
+        if (tab1Btn) tab1Btn.click();
+        
+        // Populate 1RM in Tab 1
+        tmInput.value = lastCalculated1RM;
+        validateTab1(false);
+        
+        // Briefly highlight the populated input
+        tmInput.classList.add('ring-2', 'ring-[#1D9E75]', 'bg-[#1D9E75]/10');
+        setTimeout(() => {
+          tmInput.classList.remove('ring-2', 'ring-[#1D9E75]', 'bg-[#1D9E75]/10');
+        }, 1200);
+        
+        // Scroll up to the input if on mobile
+        if (window.innerWidth < 640) {
+           tmInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      // --- Tab 3: RPE Chart ---
+      const chartViewListBtn = document.getElementById('chart-view-list');
+      const chartViewGridBtn = document.getElementById('chart-view-grid');
+      const chartViewListContainer = document.getElementById('chart-view-list-container');
+      const chartViewGridContainer = document.getElementById('chart-view-grid-container');
+
+      const chartModeReps = document.getElementById('chart-mode-reps');
+      const chartModeRpe = document.getElementById('chart-mode-rpe');
+      const chartRepsContainer = document.getElementById('chart-reps-container');
+      const chartRpeContainer = document.getElementById('chart-rpe-container');
+      const chartRepsSelect = document.getElementById('chart-reps-select');
+      const chartRpeSelect = document.getElementById('chart-rpe-select');
+      const chartRepsList = document.getElementById('chart-reps-list');
+      const chartRpeList = document.getElementById('chart-rpe-list');
+      
+      let currentChartMode = 'reps';
+
+      function renderRepsList() {
+        const reps = parseInt(chartRepsSelect.value, 10);
+        const data = RPE_TABLE[reps];
+        chartRepsList.innerHTML = '';
+        const rpeValues = [10, 9.5, 9, 8.5, 8, 7.5, 7, 6.5, 6];
+        
+        rpeValues.forEach(rpe => {
+          const pct = data[rpe];
+          const pctText = pct !== null ? `${pct}%` : '&mdash;';
+          chartRepsList.innerHTML += `
+            <div class="flex justify-between items-center bg-slate-50 rounded-lg p-3 text-slate-700">
+              <span class="font-medium text-slate-900">RPE ${rpe}</span>
+              <span class="font-semibold ${pct !== null ? 'text-[#1D9E75]' : 'text-slate-400'}">${pctText}</span>
+            </div>
+          `;
+        });
+      }
+
+      function renderRpeList() {
+        const rpe = parseFloat(chartRpeSelect.value);
+        chartRpeList.innerHTML = '';
+        
+        for (let reps = 1; reps <= 12; reps++) {
+          const pct = RPE_TABLE[reps][rpe];
+          const pctText = pct !== null ? `${pct}%` : '&mdash;';
+          const repLabel = reps === 1 ? '1 rep' : `${reps} reps`;
+          chartRpeList.innerHTML += `
+            <div class="flex justify-between items-center bg-slate-50 rounded-lg p-3 text-slate-700">
+              <span class="font-medium text-slate-900">${repLabel}</span>
+              <span class="font-semibold ${pct !== null ? 'text-[#1D9E75]' : 'text-slate-400'}">${pctText}</span>
+            </div>
+          `;
+        }
+      }
+
+      // View Toggles
+      chartViewListBtn.addEventListener('click', () => {
+        chartViewListBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+        chartViewGridBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors';
+        chartViewListContainer.classList.remove('hidden');
+        chartViewGridContainer.classList.add('hidden');
+      });
+
+      chartViewGridBtn.addEventListener('click', () => {
+        chartViewGridBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+        chartViewListBtn.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors';
+        chartViewGridContainer.classList.remove('hidden');
+        chartViewListContainer.classList.add('hidden');
+        renderFullGrid();
+      });
+
+      let isGridRendered = false;
+      function renderFullGrid() {
+        if (isGridRendered) return;
+        const header = document.getElementById('chart-grid-header');
+        const body = document.getElementById('chart-grid-body');
+
+        const rpes = [10, 9.5, 9, 8.5, 8, 7.5, 7, 6.5, 6];
+
+        let ths = `<th class="sticky left-0 bg-[#e5f5ef] px-3 py-3 border-r border-slate-200 z-20 w-24"></th>`;
+        rpes.forEach(r => {
+          ths += `<th class="px-3 py-3 whitespace-nowrap">RPE ${r}</th>`;
+        });
+        header.innerHTML = ths;
+
+        let rows = '';
+        for (let reps = 1; reps <= 12; reps++) {
+          const isEven = reps % 2 === 0;
+          const bgClass = isEven ? 'bg-slate-50' : 'bg-white';
+          
+          let tr = `<tr class="${bgClass}">`;
+          tr += `<th class="sticky left-0 ${bgClass} px-3 py-3 border-r border-slate-200 font-medium text-slate-900 z-10 text-left whitespace-nowrap">${reps} rep${reps > 1 ? 's' : ''}</th>`;
+
+          rpes.forEach(rpe => {
+            const val = RPE_TABLE[reps][rpe];
+            const text = val !== null ? `${val}%` : '&mdash;';
+            const textClass = val !== null ? 'text-slate-700' : 'text-slate-300';
+            tr += `<td class="px-3 py-3 ${textClass} border-slate-100 ${rpe !== 6 ? 'border-r' : ''}">${text}</td>`;
+          });
+          tr += `</tr>`;
+          rows += tr;
+        }
+        body.innerHTML = rows;
+        isGridRendered = true;
+      }
+
+      chartModeReps.addEventListener('click', () => {
+        if (currentChartMode === 'reps') return;
+        currentChartMode = 'reps';
+        chartModeReps.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+        chartModeRpe.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors';
+        chartRepsContainer.classList.remove('hidden');
+        chartRpeContainer.classList.add('hidden');
+      });
+
+      chartModeRpe.addEventListener('click', () => {
+        if (currentChartMode === 'rpe') return;
+        currentChartMode = 'rpe';
+        chartModeRpe.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-[#1D9E75] text-white transition-colors';
+        chartModeReps.className = 'w-full min-h-[48px] px-2 text-sm font-semibold rounded-lg bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors';
+        chartRpeContainer.classList.remove('hidden');
+        chartRepsContainer.classList.add('hidden');
+        renderRpeList();
+      });
+
+      chartRepsSelect.addEventListener('change', renderRepsList);
+      chartRpeSelect.addEventListener('change', renderRpeList);
+      
+      // Populate initial reps options and render
+      for(let i = 1; i <= 12; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = i;
+        chartRepsSelect.appendChild(opt);
+      }
+      renderRepsList();
+    })();
+  </script>
+</ToolLayout>
