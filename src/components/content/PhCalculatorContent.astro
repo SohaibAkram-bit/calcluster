@@ -1,1 +1,436 @@
-<!-- content here -->
+<div class="mt-8">
+  <p class="text-slate-600 leading-relaxed mb-4">
+    So let's just start with the obvious question — what is an online pH calculator? It's a tool that works out how acidic or basic a solution is. That's it. You give it one input — a hydrogen ion concentration, a hydroxide concentration, or a pH value you've already got written down somewhere — and it returns all four values at once: pH, pOH, [H+], and [OH-]. Now, why does something like this need to exist? Honestly, because pH calculations come up in so many different contexts, and doing the logarithm math from scratch every single time is just tedious. It's not hard exactly, it's just annoying. Chemistry assignments, water treatment verification, reef tank adjustments, homebrewing, soil work, pharmaceutical lab calculations — it keeps showing up. This calculator handles four different modes: from [H+], from a known pH, from [OH-], and from mixing two solutions together. And this is worth saying clearly before anything else — every result shows the actual formula that produced the number, not just the number itself. That's important. A bare answer with no working shown is pretty useless if you're trying to understand what's happening or figure out why something doesn't look right.
+  </p>
+</div>
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">What is pH?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    pH stands for "potential of hydrogen." It tells you how many hydrogen ions — H⁺ — are dissolved in a solution at any given moment. That count determines whether the solution is acidic, neutral, or basic. The scale itself runs from 0 to 14 under normal conditions — here's the pH scale explained:
+  </p>
+
+  <div class="overflow-x-auto my-6">
+    <table class="w-full text-sm text-left border border-slate-200 rounded-lg overflow-hidden">
+      <thead class="bg-slate-100 text-slate-800 font-semibold">
+        <tr>
+          <th class="px-4 py-3 border-b border-slate-200">pH Range</th>
+          <th class="px-4 py-3 border-b border-slate-200">Classification</th>
+          <th class="px-4 py-3 border-b border-slate-200">Common Examples</th>
+        </tr>
+      </thead>
+      <tbody class="text-slate-600">
+        <tr class="border-b border-slate-100">
+          <td class="px-4 py-3">0–3</td>
+          <td class="px-4 py-3">Strongly Acidic</td>
+          <td class="px-4 py-3">Battery acid, gastric acid</td>
+        </tr>
+        <tr class="border-b border-slate-100 bg-slate-50">
+          <td class="px-4 py-3">4–6</td>
+          <td class="px-4 py-3">Mildly Acidic</td>
+          <td class="px-4 py-3">Coffee, rainwater, tomato juice</td>
+        </tr>
+        <tr class="border-b border-slate-100">
+          <td class="px-4 py-3">7</td>
+          <td class="px-4 py-3">Neutral</td>
+          <td class="px-4 py-3">Pure water</td>
+        </tr>
+        <tr class="border-b border-slate-100 bg-slate-50">
+          <td class="px-4 py-3">8–10</td>
+          <td class="px-4 py-3">Mildly Basic</td>
+          <td class="px-4 py-3">Seawater, baking soda solution</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">11–14</td>
+          <td class="px-4 py-3">Strongly Basic</td>
+          <td class="px-4 py-3">Bleach, drain cleaner</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <img
+    src="/images/ph-scale-chart.webp"
+    alt="pH scale chart showing acidic, neutral, and basic ranges from 0 to 14"
+    class="w-full rounded-lg border border-slate-200 my-6"
+    loading="lazy"
+    width="1200"
+    height="400"
+  />
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Here's the thing that actually catches people off guard when they first genuinely sit with this. That scale is not linear. Not even close. It's logarithmic, which sounds like a footnote, but it completely rewires how you have to think about these numbers. pH 5 isn't slightly worse than pH 6. It's ten times more acidic. pH 4 is a hundred times more acidic than pH 6. A hundred times. So when a reef hobbyist is visibly stressed about their tank dropping from 8.2 to 7.9 overnight — they're not overreacting. That drop looks tiny written out. In actual chemical terms, it absolutely is not.
+  </p>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    And here's a fun historical footnote that most people don't know. All of this came out of a brewery. In 1909, a Danish chemist named Søren Peder Lauritz Sørensen was working at the Carlsberg Laboratory — yes, that Carlsberg, the one that makes beer — and he was trying to work out how hydrogen ion concentration was affecting enzyme activity during fermentation. He needed a better way to write very small numbers and developed the <a href="https://www.britannica.com/science/pH" target="_blank" rel="noopener noreferrer" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">logarithmic scale we still use today</a>. Over a hundred years later, and nothing's replaced it. The "p" comes from the German word <em>Potenz</em>, meaning power — as in powers of ten. Every pH value has a mathematical exponent buried inside it.
+  </p>
+</div>
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">The pH Formula — How pH Gets Calculated</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    One equation is doing almost all of the work here:
+  </p>
+
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    pH = −log₁₀[H⁺]
+  </div>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The [H⁺] is the hydrogen ion concentration in mol/L. Taking the negative log flips the relationship — higher ion concentration pushes pH down toward acidic, lower ion concentration pushes pH up toward basic. Once that backwards relationship properly clicks — like actually makes sense rather than just being a rule you memorize — reading a pH scale starts to feel natural rather than backwards.
+  </p>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Going the other way — figuring out [H⁺] from a pH you already have:
+  </p>
+
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    [H⁺] = 10⁻ᵖᴴ
+  </div>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    For working with hydroxide ions:
+  </p>
+
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    pOH = −log₁₀[OH⁻]
+  </div>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    And the equation that connects both sides at 25°C:
+  </p>
+
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    pH + pOH = 14
+  </div>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    That isn't just a rule somebody put in a chemistry textbook because it seemed convenient. It comes directly from how water behaves at that temperature. In pure water at 25°C, [H⁺] multiplied by [OH⁻] always equals 1×10⁻¹⁴ — that constant is called Kw, the <a href="https://www.sciencedirect.com/topics/chemistry/ion-product-of-water" target="_blank" rel="noopener noreferrer" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">ion product of water</a>. Take the negative log of both sides of that expression, and pH + pOH = 14 just falls straight out. Nobody invented that relationship. Water did.
+  </p>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Quick reference table for which formula to reach for depending on what's already known:
+  </p>
+
+  <div class="overflow-x-auto my-6">
+    <table class="w-full text-sm text-left border border-slate-200 rounded-lg overflow-hidden">
+      <thead class="bg-slate-100 text-slate-800 font-semibold">
+        <tr>
+          <th class="px-4 py-3 border-b border-slate-200">Known Value</th>
+          <th class="px-4 py-3 border-b border-slate-200">How to Find pH</th>
+        </tr>
+      </thead>
+      <tbody class="text-slate-600">
+        <tr class="border-b border-slate-100">
+          <td class="px-4 py-3">[H⁺] concentration</td>
+          <td class="px-4 py-3">pH = −log[H⁺]</td>
+        </tr>
+        <tr class="border-b border-slate-100 bg-slate-50">
+          <td class="px-4 py-3">[OH⁻] concentration</td>
+          <td class="px-4 py-3">pOH = −log[OH⁻], then pH = 14 − pOH</td>
+        </tr>
+        <tr class="border-b border-slate-100">
+          <td class="px-4 py-3">pH directly</td>
+          <td class="px-4 py-3">Already have it — work everything else from it</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Mixed solutions</td>
+          <td class="px-4 py-3">Mole balance across the full combined volume</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How to Use This pH Calculator</h2>
+
+  <img
+    src="/images/ph-calculator-modes.webp"
+    alt="Diagram showing four pH calculator input modes: from H+, from pH, from OH-, and mix solutions"
+    class="w-full rounded-lg border border-slate-200 my-6"
+    loading="lazy"
+    width="1200"
+    height="400"
+  />
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Four tabs. Each one starts from a different place. Here's what each actually does.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Tab 1 — From [H+] Concentration</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Type in the hydrogen ion concentration to calculate pH from hydrogen ion concentration, pick a unit — mol/L, mmol/L, or µmol/L — and press Calculate. The tool runs pH = −log[H⁺] and hands back pH, pOH, [H⁺], [OH⁻], a classification of the solution, the litmus indicator color it would produce, and a marker showing where the result lands on the visual pH scale.
+  </p>
+  <div class="bg-white border border-slate-200 rounded-lg p-4 my-6 shadow-sm">
+    <p class="text-slate-600 leading-relaxed"><span class="font-semibold text-slate-800">Worked example:</span> enter [H⁺] = 1×10⁻⁴ mol/L. You get pH 4.00, pOH 10.00, acidic, litmus turns red.</p>
+  </div>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Tab 2 — From a Known pH Value</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Sometimes you've already got the pH reading, and what you actually need are the ion concentrations sitting underneath that number. Enter the pH value, choose a display unit, and this pH and pOH calculator runs [H⁺] = 10⁻ᵖᴴ, then automatically works out pOH and [OH⁻] from there. Worth bookmarking alongside the Khan Academy explainer on <a href="https://www.khanacademy.org/science/ap-chemistry-beta/x2eef969c74e0d802:acids-and-bases/x2eef969c74e0d802:ph-and-poh/a/ph-poh-and-the-autoionization-of-water" target="_blank" rel="noopener noreferrer" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">pH and pOH</a> if you're working through the theory at the same time.
+  </p>
+  <div class="bg-white border border-slate-200 rounded-lg p-4 my-6 shadow-sm">
+    <p class="text-slate-600 leading-relaxed"><span class="font-semibold text-slate-800">Worked example:</span> enter pH 9.5, and you get pOH 4.5, [H⁺] = 3.16×10⁻¹⁰ mol/L, [OH⁻] = 3.16×10⁻⁵ mol/L — basic, litmus turns blue.</p>
+  </div>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Tab 3 — From [OH-] Concentration</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    When you're coming at this from the base side rather than the acid side, this tab is the right starting point. Enter [OH⁻], and the tool calculates pOH = −log[OH⁻] first, then converts to pH = 14 − pOH. You get back the same four output values as with the other tabs.
+  </p>
+  <div class="bg-white border border-slate-200 rounded-lg p-4 my-6 shadow-sm">
+    <p class="text-slate-600 leading-relaxed"><span class="font-semibold text-slate-800">Worked example:</span> [OH⁻] = 0.01 M. You get pOH 2.00 and pH 12.00 — strongly basic.</p>
+  </div>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Tab 4 — Mixing Two Solutions</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    This one is for neutralization and titration scenarios — when you need to know what the resulting pH is after two solutions are combined. Enter the type, value, and volume for both solutions. The tool runs a full mole balance underneath all of that:
+  </p>
+  <ol class="list-decimal list-inside text-slate-600 space-y-2 mb-4 ml-4">
+    <li>Adds up the total moles of H⁺ from both solutions</li>
+    <li>Adds up the total moles of OH⁻ from both solutions</li>
+    <li>Subtracts them to find whichever ion is left in excess</li>
+    <li>Divides that excess by the total combined volume to get the resulting concentration</li>
+    <li>Calculates pH from that using the standard log formula</li>
+  </ol>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    And here's what makes this tab actually useful — every single step of that mole balance gets written out in the results panel. Not just the final pH answer. The whole path. You can see exactly what happened at each stage and why the result came out the way it did.
+  </p>
+  <div class="bg-white border border-slate-200 rounded-lg p-4 my-6 shadow-sm">
+    <p class="text-slate-600 leading-relaxed"><span class="font-semibold text-slate-800">Worked example:</span> mix 100 mL of pH 3 with 100 mL of pH 11. The acidic and basic moles largely cancel each other out, and the resulting pH lands close to neutral — exactly where the mole balance calculation says it should end up.</p>
+  </div>
+</div>
+
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">pH vs. pOH — Two Ways of Looking at the Same Thing</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Try thinking of pH and pOH like two people standing in different doorways of the same room, both describing what they see. They're talking about the same solution — just approaching the same equilibrium from opposite ends. pH is focused on hydrogen ions and reporting on acidity. pOH is focused on hydroxide ions and reporting on basicity. Change one and the other changes with it, always in the opposite direction, always adding up to 14 at 25°C. No exceptions within standard aqueous chemistry.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    To make that genuinely concrete rather than abstract:
+  </p>
+  <ul class="list-disc list-inside text-slate-600 space-y-2 mb-4 ml-4">
+    <li>pH 2 → pOH 12. Strongly acidic. Almost no hydroxide ions in the picture at all</li>
+    <li>pH 7 → pOH 7. Neutral. Both ion types are sitting at equal concentrations</li>
+    <li>pH 13 → pOH 1. Strongly basic. Almost no hydrogen ions left to speak of</li>
+  </ul>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    General chemistry courses spend most of their time on pH and treat pOH as secondary, which makes sense from a teaching standpoint. But pOH is genuinely more practical in some situations. If you're working with NaOH and know the hydroxide concentration, calculating pOH first and then converting to pH is just the faster route. Why go the long way around? This calculator returns both values automatically every time, so neither conversion has to be done manually.
+  </p>
+</div>
+
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Where pH Calculations Actually Show Up</h2>
+
+  <img
+    src="/images/ph-calculator-applications.webp"
+    alt="Real-world pH calculation applications including water treatment, aquariums, food science, and agriculture"
+    class="w-full rounded-lg border border-slate-200 my-6"
+    loading="lazy"
+    width="1200"
+    height="400"
+  />
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    pH math doesn't stay put inside labs and textbooks. It's quietly running through a surprising number of things people deal with in the real world — sometimes without even realising it.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Drinking Water and Water Treatment</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The <a href="https://www.epa.gov/ground-water-and-drinking-water/drinking-water-regulations-and-contaminants" target="_blank" rel="noopener noreferrer" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">EPA</a> puts acceptable drinking water pH between 6.5 and 8.5 — exactly the kind of check a pH calculator for water treatment makes fast and repeatable — and both ends of that range have real consequences attached to them. Drop below 6.5, and the water becomes corrosive enough to start pulling metals out of pipe walls — including lead in older plumbing systems, which is obviously a serious public health problem and not something you want to be casual about. Push above 8.5, and chlorine starts losing its disinfection power while mineral scale accumulates inside the distribution infrastructure. Treatment engineers aren't doing a single pH check at the end of the process and calling it done. They're monitoring at multiple stages throughout because a mistake there doesn't just mean inconvenience — it means people consuming water that isn't safe.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Aquariums and Reef Tanks</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    A saltwater reef system needs a pH in the 8.1 to 8.3 range to stay healthy. Freshwater tanks vary quite a bit depending on species, but generally work best somewhere between 6.5 and 7.5. The logarithmic nature of the scale becomes extremely real for reef hobbyists fairly quickly into the hobby. pH 7.8 and pH 8.2 look like a pretty modest gap when you write them side by side. They represent a fourfold difference in actual hydrogen ion concentration. Reef keepers who are adding buffers or kalkwasser without running the calculation first are basically making educated guesses — and a bad guess with a reef tank can take weeks or months to recover from, depending on what goes wrong. Two minutes of math upfront is clearly worth it.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Food Science and Fermentation</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Brewers target mash pH between 5.2 and 5.4. That's the range where amylase enzymes perform best and where the finished beer picks up the right flavor profile. Drift outside it, and the mash conversion takes a noticeable hit. Winemakers track pH all the way through fermentation to stay on top of tartaric acid balance and time stabilization correctly. Sourdough bakers check starter pH to confirm the culture is actually acidifying at a healthy rate and not just sitting there. And "pH calculator vinegar" gets searched genuinely often — home fermenters want to verify the acidity in a finished batch before they start bottling it, and that's a completely legitimate thing to want to know before you commit to filling fifty bottles.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Medicine and Pharmaceuticals</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Human blood stays between pH 7.35 and 7.45. The carbonate buffer system is working constantly to keep it exactly there and doesn't have a lot of tolerance for deviation. A drop to pH 7.2 is metabolic acidosis. A rise to 7.6 is alkalosis. Both of those are medical emergencies, not minor inconveniences. In pharmaceutical work, buffer pH calculations tell you whether a drug formulation is going to stay chemically stable in storage and whether it'll actually be absorbed correctly once it enters the body. IV solutions go through pH verification as part of manufacturing quality control before they're ever near a patient. That verification isn't optional.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Agriculture and Soil Science</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Most crops do their best between <a href="https://www.acs.org/education/resources/highschool/chemmatters/past-issues/archive-2013-2014/thechemistryofsoil.html" target="_blank" rel="noopener noreferrer" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">pH 6.0 and 7.0</a>. Inside that window, nitrogen, phosphorus, and potassium are in forms plant roots can actually take up and use. Step outside it and things start locking up chemically in ways plants genuinely can't work around — phosphorus binds into insoluble compounds in acidic soil, iron and manganese become unavailable in alkaline conditions. Farmers and agronomists calculate lime or elemental sulfur amendment rates based on current soil pH and the specific target for whatever crop is going in that season — and a <a href="/tools/scale-calculator/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">scale calculator</a> can help convert between unit formats when working out amendment quantities. Getting that calculation wrong shows up at harvest time.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Industrial Wastewater</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Before industrial effluent can legally leave a facility, it typically has to hit a specific pH range to satisfy environmental regulations. The calculation tells process engineers how much sodium hydroxide or hydrochloric acid is needed to treat a given volume of wastewater to get it there. Undershoot, and there's a compliance violation. Overshoot and reagent gets wasted while the pH swings past the target in the wrong direction — running a <a href="/tools/percent-decrease/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">percent decrease calculator</a> on reagent costs quickly shows what that waste adds up to over time. Both outcomes are problems — one regulatory, one financial — and neither is great.
+  </p>
+</div>
+
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Worked pH Calculation Examples</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Four problems worked all the way through from start to finish. Running these through the calculator above is a solid way to check the numbers and get comfortable with how each input tab actually behaves.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Example 1 — How to Calculate pH of a Strong Acid (HCl)</h3>
+  <p class="font-semibold text-slate-800 mb-2">What's the pH of 0.025 M HCl?</p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    HCl is a strong acid and fully dissociates in water, so [H⁺] equals the molar concentration directly — no partial dissociation to worry about. [H⁺] = 0.025 M.
+  </p>
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    pH = −log(0.025) = 1.60
+  </div>
+  <p class="font-semibold text-slate-800 mb-4">Strongly acidic.</p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Example 2 — Strong Base (NaOH)</h3>
+  <p class="font-semibold text-slate-800 mb-2">What's the pH of 0.01 M NaOH?</p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    NaOH fully dissociates too, so [OH⁻] = 0.01 M. Use that to calculate pH from pOH using pH = 14 − pOH.
+  </p>
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    pOH = −log(0.01) = 2.00<br />
+    pH = 14 − 2.00 = 12.00
+  </div>
+  <p class="font-semibold text-slate-800 mb-4">Strongly basic.</p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Example 3 — Concentration in µmol/L</h3>
+  <p class="font-semibold text-slate-800 mb-2">[H⁺] = 500 µmol/L. What's the pH?</p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    This example walks through how to find pH from a concentration given in µmol/L. Convert to mol/L first — this step gets skipped more often than it should: 500 µmol/L = 5×10⁻⁴ mol/L.
+  </p>
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    pH = −log(5×10⁻⁴) = 3.30
+  </div>
+  <p class="font-semibold text-slate-800 mb-2">Mildly acidic.</p>
+  <p class="text-slate-600 leading-relaxed mb-4">Roughly the same territory as black coffee or acid rain.</p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Example 4 — Working Backward from pH</h3>
+  <p class="font-semibold text-slate-800 mb-2">Ocean surface water sits at around pH 8.2. Find [H⁺] and [OH⁻].</p>
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    [H⁺] = 10⁻⁸·² = 6.31×10⁻⁹ mol/L<br />
+    pOH = 14 − 8.2 = 5.8<br />
+    [OH⁻] = 10⁻⁵·⁸ = 1.58×10⁻⁶ mol/L
+  </div>
+</div>
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Tips for Getting Accurate Results — Common pH Calculation Errors to Avoid</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Most pH calculation errors come back to the same small set of avoidable mistakes. These are the ones that show up again and again.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Sort Out Units Before Anything Gets Entered</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The calculator takes mol/L, mmol/L, and µmol/L. If your source data is in mg/L or µg/L, it needs to be converted to molar concentration before it goes anywhere near the input field. Entering the right number in the wrong unit is honestly the most common reason results come out looking completely wrong — and it can be a frustrating one to diagnose if you don't think to check units first.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Use Scientific Notation — It's Supported and Much Safer</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Typing <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">1e-7</code> takes about two seconds, and it's really difficult to get wrong. Writing <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">0.0000001</code> and counting those zeros correctly every time is genuinely error-prone. Both inputs give the same result so there's no reason not to use the one that's harder to mess up.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Weak Acids and Bases Are Fundamentally Different from Strong Ones</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    This calculator works from actual [H⁺] as its input, not the molar concentration of a compound. This is especially important for weak acid pH calculation — weak acids like acetic acid only partially dissociate in water, which means the acid's molarity and the [H⁺] it actually produces in solution are two completely different numbers. You have to solve the Ka equilibrium expression first to find real [H⁺], and then that value goes into Tab 1. Just entering the acid's molarity directly is one of the most common mistakes people make, and it gives you the wrong answer every time — not approximately wrong, actually wrong.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Temperature Has More Impact Than Most People Expect</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    pH + pOH = 14 is tied specifically to 25°C because that's the temperature where Kw = 1×10⁻¹⁴. At 37°C — normal human body temperature — Kw shifts and pH at body temperature sits around 6.8, not 7.0. For standard lab work and coursework, 25°C is the assumed baseline, and that's fine. But for anything clinical or physiological, that difference is genuinely relevant.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">In the Mix Tab, Both Solutions Must Use the Same Volume Unit</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The tab accepts both mL and L, but it needs consistency within a single calculation. Enter one solution in mL, and the other in L, and the mole balance gets thrown off by a factor of 1,000. The output will look perfectly formatted and completely plausible. It will be wrong.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">When Results Look Strange, Check the Formula Panel First</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Every output includes the full step-by-step calculation written out. A wrong input, a unit mismatch, using the wrong tab for the situation — all of those show up clearly in that panel without any guesswork.
+  </p>
+</div>
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Frequently Asked Questions</h2>
+  <div class="mt-10 space-y-6">
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">What is pH, and what does it measure?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        pH measures hydrogen ion concentration in a solution on a scale from 0 to 14. Below 7 is acidic, 7 is neutral, and above 7 is basic. The scale is logarithmic, so each full unit step is a tenfold change in actual ion concentration — not a proportional step like on a linear scale. That detail matters more than it might seem at first.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">How do I calculate pH from hydrogen ion concentration?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        The formula is pH = −log₁₀[H⁺] with [H⁺] in mol/L. When the concentration is a clean power of 10 like <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">1×10⁻⁵ M</code>, the answer is just 5 — barely needs a calculator at all. When there's a coefficient like <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">3.7×10⁻⁴ M</code> in front, you do need one, and you get pH ≈ 3.43.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">What is the difference between pH and pOH?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        pH tracks hydrogen ions and tells you how acidic a solution is. pOH tracks hydroxide ions and tells you how basic it is. At 25°C, they always add up to 14 — raise one and the other drops by the same amount. This calculator gives both values back automatically on every calculation, no extra step needed from you.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">What is a neutral pH, and does it change with temperature?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        At 25°C, neutral pH is 7 — the point where [H⁺] and [OH⁻] are sitting in exactly equal concentrations. Temperature moves Kw, though, and that shifts where neutral actually is. At 37°C, it's closer to 6.8. Which means blood at pH 7.4 is genuinely basic relative to actual body temperature — even though 7.4 and 7.0 look nearly identical on the standard scale.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">Can pH go negative or above 14?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        Yes, it can, in extreme concentration situations. Very concentrated acids can push pH below zero, and very concentrated bases can go above 14. These cases fall outside the standard assumptions for dilute aqueous chemistry and mostly come up in industrial or advanced theoretical work rather than everyday lab or classroom situations.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">How does this tool calculate pH when mixing two solutions?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        It runs a mole balance. Moles of H⁺ and OH⁻ from each solution are calculated separately and then subtracted to find which ion is left in excess. That excess gets divided by the total combined volume to give the resulting ion concentration, and pH follows from the log formula. The entire calculation is written out step by step in the results panel — not just the final answer, but every step.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">How do digital pH calculators work compared to physical pH meters?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        A physical pH meter puts a glass electrode into a solution and measures the voltage that develops across it, then converts that reading to pH using a calibration curve. An online calculator takes a known value and derives everything else mathematically. One physically measures something unknown in a real solution. The other computes from data you already have. They get used together quite often — meter for the measurement, calculator for follow-up conversions, and problem solving.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">Can this calculator be used for soil pH testing?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        Not for the initial measurement — that still needs a physical meter or test kit on a soil and water mixture. But if a lab soil extract analysis has come back with an [H⁺] value, putting that into Tab 1 here gives the corresponding pH for cross-checking or verification.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">What is the pH of vinegar?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        White household vinegar typically sits between pH 2.4 and 3.4, depending on acetic acid content, which is usually somewhere between 4 and 8 percent by volume. Apple cider vinegar tends to range from around pH 3.1 to 5.0. To get a calculated pH from a specific acetic acid concentration, you need to solve the Ka equilibrium expression first to find the actual [H⁺] — then that value goes into Tab 1.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">How do I calculate pH without a scientific calculator?</h3>
+      <p class="text-slate-600 leading-relaxed">
+        When [H⁺] is a whole power of 10 — like <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">10⁻³</code> or <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">10⁻⁸</code> — the pH is just that exponent written as a positive number. Genuinely no calculation needed. <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">10⁻⁶</code> means pH 6, done. The problem starts when there's a coefficient in front of the power of 10, because then the full logarithm calculation becomes unavoidable. That's exactly the situation where an online pH calculator saves the most time and frustration.
+      </p>
+    </div>
+
+  </div>
+</div>
+<div class="mt-8">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Conclusion</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    On the surface, pH looks like a simple concept — just a number sitting somewhere between 0 and 14. But the chemistry it describes runs through a genuinely wide range of real situations that matter to people. Drinking water safety. Reef tank stability. Blood chemistry. Drug formulation. Crop nutrient availability. Fermentation quality control. Industrial discharge compliance. It keeps showing up. And because the scale is logarithmic, numbers that look close together on paper can represent very different chemical realities in practice, which is why getting the math right actually matters and isn't just an academic exercise.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    This is a pH calculator with formula breakdown on every result that comes out across four input modes. Students can check homework and actually follow the work instead of just copying a number and hoping it's right. Brewers can verify mash chemistry before the kettle goes on — and track how much efficiency has improved batch over batch with a <a href="/tools/percent-increase/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">percent increase calculator</a> alongside this one. Water engineers can run quick target checks without pulling out a textbook. Reef hobbyists can calculate buffer doses instead of eyeballing it and hoping for the best. The Mix Solutions tab takes neutralization problems that would eat up several manual steps and handles them in one go. And because the formula panel is always there and always written out fully, you're never just handed a number — you can see exactly where it came from and trace back every step that produced it. If you work across multiple science and math tools, the <a href="/tools/right-triangle-calculator/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium">right triangle calculator</a> is another one worth keeping close — geometry and chemistry problems have a habit of showing up together.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Save this online pH calculator somewhere you can get back to it easily. pH questions genuinely do show up at inconvenient times, and it's a lot better to have something fast and reliable already open than to be scrambling around looking for a formula when you're right in the middle of something else.
+  </p>
+</div>

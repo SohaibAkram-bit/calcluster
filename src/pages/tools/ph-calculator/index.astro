@@ -2,17 +2,107 @@
 import ToolLayout from '../../../Layouts/ToolLayout.astro';
 import PhCalculatorContent from '../../../components/content/PhCalculatorContent.astro';
 
-const title = "pH Calculator";
-const description = "Calculate pH, pOH, [H+], and [OH-] from any input. Mix solutions to find resulting pH.";
+const title = "pH Calculator — Find pH, pOH, [H+] and [OH-] Online";
+const description = "Use our free pH calculator to instantly find pH, pOH, [H+], and [OH-]. Supports 4 input modes including mix solutions. Formula shown for every result.";
 const canonicalUrl = "https://calcluster.com/tools/ph-calculator/";
 const relatedTools = [];
 ---
 
+
 <ToolLayout title={title} description={description} canonicalUrl={canonicalUrl} relatedTools={relatedTools}>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is pH, and what does it measure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "pH measures hydrogen ion concentration in a solution on a scale from 0 to 14. Below 7 is acidic, 7 is neutral, and above 7 is basic. The scale is logarithmic, so each full unit step is a tenfold change in actual ion concentration — not a proportional step like on a linear scale. That detail matters more than it might seem at first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate pH from hydrogen ion concentration?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The formula is pH = −log₁₀[H⁺] with [H⁺] in mol/L. When the concentration is a clean power of 10 like 1×10⁻⁵ M, the answer is just 5 — barely needs a calculator at all. When there's a coefficient like 3.7×10⁻⁴ M in front, you do need one, and you get pH ≈ 3.43."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between pH and pOH?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "pH tracks hydrogen ions and tells you how acidic a solution is. pOH tracks hydroxide ions and tells you how basic it is. At 25°C, they always add up to 14 — raise one and the other drops by the same amount. This calculator gives both values back automatically on every calculation, no extra step needed from you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a neutral pH, and does it change with temperature?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "At 25°C, neutral pH is 7 — the point where [H⁺] and [OH⁻] are sitting in exactly equal concentrations. Temperature moves Kw, though, and that shifts where neutral actually is. At 37°C, it's closer to 6.8. Which means blood at pH 7.4 is genuinely basic relative to actual body temperature — even though 7.4 and 7.0 look nearly identical on the standard scale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can pH go negative or above 14?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, it can, in extreme concentration situations. Very concentrated acids can push pH below zero, and very concentrated bases can go above 14. These cases fall outside the standard assumptions for dilute aqueous chemistry and mostly come up in industrial or advanced theoretical work rather than everyday lab or classroom situations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does this tool calculate pH when mixing two solutions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It runs a mole balance. Moles of H⁺ and OH⁻ from each solution are calculated separately and then subtracted to find which ion is left in excess. That excess gets divided by the total combined volume to give the resulting ion concentration, and pH follows from the log formula. The entire calculation is written out step by step in the results panel — not just the final answer, but every step."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do digital pH calculators work compared to physical pH meters?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A physical pH meter puts a glass electrode into a solution and measures the voltage that develops across it, then converts that reading to pH using a calibration curve. An online calculator takes a known value and derives everything else mathematically. One physically measures something unknown in a real solution. The other computes from data you already have. They get used together quite often — meter for the measurement, calculator for follow-up conversions, and problem solving."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this calculator be used for soil pH testing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not for the initial measurement — that still needs a physical meter or test kit on a soil and water mixture. But if a lab soil extract analysis has come back with an [H⁺] value, putting that into Tab 1 here gives the corresponding pH for cross-checking or verification."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the pH of vinegar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "White household vinegar typically sits between pH 2.4 and 3.4, depending on acetic acid content, which is usually somewhere between 4 and 8 percent by volume. Apple cider vinegar tends to range from around pH 3.1 to 5.0. To get a calculated pH from a specific acetic acid concentration, you need to solve the Ka equilibrium expression first to find the actual [H⁺] — then that value goes into Tab 1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate pH without a scientific calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When [H⁺] is a whole power of 10 — like 10⁻³ or 10⁻⁸ — the pH is just that exponent written as a positive number. Genuinely no calculation needed. 10⁻⁶ means pH 6, done. The problem starts when there's a coefficient in front of the power of 10, because then the full logarithm calculation becomes unavoidable. That's exactly the situation where an online pH calculator saves the most time and frustration."
+      }
+    }
+  ]
+}
+</script>
   <div class="max-w-5xl mx-auto px-4 py-8">
 
-    <h1 class="text-3xl font-bold text-slate-900 mb-2">pH Calculator</h1>
-    <p class="text-slate-600 mb-8">Calculate pH, pOH, [H+], and [OH-] from any input. Mix solutions to find resulting pH.</p>
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">pH Calculator — Calculate pH, pOH, [H+], and [OH-]</h1>
+
+    <p class="text-slate-600 mb-8">Use our free pH calculator to instantly find pH, pOH, [H+], and [OH-]. Supports 4 input modes including mix solutions. Formula shown for every result.</p>
 
     <!-- Calculator Widget -->
     <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
