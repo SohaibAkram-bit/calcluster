@@ -12,6 +12,20 @@ const { title, description, canonicalUrl, relatedTools = [] } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    {import.meta.env.PROD && (
+      <>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script is:inline src="https://googletagmanager.com"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-6V7ZEWGJGB');
+        </script>
+      </>
+    )}
   </head>
   <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
     <header class="bg-white border-b border-slate-200 shadow-sm relative z-50">
