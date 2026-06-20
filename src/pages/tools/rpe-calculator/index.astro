@@ -12,9 +12,105 @@ import RpeCalculatorContent from '../../../components/content/RpeCalculatorConte
     { name: 'Right Triangle Calculator', link: '/tools/right-triangle/' }
   ]}
 >
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an RPE calculator used for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An RPE calculator converts perceived effort into actual training loads — or works in reverse to estimate a 1RM from a recent set. For someone following effort-based programming, it answers \"what do I actually load?\" For someone without a current tested max, it produces a working estimate without requiring an all-out attempt. Both uses make it a practical daily tool rather than just a static reference."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does RPE 8 mean in the gym?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RPE 8 means the set was hard, but two more reps were clearly available before failure. It's the most commonly programmed training intensity because it's demanding enough to drive real adaptation while leaving enough reserve to recover well and maintain quality across a full week of training."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between RPE and RIR?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They're two ways of describing the same thing. RIR, or Reps in Reserve, counts how many reps are left before failure. RPE counts how hard the set felt on a 1–10 scale. The relationship is direct: RPE = 10 − RIR. Two reps left means RIR 2, which equals RPE 8. Some people find RIR more intuitive to judge during a set; RPE shows up more often in written programs. Both systems point to the same underlying effort level."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does e1RM mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "e1RM stands for estimated one-rep maximum — a theoretical max calculated from a submaximal set rather than an actual all-out attempt. Lifting 80 kg for 5 reps at RPE 8 produces an e1RM of roughly 98.6 kg using the Tuchscherer table. The calculator uses that figure as the anchor for all subsequent weight recommendations. e1RM and true 1RM aren't always identical, but for day-to-day programming they're close enough — and far safer to obtain regularly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is RPE training better than percentage-based training?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neither one wins cleanly — they solve different problems. Percentage-based training is simpler and works great when a lifter's strength is relatively predictable. RPE handles the reality that performance varies day to day due to sleep, stress, and accumulated fatigue, which percentages can't account for without constant 1RM retesting. Most well-designed intermediate and advanced programs use both together: percentages to establish the general loading framework, RPE to make it practical on any given training day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What RPE is best for muscle growth?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Research consistently points to proximity to failure as a key driver of hypertrophy. For most people, the effective range for muscle-building sets lands between RPE 7 and 9, meaning 1–3 reps in reserve. Below RPE 7, sets are generally too far from failure to deliver a meaningful growth stimulus — especially for smaller muscle groups. Grinding out every set to absolute failure (RPE 10) works against the goal too, because the recovery cost outpaces the benefit pretty quickly when done repeatedly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is this RPE calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For experienced lifters rating effort honestly on shorter sets — particularly 1 to 5 reps — the e1RM estimate tends to land within roughly 5% of a real tested maximum. That's accurate enough to be genuinely useful for programming. Accuracy drops off for higher-rep sets, because perceived exertion tends to plateau before the muscles actually do. The more consistently someone applies the scale across time, the more useful and precise the outputs become."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who developed the RPE system used in strength training?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The weightlifting-specific 1–10 RPE scale was developed by powerlifting coach Mike Tuchscherer through Reactive Training Systems (RTS) in the early 2000s. The percentage table it generates was later validated scientifically through research by Dr. Eric Helms and Dr. Mike Zourdos, published in the Strength and Conditioning Journal in 2016 — the Helms et al. (2016) paper remains the primary academic reference for RIR-based RPE in resistance training. That research helped bring RPE into mainstream evidence-based programming well beyond the powerlifting community."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this RPE calculator work for running or cardio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — and knowing why helps avoid confusion. The strength training RPE scale is based on reps in reserve and runs from 1 to 10. The Borg scale used in endurance sports runs from 6 to 20 and correlates with heart rate rather than reps. For running, a rough shortcut is to multiply the Borg rating by 10 to estimate heart rate (Borg 14 ≈ 140 bpm). This calculator is built specifically around resistance training and produces reliable results for barbell and strength movements only."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this tool be used for both bench press and squat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the calculator doesn't care which exercise is being trained. The math applies to any barbell or strength movement. The one thing worth keeping in mind is that RPE calibration often differs between lifts. A lifter who's been squatting for five years usually reads squat RPE very accurately, while the same person might be less precise on the deadlift if it's a newer movement for them. Tracking RPE per lift, rather than applying a single blanket rating, is what makes the data most useful over time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the RPE percentage chart and where does it come from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The RPE percentage chart maps every combination of rep count (1–12) and RPE (6–10 in 0.5 steps) to a corresponding percentage of a lifter's 1RM. The values come from the Reactive Training Systems methodology developed by Mike Tuchscherer. For example, 5 reps at RPE 8 corresponds to 81.1% of 1RM; 3 reps at RPE 9 equals 89.2%. The RPE Chart tab in the calculator above displays the complete table in both list and grid format."
+      }
+    }
+  ]
+}
+</script>
   <div class="max-w-5xl mx-auto px-4 py-8">
-    
-    <h1 class="text-3xl font-bold text-slate-900 mb-2">RPE Calculator</h1>
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">RPE Calculator — Weight from RPE & 1RM Estimator</h1>
     <p class="text-slate-600 mb-8">Calculate your working weight based on RPE, estimate your 1RM, or check the RPE chart.</p>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
