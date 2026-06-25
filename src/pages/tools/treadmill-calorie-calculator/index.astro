@@ -1,0 +1,721 @@
+---
+import ToolLayout from '../../../Layouts/ToolLayout.astro';
+import TreadmillCalorieCalculatorContent from '../../../components/content/TreadmillCalorieCalculatorContent.astro';
+
+const relatedTools = [
+  { name: "RPE Calculator", link: "/tools/rpe-calculator/" },
+  { name: "Grade Calculator", link: "/tools/grade-calculator/" },
+  { name: "Scale Calculator", link: "/tools/scale-calculator/" },
+  { name: "Right Triangle Calculator", link: "/tools/right-triangle/" }
+];
+---
+
+<ToolLayout 
+  title="Treadmill Calorie Calculator | Calories Burned on Treadmill"
+  description="Calculate calories burned on a treadmill by speed, incline, weight, age, and duration. Includes pace calculator and MET reference table. Free and mobile-friendly."
+  canonicalUrl="https://calcluster.com/tools/treadmill-calorie-calculator/"
+  relatedTools={relatedTools}
+>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": []
+  }
+  </script>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Treadmill Calorie Calculator</h1>
+    <p class="text-slate-600 leading-relaxed mb-8">
+      Calculate how many calories you burn on the treadmill based on your speed, incline, weight, age, and workout duration. Switch between metric and imperial units using the toggle below.
+    </p>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Left col: calculator card -->
+      <div class="lg:w-[60%] w-full">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+          
+          <!-- Global kg/lb Toggle -->
+          <div class="flex gap-2 mb-5">
+            <button id="btn-metric" class="px-4 py-2 rounded-lg text-sm font-medium bg-[#1D9E75] text-white">kg / km</button>
+            <button id="btn-imperial" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-600">lb / mi</button>
+          </div>
+
+          <!-- Tab Bar -->
+          <div class="grid grid-cols-2 sm:flex gap-1 mb-6" id="tab-bar">
+            <button class="tab-btn active-tab px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 border-[#1D9E75] text-[#1D9E75]" data-tab="calorie">Calorie Burn</button>
+            <button class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 border-transparent text-slate-500" data-tab="pace">Pace & Distance</button>
+            <button class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 border-transparent text-slate-500" data-tab="met">MET Table</button>
+          </div>
+
+          <!-- Panel 1: Calorie -->
+          <div id="panel-calorie">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Weight -->
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Weight</label>
+                <div class="relative">
+                  <input type="text" id="input-weight" inputmode="decimal" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors" placeholder="70" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" id="label-weight">kg</span>
+                </div>
+                <p id="err-weight" class="text-red-500 text-sm mt-1 hidden">Please enter a valid weight.</p>
+              </div>
+
+              <!-- Age -->
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Age</label>
+                <div class="relative">
+                  <input type="text" id="input-age" inputmode="decimal" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors" placeholder="30" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" id="label-age">years</span>
+                </div>
+                <p id="err-age" class="text-red-500 text-sm mt-1 hidden">Please enter age between 10 and 120.</p>
+              </div>
+
+              <!-- Gender -->
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium text-slate-700 mb-1">Gender</label>
+                <select id="select-gender" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+
+              <!-- Speed -->
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Speed</label>
+                <div class="relative">
+                  <input type="text" id="input-speed" inputmode="decimal" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors" placeholder="8" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" id="label-speed">km/h</span>
+                </div>
+                <p id="err-speed" class="text-red-500 text-sm mt-1 hidden">Please enter a valid speed.</p>
+              </div>
+
+              <!-- Incline -->
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Incline</label>
+                <div class="relative">
+                  <input type="text" id="input-incline" inputmode="decimal" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors" placeholder="1" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" id="label-incline">%</span>
+                </div>
+                <p id="err-incline" class="text-red-500 text-sm mt-1 hidden">Incline cannot be negative.</p>
+              </div>
+
+              <!-- Duration -->
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium text-slate-700 mb-1">Duration</label>
+                <div class="relative">
+                  <input type="text" id="input-duration" inputmode="decimal" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors" placeholder="30" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" id="label-duration">min</span>
+                </div>
+                <p id="err-duration" class="text-red-500 text-sm mt-1 hidden">Please enter a valid duration.</p>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-3 mt-6">
+              <button id="btn-calculate-calorie" class="flex-1 min-h-[48px] bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold rounded-lg transition-colors">Calculate</button>
+              <button id="btn-reset-calorie" class="px-5 min-h-[48px] bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium rounded-lg transition-colors">Reset</button>
+            </div>
+
+            <!-- Result Display -->
+            <div id="calorie-result" class="hidden mt-6 bg-slate-50 rounded-xl border border-slate-200 p-5">
+              <p class="text-sm text-slate-500 mb-1">Calories Burned</p>
+              <div class="flex items-baseline gap-2">
+                <p id="result-calories" class="text-4xl font-bold text-[#1D9E75]">—</p>
+                <p class="text-sm text-slate-400 mt-1">kcal</p>
+              </div>
+              <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">MET Value</p>
+                  <p id="result-met" class="font-semibold text-slate-800">—</p>
+                </div>
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">Cal/min</p>
+                  <p id="result-calpermin" class="font-semibold text-slate-800">—</p>
+                </div>
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">Speed</p>
+                  <p id="result-speed" class="font-semibold text-slate-800">—</p>
+                </div>
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">Distance</p>
+                  <p id="result-distance" class="font-semibold text-slate-800">—</p>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400 mt-4">Based on ACSM treadmill equation (VO2) and standard MET calorie formula.</p>
+            </div>
+          </div>
+
+          <!-- Panel 2: Pace -->
+          <div id="panel-pace" class="hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Speed -->
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Speed</label>
+                <div class="relative">
+                  <input type="text" id="input-pace-speed" inputmode="decimal" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors" placeholder="8" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" id="label-pace-speed">km/h</span>
+                </div>
+                <p id="err-pace-speed" class="text-red-500 text-sm mt-1 hidden">Please enter a valid speed.</p>
+              </div>
+
+              <!-- Duration -->
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Duration</label>
+                <div class="relative">
+                  <input type="text" id="input-pace-duration" inputmode="decimal" class="w-full min-h-[48px] rounded-lg border border-slate-200 px-3 text-base text-slate-700 bg-white focus:border-[#1D9E75] focus:ring-1 focus:ring-[#1D9E75] outline-none transition-colors" placeholder="30" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">min</span>
+                </div>
+                <p id="err-pace-duration" class="text-red-500 text-sm mt-1 hidden">Please enter a valid duration.</p>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-3 mt-6">
+              <button id="btn-calculate-pace" class="flex-1 min-h-[48px] bg-[#1D9E75] hover:bg-[#168561] text-white font-semibold rounded-lg transition-colors">Calculate</button>
+              <button id="btn-reset-pace" class="px-5 min-h-[48px] bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium rounded-lg transition-colors">Reset</button>
+            </div>
+
+            <!-- Result Display -->
+            <div id="pace-result" class="hidden mt-6 bg-slate-50 rounded-xl border border-slate-200 p-5">
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">Distance</p>
+                  <p id="pace-res-distance" class="font-semibold text-slate-800">—</p>
+                </div>
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">Pace</p>
+                  <p id="pace-res-pace" class="font-semibold text-slate-800">—</p>
+                </div>
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">Duration</p>
+                  <p id="pace-res-duration" class="font-semibold text-slate-800">—</p>
+                </div>
+                <div class="bg-white rounded-lg border border-slate-200 p-3">
+                  <p class="text-slate-400">Speed</p>
+                  <p id="pace-res-speed" class="font-semibold text-slate-800">—</p>
+                </div>
+              </div>
+              
+              <div class="mt-5">
+                <p class="text-sm font-semibold text-slate-700 mb-2">Splits</p>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm text-slate-600 border-collapse">
+                    <thead>
+                      <tr class="bg-slate-100 text-slate-700">
+                        <th class="text-left px-3 py-2 rounded-tl-lg">Split</th>
+                        <th class="text-left px-3 py-2">Distance</th>
+                        <th class="text-left px-3 py-2 rounded-tr-lg">Time</th>
+                      </tr>
+                    </thead>
+                    <tbody id="pace-splits-body">
+                      <!-- rows injected by JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: MET -->
+          <div id="panel-met" class="hidden">
+            <div class="mb-4">
+              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Incline</p>
+              <div class="flex flex-wrap gap-2" id="met-incline-filters">
+                <button class="met-incline-pill px-3 py-1 rounded-full text-sm font-medium bg-[#1D9E75] text-white transition-colors" data-incline="all">All</button>
+                <button class="met-incline-pill px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-incline="0">0%</button>
+                <button class="met-incline-pill px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-incline="5">5%</button>
+                <button class="met-incline-pill px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-incline="10">10%</button>
+                <button class="met-incline-pill px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-incline="15">15%</button>
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Intensity</p>
+              <div class="flex flex-wrap gap-2" id="met-intensity-filters">
+                <button class="met-intensity-pill px-3 py-1 rounded-full text-sm font-medium bg-[#1D9E75] text-white transition-colors" data-intensity="all">All</button>
+                <button class="met-intensity-pill px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-intensity="light">Light (&lt; 4)</button>
+                <button class="met-intensity-pill px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-intensity="moderate">Moderate (4–6)</button>
+                <button class="met-intensity-pill px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-intensity="vigorous">Vigorous (&gt; 6)</button>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm text-slate-600 border-collapse">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-700 text-left">
+                    <th class="px-3 py-2 rounded-tl-lg">Speed</th>
+                    <th class="px-3 py-2">Incline</th>
+                    <th class="px-3 py-2">MET</th>
+                    <th class="px-3 py-2 rounded-tr-lg">Intensity</th>
+                  </tr>
+                </thead>
+                <tbody id="met-table-body">
+                  <!-- rows injected by JS -->
+                </tbody>
+              </table>
+            </div>
+            <p id="met-no-results" class="hidden text-slate-400 text-sm mt-4 text-center">No results match the selected filters.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right col: sidebar ad placeholder -->
+      <div class="lg:w-[40%] w-full flex flex-col items-center lg:items-start">
+        <!-- Sidebar 300x250 -->
+        <div class="w-[300px] h-[250px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm">Advertisement</div>
+      </div>
+    </div>
+
+    <!-- In-content 728x90 -->
+    <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+    <TreadmillCalorieCalculatorContent />
+
+    <!-- Bottom 728x90 -->
+    <div class="w-full h-[90px] bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-slate-400 text-sm my-8">Advertisement</div>
+
+  </main>
+</ToolLayout>
+
+<script>
+  // DOM Elements
+  const btnMetric = document.getElementById('btn-metric');
+  const btnImperial = document.getElementById('btn-imperial');
+  
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = {
+    calorie: document.getElementById('panel-calorie'),
+    pace: document.getElementById('panel-pace'),
+    met: document.getElementById('panel-met'),
+  };
+
+  // Inputs
+  const inputWeight = document.getElementById('input-weight');
+  const inputAge = document.getElementById('input-age');
+  const selectGender = document.getElementById('select-gender');
+  const inputSpeed = document.getElementById('input-speed');
+  const inputIncline = document.getElementById('input-incline');
+  const inputDuration = document.getElementById('input-duration');
+
+  // Labels
+  const labelWeight = document.getElementById('label-weight');
+  const labelSpeed = document.getElementById('label-speed');
+
+  // Errors
+  const errWeight = document.getElementById('err-weight');
+  const errAge = document.getElementById('err-age');
+  const errSpeed = document.getElementById('err-speed');
+  const errIncline = document.getElementById('err-incline');
+  const errDuration = document.getElementById('err-duration');
+
+  // Buttons
+  const btnCalculateCalorie = document.getElementById('btn-calculate-calorie');
+  const btnResetCalorie = document.getElementById('btn-reset-calorie');
+
+  // Result Elements
+  const resultDiv = document.getElementById('calorie-result');
+  const resultCalories = document.getElementById('result-calories');
+  const resultMet = document.getElementById('result-met');
+  const resultCalPerMin = document.getElementById('result-calpermin');
+  const resultSpeed = document.getElementById('result-speed');
+  const resultDistance = document.getElementById('result-distance');
+
+  // State
+  let unit = 'metric';
+
+  // Toggle Units
+  function setUnit(newUnit) {
+    if (unit === newUnit) return;
+    
+    // Convert values if they exist
+    let weightVal = parseFloat(inputWeight.value);
+    let speedVal = parseFloat(inputSpeed.value);
+
+    if (newUnit === 'metric') {
+      if (btnMetric) {
+        btnMetric.classList.replace('bg-slate-100', 'bg-[#1D9E75]');
+        btnMetric.classList.replace('text-slate-600', 'text-white');
+      }
+      if (btnImperial) {
+        btnImperial.classList.replace('bg-[#1D9E75]', 'bg-slate-100');
+        btnImperial.classList.replace('text-white', 'text-slate-600');
+      }
+      
+      if (labelWeight) labelWeight.textContent = 'kg';
+      if (labelSpeed) labelSpeed.textContent = 'km/h';
+      const labelPaceSpeed = document.getElementById('label-pace-speed');
+      if (labelPaceSpeed) labelPaceSpeed.textContent = 'km/h';
+
+      if (!isNaN(weightVal)) inputWeight.value = (weightVal / 2.2046).toFixed(1);
+      if (!isNaN(speedVal)) inputSpeed.value = (speedVal * 1.60934).toFixed(1);
+      if (typeof renderMetTable === 'function') renderMetTable();
+    } else {
+      if (btnImperial) {
+        btnImperial.classList.replace('bg-slate-100', 'bg-[#1D9E75]');
+        btnImperial.classList.replace('text-slate-600', 'text-white');
+      }
+      if (btnMetric) {
+        btnMetric.classList.replace('bg-[#1D9E75]', 'bg-slate-100');
+        btnMetric.classList.replace('text-white', 'text-slate-600');
+      }
+      
+      if (labelWeight) labelWeight.textContent = 'lb';
+      if (labelSpeed) labelSpeed.textContent = 'mph';
+      const labelPaceSpeed = document.getElementById('label-pace-speed');
+      if (labelPaceSpeed) labelPaceSpeed.textContent = 'mph';
+
+      if (!isNaN(weightVal)) inputWeight.value = (weightVal * 2.2046).toFixed(1);
+      if (!isNaN(speedVal)) inputSpeed.value = (speedVal / 1.60934).toFixed(1);
+      if (typeof renderMetTable === 'function') renderMetTable();
+    }
+    unit = newUnit;
+  }
+
+  if (btnMetric) btnMetric.addEventListener('click', () => setUnit('metric'));
+  if (btnImperial) btnImperial.addEventListener('click', () => setUnit('imperial'));
+
+  // Tab Switcher
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active classes
+      tabBtns.forEach(b => {
+        b.classList.remove('active-tab', 'border-[#1D9E75]', 'text-[#1D9E75]');
+        b.classList.add('border-transparent', 'text-slate-500');
+      });
+      // Add active classes to clicked
+      btn.classList.remove('border-transparent', 'text-slate-500');
+      btn.classList.add('active-tab', 'border-[#1D9E75]', 'text-[#1D9E75]');
+
+      // Hide all panels
+      Object.values(panels).forEach(panel => {
+        if (panel) panel.classList.add('hidden');
+      });
+      // Show target panel
+      const target = btn.getAttribute('data-tab');
+      if (target && panels[target]) {
+        panels[target].classList.remove('hidden');
+      }
+    });
+  });
+
+  // Calculate Logic
+  function calculate() {
+    // Hide errors
+    [errWeight, errAge, errSpeed, errIncline, errDuration].forEach(el => {
+      if (el) el.classList.add('hidden');
+    });
+    
+    let hasError = false;
+
+    const weight = parseFloat(inputWeight.value);
+    const age = parseFloat(inputAge.value);
+    const gender = selectGender ? selectGender.value : 'male';
+    const speed = parseFloat(inputSpeed.value);
+    const incline = parseFloat(inputIncline.value);
+    const duration = parseFloat(inputDuration.value);
+
+    if (isNaN(weight) || weight <= 0) { if (errWeight) errWeight.classList.remove('hidden'); hasError = true; }
+    if (isNaN(age) || age < 10 || age > 120) { if (errAge) errAge.classList.remove('hidden'); hasError = true; }
+    if (isNaN(speed) || speed <= 0) { if (errSpeed) errSpeed.classList.remove('hidden'); hasError = true; }
+    if (isNaN(incline) || incline < 0) { if (errIncline) errIncline.classList.remove('hidden'); hasError = true; }
+    if (isNaN(duration) || duration <= 0) { if (errDuration) errDuration.classList.remove('hidden'); hasError = true; }
+
+    if (hasError) {
+      if (resultDiv) resultDiv.classList.add('hidden');
+      return;
+    }
+
+    // Step 1: Convert to metric internally
+    const weight_kg = unit === 'metric' ? weight : weight / 2.2046;
+    const speed_km_per_h = unit === 'metric' ? speed : speed * 1.60934;
+
+    // Step 2: Compute VO2
+    const speed_m_per_min = (speed_km_per_h * 1000) / 60;
+    const fractional_grade = incline / 100;
+    const VO2 = 3.5 + (0.1 * speed_m_per_min) + (1.8 * speed_m_per_min * fractional_grade);
+
+    // Step 3: Compute MET
+    const MET = VO2 / 3.5;
+
+    // Step 4: Compute calories using MET formula (standard)
+    // Calories = MET × weight_kg × duration_hours
+    const duration_hours = duration / 60;
+    let calories = MET * weight_kg * duration_hours;
+    if (calories < 0) calories = 0;
+
+    // Extra results
+    const dist_km = (speed_km_per_h * duration) / 60;
+    const dist_display = unit === 'metric' ? dist_km.toFixed(2) + ' km' : (dist_km / 1.60934).toFixed(2) + ' mi';
+    const speed_display = speed.toFixed(1) + (unit === 'metric' ? ' km/h' : ' mph');
+    const cal_per_min = calories / duration;
+
+    // Display
+    if (resultCalories) resultCalories.textContent = Math.round(calories).toString();
+    if (resultMet) resultMet.textContent = MET.toFixed(1);
+    if (resultCalPerMin) resultCalPerMin.textContent = cal_per_min.toFixed(1);
+    if (resultSpeed) resultSpeed.textContent = speed_display;
+    if (resultDistance) resultDistance.textContent = dist_display;
+
+    if (resultDiv) resultDiv.classList.remove('hidden');
+  }
+
+  if (btnCalculateCalorie) btnCalculateCalorie.addEventListener('click', calculate);
+
+  // Enter key support
+  [inputWeight, inputAge, inputSpeed, inputIncline, inputDuration].forEach(input => {
+    if (input) {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') calculate();
+      });
+    }
+  });
+
+  // Reset Logic
+  if (btnResetCalorie) {
+    btnResetCalorie.addEventListener('click', () => {
+      [inputWeight, inputAge, inputSpeed, inputIncline, inputDuration].forEach(input => {
+        if (input) input.value = '';
+      });
+      [errWeight, errAge, errSpeed, errIncline, errDuration].forEach(el => {
+        if (el) el.classList.add('hidden');
+      });
+      if (resultDiv) resultDiv.classList.add('hidden');
+      if (selectGender) selectGender.value = 'male';
+    });
+  }
+
+  // --- PACE CALCULATOR LOGIC ---
+  const inputPaceSpeed = document.getElementById('input-pace-speed');
+  const inputPaceDuration = document.getElementById('input-pace-duration');
+  const errPaceSpeed = document.getElementById('err-pace-speed');
+  const errPaceDuration = document.getElementById('err-pace-duration');
+  const btnCalculatePace = document.getElementById('btn-calculate-pace');
+  const btnResetPace = document.getElementById('btn-reset-pace');
+  const paceResult = document.getElementById('pace-result');
+  const paceResDistance = document.getElementById('pace-res-distance');
+  const paceResPace = document.getElementById('pace-res-pace');
+  const paceResDuration = document.getElementById('pace-res-duration');
+  const paceResSpeed = document.getElementById('pace-res-speed');
+  const paceSplitsBody = document.getElementById('pace-splits-body');
+
+  function toMMSS(decimalMinutes) {
+    const m = Math.floor(decimalMinutes);
+    const s = Math.round((decimalMinutes - m) * 60);
+    if (s === 60) return `${m + 1}:00`;
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
+  function calculatePace() {
+    [errPaceSpeed, errPaceDuration].forEach(el => {
+      if (el) el.classList.add('hidden');
+    });
+    
+    let hasError = false;
+    const speed = parseFloat(inputPaceSpeed.value);
+    const duration = parseFloat(inputPaceDuration.value);
+
+    if (isNaN(speed) || speed <= 0) { if (errPaceSpeed) errPaceSpeed.classList.remove('hidden'); hasError = true; }
+    if (isNaN(duration) || duration <= 0) { if (errPaceDuration) errPaceDuration.classList.remove('hidden'); hasError = true; }
+
+    if (hasError) {
+      if (paceResult) paceResult.classList.add('hidden');
+      return;
+    }
+
+    const speed_km_per_h = unit === 'metric' ? speed : speed * 1.60934;
+    const distance_km = (speed_km_per_h * duration) / 60;
+    
+    let displayDistance, displayPace, paceValue;
+    const isMetric = unit === 'metric';
+    const distUnit = isMetric ? 'km' : 'mi';
+
+    if (isMetric) {
+      displayDistance = distance_km;
+      paceValue = 60 / speed_km_per_h;
+      displayPace = `${toMMSS(paceValue)} /km`;
+    } else {
+      const distance_mi = distance_km / 1.60934;
+      displayDistance = distance_mi;
+      const speed_mph = speed_km_per_h / 1.60934;
+      paceValue = 60 / speed_mph;
+      displayPace = `${toMMSS(paceValue)} /mi`;
+    }
+
+    if (paceResDistance) paceResDistance.textContent = `${displayDistance.toFixed(2)} ${distUnit}`;
+    if (paceResPace) paceResPace.textContent = displayPace;
+    if (paceResDuration) paceResDuration.textContent = `${duration} min`;
+    if (paceResSpeed) paceResSpeed.textContent = `${speed.toFixed(1)} ${isMetric ? 'km/h' : 'mph'}`;
+
+    // Splits logic
+    if (paceSplitsBody) {
+      paceSplitsBody.innerHTML = '';
+      const fullSplits = Math.floor(displayDistance);
+      const remainder = displayDistance - fullSplits;
+      
+      let rowsHTML = '';
+      
+      if (displayDistance < 1) {
+        rowsHTML += `<tr class="bg-slate-50">
+          <td class="px-3 py-2">Total</td>
+          <td class="px-3 py-2">${displayDistance.toFixed(2)} ${distUnit}</td>
+          <td class="px-3 py-2">${toMMSS(duration)}</td>
+        </tr>`;
+      } else {
+        const numRows = Math.min(fullSplits, 20); // Cap at 20 full splits
+        for (let i = 1; i <= numRows; i++) {
+          const rowClass = i % 2 === 0 ? 'bg-white' : 'bg-slate-50';
+          rowsHTML += `<tr class="${rowClass}">
+            <td class="px-3 py-2">Split ${i}</td>
+            <td class="px-3 py-2">1.00 ${distUnit}</td>
+            <td class="px-3 py-2">${toMMSS(paceValue)}</td>
+          </tr>`;
+        }
+        
+        // Final row if > 0.01 and we haven't hit the cap early
+        if (remainder > 0.01 && fullSplits < 20) {
+          const rowClass = (fullSplits + 1) % 2 === 0 ? 'bg-white' : 'bg-slate-50';
+          const remainderTime = remainder * paceValue;
+          rowsHTML += `<tr class="${rowClass}">
+            <td class="px-3 py-2 border-t border-slate-200 font-medium">Split ${fullSplits + 1} (Partial)</td>
+            <td class="px-3 py-2 border-t border-slate-200 font-medium">${remainder.toFixed(2)} ${distUnit}</td>
+            <td class="px-3 py-2 border-t border-slate-200 font-medium">${toMMSS(remainderTime)}</td>
+          </tr>`;
+        }
+      }
+      paceSplitsBody.innerHTML = rowsHTML;
+    }
+
+    if (paceResult) paceResult.classList.remove('hidden');
+  }
+
+  if (btnCalculatePace) btnCalculatePace.addEventListener('click', calculatePace);
+
+  [inputPaceSpeed, inputPaceDuration].forEach(input => {
+    if (input) {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') calculatePace();
+      });
+    }
+  });
+
+  if (btnResetPace) {
+    btnResetPace.addEventListener('click', () => {
+      if (inputPaceSpeed) inputPaceSpeed.value = '';
+      if (inputPaceDuration) inputPaceDuration.value = '';
+      [errPaceSpeed, errPaceDuration].forEach(el => {
+        if (el) el.classList.add('hidden');
+      });
+      if (paceResult) paceResult.classList.add('hidden');
+      if (paceSplitsBody) paceSplitsBody.innerHTML = '';
+    });
+  }
+
+  // --- MET TABLE LOGIC ---
+  const MET_DATA = [
+    { speed_kph: 2.5,  incline: 0,  met: 2.5 },
+    { speed_kph: 3.2,  incline: 0,  met: 2.8 },
+    { speed_kph: 4.0,  incline: 0,  met: 3.0 },
+    { speed_kph: 4.8,  incline: 0,  met: 3.5 },
+    { speed_kph: 5.6,  incline: 0,  met: 4.3 },
+    { speed_kph: 6.4,  incline: 0,  met: 5.0 },
+    { speed_kph: 8.0,  incline: 0,  met: 8.3 },
+    { speed_kph: 9.7,  incline: 0,  met: 9.8 },
+    { speed_kph: 11.3, incline: 0,  met: 11.0 },
+    { speed_kph: 12.9, incline: 0,  met: 12.5 },
+    { speed_kph: 4.0,  incline: 5,  met: 4.0 },
+    { speed_kph: 4.8,  incline: 5,  met: 4.6 },
+    { speed_kph: 5.6,  incline: 5,  met: 5.7 },
+    { speed_kph: 6.4,  incline: 5,  met: 6.6 },
+    { speed_kph: 8.0,  incline: 5,  met: 9.0 },
+    { speed_kph: 4.0,  incline: 10, met: 5.3 },
+    { speed_kph: 4.8,  incline: 10, met: 6.0 },
+    { speed_kph: 5.6,  incline: 10, met: 7.5 },
+    { speed_kph: 6.4,  incline: 10, met: 8.5 },
+    { speed_kph: 8.0,  incline: 10, met: 10.5 },
+    { speed_kph: 4.0,  incline: 15, met: 6.8 },
+    { speed_kph: 4.8,  incline: 15, met: 7.4 },
+    { speed_kph: 5.6,  incline: 15, met: 9.0 },
+    { speed_kph: 6.4,  incline: 15, met: 10.0 },
+    { speed_kph: 8.0,  incline: 15, met: 12.0 },
+  ];
+
+  let metInclineFilter = 'all';
+  let metIntensityFilter = 'all';
+
+  function getIntensityLabel(met) {
+    if (met < 4) return 'light';
+    if (met <= 6) return 'moderate';
+    return 'vigorous';
+  }
+
+  function renderMetTable() {
+    const filtered = MET_DATA.filter(row => {
+      const inclineMatch = metInclineFilter === 'all' || row.incline === parseInt(metInclineFilter);
+      const intensityMatch = metIntensityFilter === 'all' || getIntensityLabel(row.met) === metIntensityFilter;
+      return inclineMatch && intensityMatch;
+    });
+
+    const tbody = document.getElementById('met-table-body');
+    const noResults = document.getElementById('met-no-results');
+
+    if (!tbody) return;
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = '';
+      if (noResults) noResults.classList.remove('hidden');
+      return;
+    }
+
+    if (noResults) noResults.classList.add('hidden');
+
+    const isMetric = unit === 'metric';
+    tbody.innerHTML = filtered.map((row, i) => {
+      const speedDisplay = isMetric
+        ? `${row.speed_kph.toFixed(1)} km/h`
+        : `${(row.speed_kph / 1.60934).toFixed(1)} mph`;
+      const intensityLabel = getIntensityLabel(row.met);
+      const badge = intensityLabel === 'light'
+        ? `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">Light</span>`
+        : intensityLabel === 'moderate'
+        ? `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">Moderate</span>`
+        : `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">Vigorous</span>`;
+      const rowBg = i % 2 === 0 ? 'bg-white' : 'bg-slate-50';
+      return `<tr class="${rowBg}">
+        <td class="px-3 py-2">${speedDisplay}</td>
+        <td class="px-3 py-2">${row.incline}%</td>
+        <td class="px-3 py-2 font-semibold text-slate-800">${row.met.toFixed(1)}</td>
+        <td class="px-3 py-2">${badge}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  document.querySelectorAll('.met-incline-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.met-incline-pill').forEach(b => {
+        b.classList.replace('bg-[#1D9E75]', 'bg-slate-100');
+        b.classList.replace('text-white', 'text-slate-600');
+      });
+      btn.classList.replace('bg-slate-100', 'bg-[#1D9E75]');
+      btn.classList.replace('text-slate-600', 'text-white');
+      metInclineFilter = btn.getAttribute('data-incline');
+      renderMetTable();
+    });
+  });
+
+  document.querySelectorAll('.met-intensity-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.met-intensity-pill').forEach(b => {
+        b.classList.replace('bg-[#1D9E75]', 'bg-slate-100');
+        b.classList.replace('text-white', 'text-slate-600');
+      });
+      btn.classList.replace('bg-slate-100', 'bg-[#1D9E75]');
+      btn.classList.replace('text-slate-600', 'text-white');
+      metIntensityFilter = btn.getAttribute('data-intensity');
+      renderMetTable();
+    });
+  });
+
+  renderMetTable();
+</script>
