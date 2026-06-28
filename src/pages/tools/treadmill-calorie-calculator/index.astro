@@ -17,15 +17,26 @@ const relatedTools = [
   relatedTools={relatedTools}
 >
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": []
-  }
-  </script>
-
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How many calories does a 30-minute treadmill run burn?", "acceptedAnswer": { "@type": "Answer", "text": "For a 70 kg (154 lb) person jogging at 8 km/h (5 mph) on flat ground, 30 minutes comes to roughly 260–300 kcal. Step it up to 10 km/h (6.2 mph) and it's closer to 330–360 kcal. Drop to a brisk 6 km/h walk and it's around 165–180 kcal." } },
+    { "@type": "Question", "name": "Does treadmill incline increase calorie burn?", "acceptedAnswer": { "@type": "Answer", "text": "Significantly. Going from 0% to 10% incline at 4.8 km/h can nearly double calorie burn per minute. At 15% incline, a walking pace starts producing calorie burn comparable to flat jogging." } },
+    { "@type": "Question", "name": "Is the treadmill's built-in calorie counter accurate?", "acceptedAnswer": { "@type": "Answer", "text": "Mostly no. Treadmill consoles typically overestimate, sometimes by 15–20% or more, because most calculate using speed and time against a generic average-weight formula." } },
+    { "@type": "Question", "name": "What is a good calorie burn for a treadmill workout?", "acceptedAnswer": { "@type": "Answer", "text": "300–500 kcal is a common range for 30–45 minute recreational sessions. For fat loss purposes, the specific per-session number matters less than total weekly deficit." } },
+    { "@type": "Question", "name": "Does walking on a treadmill burn fat?", "acceptedAnswer": { "@type": "Answer", "text": "Walking does burn fat. Lower-intensity exercise draws more heavily on fat as fuel relative to carbohydrates. Total calorie deficit across the day and week is what drives actual fat loss." } },
+    { "@type": "Question", "name": "What is MET and why is it used in calorie calculations?", "acceptedAnswer": { "@type": "Answer", "text": "MET is Metabolic Equivalent of Task — a standardized measure of how much harder any activity is compared to sitting at rest. Multiply MET by body mass in kg and time in hours to get a consistent calorie estimate." } },
+    { "@type": "Question", "name": "How does age affect treadmill calorie burn?", "acceptedAnswer": { "@type": "Answer", "text": "The age adjustment captures a cardiovascular effect. For the same workload, someone older typically has a higher relative heart rate, which the formula treats as additional calorie cost." } },
+    { "@type": "Question", "name": "Does gender affect how many calories are burned on a treadmill?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Men tend to carry more lean mass and their cardiovascular systems deliver oxygen more efficiently, so a man typically burns somewhat more calories than a woman of identical weight at the same speed and incline." } },
+    { "@type": "Question", "name": "Can this calculator be used for interval training?", "acceptedAnswer": { "@type": "Answer", "text": "With a caveat. The ACSM formula assumes metabolic steady state. For intervals, estimate average speed and incline across the session, or use the calorie-per-minute figure and multiply by time at each intensity." } },
+    { "@type": "Question", "name": "What is the 12-3-30 treadmill workout and how many calories does it burn?", "acceptedAnswer": { "@type": "Answer", "text": "The 12-3-30 is 12% incline, 3 mph, 30 minutes. For a 70 kg person the burn is approximately 250–310 kcal. A 2025 study found its metabolic demands comparable to self-paced moderate-intensity running." } },
+    { "@type": "Question", "name": "How many calories does a 1-hour treadmill walk burn?", "acceptedAnswer": { "@type": "Answer", "text": "For a 70 kg person walking at 5 km/h on flat ground, an hour is approximately 200–230 kcal. At 4.8 km/h on a 10% grade, an hour of walking can hit 420–460 kcal." } }
+  ]
+}
+</script>
   <main class="max-w-5xl mx-auto px-4 py-8">
-    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Treadmill Calorie Calculator</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Treadmill Calorie Calculator | Calories Burned by Speed</h1>
     <p class="text-slate-600 leading-relaxed mb-8">
       Calculate how many calories you burn on the treadmill based on your speed, incline, weight, age, and workout duration. Switch between metric and imperial units using the toggle below.
     </p>
