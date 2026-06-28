@@ -1,12 +1,360 @@
-<div class="mt-10">
-  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">What Is a Treadmill Calorie Calculator?</h2>
-  <p class="text-slate-600 leading-relaxed mb-4">Content coming soon.</p>
+<section>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Nobody fully trusts the calorie number on a treadmill screen — and honestly, they shouldn't. Most built-in consoles have no idea what the person running on them actually weighs. They don't know how old they are. And whatever incline adjustment they claim to make is rarely backed by any meaningful exercise science. That "623 calories burned" sitting there at the end of a run? More like 480, if the person weighs less than the machine assumes.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    This treadmill calorie calculator does things differently. It runs on the <a href="https://www.acsm.org/education-resources/books/guidelines-exercise-testing-prescription" class="text-[#1D9E75] hover:text-[#168561] underline font-medium" target="_blank" rel="noopener">ACSM treadmill metabolic equation</a> — the same framework exercise physiologists use in clinical and research settings — paired with validated MET values from established exercise science databases. Weight, age, gender, speed, incline, and session duration all go into it, because they all genuinely affect the outcome. There's also a Pace &amp; Distance tab for working out splits before or after a run, and a MET reference table to see exactly where any speed-and-incline combination sits on the effort spectrum.
+  </p>
+</section>
 
-  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How to Use This Calculator</h2>
-  <p class="text-slate-600 leading-relaxed mb-4">Content coming soon.</p>
-
-  <div class="mt-10 space-y-6">
-    <h2 class="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-    <!-- FAQ items will be added here -->
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">What Is a Treadmill Calorie Calculator and How Does It Work?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Most online calorie calculators for treadmills are surprisingly basic — weight, speed, time, done. That's a problem, because speed and time alone explain only part of what drives energy expenditure. Incline changes everything. So is the difference between a 25-year-old and a 55-year-old running at the same pace. So does the biological sex of the person doing the running.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    This calculator uses the ACSM treadmill metabolic equation, which splits the workload into two components. The first is <span class="font-semibold text-slate-800">horizontal work</span> — the energy cost of simply moving the body forward at a given belt speed. The second is <span class="font-semibold text-slate-800">vertical work</span> — the additional energy needed to lift body mass against gravity when the treadmill is inclined. Both components contribute to oxygen consumption (VO₂), which then converts to a MET value, which then converts to calories via:
+  </p>
+  <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-slate-800 text-sm my-6">
+    Calories = MET × Weight (kg) × Time (hours)
   </div>
-</div>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Age and gender sit on top of that as a correction layer through a heart rate-based formula. Two people with the same weight, running the same speed for the same time, can genuinely burn different amounts of energy depending on age and sex — because lean body mass proportions and cardiovascular efficiency aren't identical across those groups. Skipping those fields, as plenty of calculators let users do, quietly introduces errors that stack up across weeks of tracking.
+  </p>
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How to Use This Treadmill Calorie Calculator</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Three tabs sit at the top of the tool. Each one is independent — use whichever fits the session.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Tab 1: Calorie Burn</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Six inputs, one button. Here's what each field actually does and why it matters.
+  </p>
+  <ol class="list-decimal list-inside text-slate-600 space-y-2 mb-4 ml-4">
+    <li>Toggle <span class="font-semibold text-slate-800">kg / km</span> or <span class="font-semibold text-slate-800">lb / mi</span> first. Numbers convert automatically if switching units halfway through.</li>
+    <li><span class="font-semibold text-slate-800">Weight</span> — this is the biggest lever in the entire formula. Be accurate here.</li>
+    <li><span class="font-semibold text-slate-800">Age</span> — the correction is modest but it does something. Worth thirty seconds to fill in.</li>
+    <li><span class="font-semibold text-slate-800">Gender</span> — separate formulas apply for male and female, based on documented differences in metabolic profiles. Pick the appropriate one.</li>
+    <li><span class="font-semibold text-slate-800">Speed</span> — km/h or mph depending on the toggle.</li>
+    <li><span class="font-semibold text-slate-800">Incline</span> — enter as a percentage. Zero is flat. Five percent is noticeable. Ten percent is genuinely hard, especially to walk. Leave it at zero for flat-belt sessions.</li>
+    <li><span class="font-semibold text-slate-800">Duration</span> — in minutes.</li>
+    <li>Press <span class="font-semibold text-slate-800">Calculate</span>.</li>
+  </ol>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Results come back immediately: total calories burned (kcal), the MET value for that specific combination, calories per minute, speed confirmation, and distance covered during the session.
+  </p>
+  <div class="bg-white border border-slate-200 rounded-lg p-4 my-6 shadow-sm">
+    <p class="text-slate-600 leading-relaxed"><span class="font-semibold text-slate-800">Example:</span> 70 kg, male, age 30, speed 8 km/h, incline 1%, duration 30 minutes → around 280–300 kcal, MET roughly 8.3.</p>
+  </div>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Tab 2: Pace &amp; Distance</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Nothing to do with calories here — this tab handles the running math. Enter speed and duration, hit Calculate, and get back total distance covered, pace per kilometer or mile, and a split table. Up to 20 full splits appear row by row, with a partial split row at the bottom if there's a remaining fraction of distance. If training toward a race and working backward from a goal pace, this tab shows exactly what treadmill speed to set and what each split should clock.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Tab 3: MET Reference Table</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    No inputs needed — this is just the reference data. A filterable table maps speed-and-incline combinations to their MET values and intensity categories: <span class="font-semibold text-slate-800">Light</span> (below 4), <span class="font-semibold text-slate-800">Moderate</span> (4–6), <span class="font-semibold text-slate-800">Vigorous</span> (above 6). Filter by incline level (0%, 5%, 10%, 15%) or by intensity using the pill buttons at the top. Rows update instantly. Useful for scouting a session's effort zone before stepping on the belt, without needing to run a full calculation first.
+  </p>
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">What Is MET and Why Does the Calculator Use It?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    MET — <span class="font-semibold text-slate-800">Metabolic Equivalent of Task</span> — is how exercise scientists put a consistent number on the energy cost of any given activity. Sitting at rest equals exactly 1 MET, defined as roughly 3.5 ml of oxygen consumed per kilogram of bodyweight per minute. Everything else gets expressed as a multiple of that baseline.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Walking slowly at 2.5 km/h is around MET 2.5 — about two and a half times resting effort. Jogging at 8 km/h on a flat treadmill comes in at MET 8.3, meaning the body is running through oxygen more than eight times faster than at rest. Hit 11–12 km/h and MET jumps into the 11–12.5 range.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Where MET gets really interesting is on the incline. A 4 km/h walk on flat ground is a casual MET 3.0. That same walking speed on a 10% grade bumps to MET 5.3. At 15% incline it reaches 6.8 — which crosses into moderate-to-vigorous territory by any standard clinical definition, and it's still just walking. It's exactly why steep incline programs like the 12-3-30 (12% grade, 3 mph, 30 minutes) keep pulling people in. The calorie burn is real, the knees mostly aren't complaining, and it doesn't require the fitness base that actual running demands.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The MET values in the reference table come directly from the <a href="https://pacompendium.com" class="text-[#1D9E75] hover:text-[#168561] underline font-medium" target="_blank" rel="noopener">Compendium of Physical Activities</a> — the database that exercise science research has used as its standard reference for energy expenditure categorization for decades.
+  </p>
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">What Actually Affects Calorie Burn on a Treadmill?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Two people can run side by side on identical machines at identical speeds for identical time — and their real calorie burns can be 30% apart. The formula isn't being imprecise; it's accurately reflecting the fact that calorie burn is personal. Here's what's driving the difference.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Body Weight</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Weight dominates the calculation more than any other variable. Every extra kilogram of body mass costs energy to move forward, and even more energy to move upward on an incline. A 90 kg runner burns roughly 25–30% more than a 70 kg runner at the same speed, grade, and duration — every single session. This is the reason treadmill console estimates without weight input are mostly fiction. They're guessing, and the guess is usually flattering.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Speed</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    More speed means more calories, but the relationship isn't proportional — it's more like exponential at the higher end. The jump from 6 km/h walking to 8 km/h jogging isn't just a moderate step up in effort. It's a full gait change — from walking mechanics to running mechanics — and the energy cost reflects that. Then going from 8 to 10 km/h adds even more proportionally than the 6-to-8 jump did. Speed compounds.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Incline</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Most people either ignore the incline field entirely or wildly underestimate what it does. Flat treadmill running only covers horizontal work. The moment any grade gets added, vertical work enters — legs now lifting body mass against gravity with every stride, not just pushing it forward. One percent of incline adds roughly 4–5% to calorie burn at walking speeds. That might sound minor. But go from 0% to 10%, and calorie burn at a walking pace starts approaching jogging territory. Go to 15%, and a moderate walk is clinically vigorous exercise. Grade is probably the most underused lever in treadmill training.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Age</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The age correction is a little counterintuitive. Resting metabolic rate does decline with age, but that's not really what's being captured here. For a given workload — same speed, same incline — older adults tend to have a higher relative heart rate because the heart is working closer to its declining maximum capacity. The calorie formula adjusts for that cardiovascular demand. It's not a huge correction, but it's real, and ignoring it makes the estimate slightly less accurate for anyone over 40.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Gender</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Men and women burn different amounts of calories at the same objective workload, and it's not about effort or fitness level — it's physiology. Average lean body mass is higher in men, resting metabolic rate is higher in men, and cardiovascular oxygen delivery tends to be more efficient on average. The result: a man typically burns somewhat more calories than a woman of equal weight at the same speed and incline. This calculator applies separate formulas for each. They're population averages — a trained woman can absolutely outburn a sedentary man at the same inputs — but the distinction matters for most people.
+  </p>
+
+  <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-2">Duration</h3>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Simple one. Double the time, roughly double the calories. For any steady-state session at consistent speed and incline, it's close enough to linear for planning purposes. The one thing the formula doesn't capture is <span class="font-semibold text-slate-800">EPOC</span> — the post-exercise calorie burn that follows high-intensity work — but that effect is real mainly at very high intensities, and it's modest in magnitude compared to the session burn itself.
+  </p>
+
+  <!-- Image 1: Informative diagram showing the 6 variables (weight, speed, incline, age, gender, duration) and their relative impact on calorie burn, displayed as a horizontal bar chart or visual breakdown -->
+  <img
+    src="/images/treadmill-calorie-factors.webp"
+    alt="Diagram showing how weight, speed, incline, age, gender, and duration each affect treadmill calorie burn"
+    width="800"
+    height="450"
+    class="rounded-lg border border-slate-200 my-6 w-full"
+    loading="lazy"
+  />
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How Accurate Is This Calculator?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Pretty accurate for what it's designed to do — which is steady-state treadmill exercise at consistent speed and incline. The ACSM equation is <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7994759/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium" target="_blank" rel="noopener">validated for steady-state exercise</a>, and under those conditions estimates typically land within 10–15% of directly measured energy expenditure in healthy adults. That's a much tighter window than a console that's ignoring weight, age, and gender entirely.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    A few things genuinely reduce the accuracy, and they're worth knowing:
+  </p>
+  <ul class="list-disc list-inside text-slate-600 space-y-2 mb-4 ml-4">
+    <li><span class="font-semibold text-slate-800">Handrail use.</span> People don't realize how much this matters. Even resting fingers lightly on the rails while walking a steep incline transfers some bodyweight off the legs and onto the arms. Real muscular work drops. The formula assumes zero rail contact throughout the session — someone who holds on regularly is burning notably less than the estimate.</li>
+    <li><span class="font-semibold text-slate-800">Intervals.</span> The ACSM equation assumes the body is at a metabolic steady state at the input speed and incline. Interval training — alternating speed or grade — never fully settles at any single state. The estimate becomes a useful approximation rather than a precise figure. Not useless, just less tight.</li>
+    <li><span class="font-semibold text-slate-800">Individual metabolic variation.</span> Running economy, how efficiently muscles use oxygen, cardiovascular fitness, even genetic factors — all of these produce real variation between individuals at the same objective inputs. Population-level spread of ±10–15% is normal even with perfectly accurate data entry. Some people will consistently burn more than the estimate, some less.</li>
+    <li><span class="font-semibold text-slate-800">Machine accuracy.</span> Older treadmills or poorly maintained ones can have belt speeds or incline readings that don't quite match reality. The calculator uses whatever numbers get entered. If the machine's display is slightly wrong, the estimate will be too.</li>
+  </ul>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    None of this is a reason to distrust the tool — it's a reason to use it consistently and watch for trends, which is more useful than agonizing over whether any single session estimate is off by 5%.
+  </p>
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Does Incline Walking Actually Burn as Many Calories as Running?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    It can — genuinely — and a lot of people find this surprising because running feels harder. But "harder" and "more calories" aren't always the same thing, and steep incline changes the equation significantly.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Here's the actual comparison for a 70 kg person over 30 minutes:
+  </p>
+
+  <div class="overflow-x-auto my-6">
+    <table class="w-full text-sm text-slate-600 border border-slate-200 rounded-lg overflow-hidden">
+      <thead>
+        <tr class="bg-slate-100 text-slate-800 font-semibold">
+          <th class="px-4 py-3 text-left">Activity</th>
+          <th class="px-4 py-3 text-left">Speed</th>
+          <th class="px-4 py-3 text-left">Incline</th>
+          <th class="px-4 py-3 text-left">Est. MET</th>
+          <th class="px-4 py-3 text-left">Est. Calories</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white">
+          <td class="px-4 py-3">Walking</td>
+          <td class="px-4 py-3">4.8 km/h</td>
+          <td class="px-4 py-3">0%</td>
+          <td class="px-4 py-3">3.5</td>
+          <td class="px-4 py-3">~124 kcal</td>
+        </tr>
+        <tr class="bg-slate-50">
+          <td class="px-4 py-3">Brisk walking</td>
+          <td class="px-4 py-3">6.4 km/h</td>
+          <td class="px-4 py-3">0%</td>
+          <td class="px-4 py-3">5.0</td>
+          <td class="px-4 py-3">~178 kcal</td>
+        </tr>
+        <tr class="bg-white">
+          <td class="px-4 py-3">Walking (incline)</td>
+          <td class="px-4 py-3">4.8 km/h</td>
+          <td class="px-4 py-3">10%</td>
+          <td class="px-4 py-3">6.0</td>
+          <td class="px-4 py-3">~213 kcal</td>
+        </tr>
+        <tr class="bg-slate-50">
+          <td class="px-4 py-3">Walking (incline)</td>
+          <td class="px-4 py-3">4.8 km/h</td>
+          <td class="px-4 py-3">15%</td>
+          <td class="px-4 py-3">7.4</td>
+          <td class="px-4 py-3">~263 kcal</td>
+        </tr>
+        <tr class="bg-white">
+          <td class="px-4 py-3">Jogging</td>
+          <td class="px-4 py-3">8.0 km/h</td>
+          <td class="px-4 py-3">0%</td>
+          <td class="px-4 py-3">8.3</td>
+          <td class="px-4 py-3">~295 kcal</td>
+        </tr>
+        <tr class="bg-slate-50">
+          <td class="px-4 py-3">Running</td>
+          <td class="px-4 py-3">9.7 km/h</td>
+          <td class="px-4 py-3">0%</td>
+          <td class="px-4 py-3">9.8</td>
+          <td class="px-4 py-3">~348 kcal</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Walking at 15% incline at 4.8 km/h gets within shouting distance of flat jogging in calorie terms — no running involved. For anyone managing knee issues, coming back from injury, or who simply doesn't enjoy running but still wants the burn, that's genuinely useful to know. The knees handle incline walking much more kindly than running does.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The catch is the posterior chain. Calves, Achilles, hamstrings — they take on a lot at 12–15% grade. Going from zero incline to 15% in one session and holding it for 45 minutes is how people end up limping around for a week. Building up over a few weeks is the sensible approach.
+  </p>
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Treadmill vs. Outdoor Running — Is There a Real Calorie Difference?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Yes, and it's not trivial. Outdoor running at the same speed generally burns somewhere around 5–10% more calories than treadmill running — and there are a few legitimate reasons for it.
+  </p>
+  <ul class="list-disc list-inside text-slate-600 space-y-2 mb-4 ml-4">
+    <li><span class="font-semibold text-slate-800">Wind resistance is real,</span> even at moderate running speeds. Outside, every stride is happening against air, which adds a small but consistent metabolic cost that simply doesn't exist on a still indoor machine.</li>
+    <li><span class="font-semibold text-slate-800">Outdoor terrain is never perfectly flat or uniform.</span> The stabilizer muscles — ankle, hip, core — are making constant micro-adjustments on real ground that a predictable treadmill belt never demands. Over a long run, that accumulates.</li>
+    <li><span class="font-semibold text-slate-800">The belt itself is genuinely debated.</span> The prevailing view in exercise science is that a moving belt slightly assists the hamstring's role in pulling the foot back during each stride, making treadmill running mechanically fractionally easier than overground running at the same speed.</li>
+  </ul>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The standard fix is well-established: set the treadmill to 1% incline. That single adjustment, from a <a href="https://pubmed.ncbi.nlm.nih.gov/8887211/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium" target="_blank" rel="noopener">1996 Journal of Sports Sciences study that's been widely cited ever since</a>, approximately offsets the metabolic difference between treadmill and flat outdoor running.
+  </p>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    What this calculator produces is treadmill-specific. For outdoor running at the same pace, expect actual burn to run a bit higher.
+  </p>
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How Many Calories Does a 30-Minute Treadmill Session Burn?</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    Without question the most Googled treadmill question in existence. The real answer is that it depends enormously — on the person's weight, on how fast they're going, on the incline. But for a 70 kg (154 lb) person, here's what 30 minutes at various intensities actually looks like:
+  </p>
+  <ul class="list-disc list-inside text-slate-600 space-y-2 mb-4 ml-4">
+    <li><span class="font-semibold text-slate-800">Slow walk (4 km/h, flat):</span> ~105–120 kcal</li>
+    <li><span class="font-semibold text-slate-800">Brisk walk (6 km/h, flat):</span> ~165–180 kcal</li>
+    <li><span class="font-semibold text-slate-800">Incline walk (4.8 km/h, 10%):</span> ~200–215 kcal</li>
+    <li><span class="font-semibold text-slate-800">Light jog (7–8 km/h, flat):</span> ~240–280 kcal</li>
+    <li><span class="font-semibold text-slate-800">Moderate run (9–10 km/h, flat):</span> ~310–355 kcal</li>
+    <li><span class="font-semibold text-slate-800">Fast run (11–12 km/h, flat):</span> ~370–420 kcal</li>
+  </ul>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    At 85 kg, add roughly 20% to all of these. At 55 kg, subtract roughly 20%. These figures come from the same ACSM-based formula the calculator runs on — not from a treadmill console guessing in the dark. For a specific session at a specific weight, the Calorie Burn tab above gives the exact number in a few seconds.
+  </p>
+
+  <!-- Image 2: Informative horizontal bar chart showing the 6 intensity levels above (slow walk to fast run) with their calorie ranges for a 70 kg person over 30 minutes, labeled clearly with speed and incline -->
+  <img
+    src="/images/treadmill-30-minute-calories.webp"
+    alt="Bar chart comparing calories burned in 30 minutes on a treadmill at different speeds and intensities for a 70 kg person"
+    width="800"
+    height="450"
+    class="rounded-lg border border-slate-200 my-6 w-full"
+    loading="lazy"
+  />
+</section>
+
+<section>
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How to Actually Burn More Calories on a Treadmill</h2>
+  <p class="text-slate-600 leading-relaxed mb-4">
+    The answer isn't always "go faster." A few things that actually move the number, some of which don't require any extra fitness at all:
+  </p>
+  <ul class="list-disc list-inside text-slate-600 space-y-2 mb-4 ml-4">
+    <li><span class="font-semibold text-slate-800">Raise the incline before raising the speed.</span> Grade is a lower-risk, higher-impact lever than pace for most people. A 5% grade bump adds meaningful calorie burn without changing speed, and it's far kinder on the cardiovascular system than a sudden speed increase for someone still building fitness.</li>
+    <li><span class="font-semibold text-slate-800">Let go of the rails.</span> This is the most underrated tip in treadmill training. Holding or leaning on the handrails — especially on steep inclines — offloads bodyweight from the legs and genuinely reduces calorie burn. Arms should swing freely. Even on a 15% grade. Especially on a 15% grade.</li>
+    <li><span class="font-semibold text-slate-800">Try intervals.</span> Alternating between harder and easier efforts — something as simple as one minute hard, two minutes easy — pushes average calorie burn higher than a steady moderate pace over the same total time. The easy intervals still cost energy, they're just not as obvious about it.</li>
+    <li><span class="font-semibold text-slate-800">Go longer rather than harder.</span> A 45-minute session at moderate effort burns more total calories than a 20-minute session at high intensity — and it doesn't wreck the next two days of training. For consistent fat loss over weeks, sustainability of effort matters more than maximum effort in any given session.</li>
+    <li><span class="font-semibold text-slate-800">Default to 1% incline.</span> Zero percent is the treadmill's factory setting, not the optimal one. A 1% grade is barely perceptible underfoot, but it makes the metabolic demand more representative of actual outdoor running, adds a small calorie bump, and costs nothing in effort.</li>
+  </ul>
+</section>
+
+<section class="mt-10 space-y-6">
+  <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Frequently Asked Questions</h2>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">How many calories does a 30-minute treadmill run burn?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      For a 70 kg (154 lb) person jogging at 8 km/h (5 mph) on flat ground, 30 minutes comes to roughly 260–300 kcal. Step it up to 10 km/h (6.2 mph) and it's closer to 330–360 kcal. Drop to a brisk 6 km/h walk and it's around 165–180 kcal. Weight, age, gender, and incline all shift these figures — plug real numbers into the Calorie Burn tab above to get a personalized result.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">Does treadmill incline increase calorie burn?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      Significantly. The ACSM formula adds a vertical work component for every percentage point of incline — and flat running has none of that at all. Going from 0% to 10% incline at 4.8 km/h can nearly double calorie burn per minute. At 15% incline, a walking pace starts producing calorie burn comparable to flat jogging. The MET table in this tool shows the full breakdown for common speed and incline combinations.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">Is the treadmill's built-in calorie counter accurate?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      Mostly no. Treadmill consoles typically overestimate, sometimes by 15–20% or more, because most calculate using speed and time against a generic average-weight formula. They don't ask age. They don't ask gender. And even when weight is entered manually, the underlying formula is usually far simpler than what's being used here. A calculator that takes all six variables produces meaningfully better estimates.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">What is a good calorie burn for a treadmill workout?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      Depends entirely on body weight, session length, and what the training is for. A rough reference: 300–500 kcal is a common range for 30–45 minute recreational sessions. But for fat loss purposes, the specific per-session number matters less than total weekly deficit — consistency and volume over time do most of the work. The calculator helps match planned sessions to calorie targets rather than guessing afterward.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">Does walking on a treadmill burn fat?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      Walking does burn fat. Lower-intensity exercise draws more heavily on fat as fuel relative to carbohydrates — the proportional contribution from fat is actually higher at walking pace than at running pace. That said, total calorie deficit across the day and week is what drives actual fat loss, not the fuel source during any individual session. Incline walking is particularly effective because it raises calorie burn without requiring the cardiovascular fitness or joint tolerance that running demands.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">What is MET and why is it used in calorie calculations?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      MET is Metabolic Equivalent of Task — a standardized measure of how much harder any activity is compared to sitting at rest (which equals exactly 1 MET). Walking at 4 km/h is roughly MET 3. Jogging at 8 km/h is MET 8.3. The reason MET is used in calorie formulas is that it scales with body weight automatically: multiply MET by body mass in kg and time in hours, and you get a consistent calorie estimate regardless of which activity is being measured.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">How does age affect treadmill calorie burn?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      The age adjustment in this calculator captures a cardiovascular effect, not a pure metabolic one. For the same external workload — same speed, same grade — someone older typically has a higher relative heart rate, because their heart is working closer to its declining maximum. The formula treats that higher cardiovascular demand as additional calorie cost, which it genuinely is. The correction is moderate but real, and it improves accuracy meaningfully for anyone outside the 25–35 age range.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">Does gender affect how many calories are burned on a treadmill?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      Yes — and it's not about fitness, it's about baseline physiology. Men tend to carry more lean mass relative to total body weight, which raises resting metabolic rate. Their cardiovascular systems also tend to deliver oxygen more efficiently per beat at equivalent efforts. The net effect is that a man typically burns somewhat more calories than a woman of identical weight running at the same speed and incline. This calculator applies separate formulas for each — both are averages, and real-world individual fitness can override the average either way.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">Can this calculator be used for interval training?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      With a caveat. The ACSM formula assumes a metabolic steady state — consistent speed and incline throughout. Intervals, by definition, keep changing that state, so the formula never quite applies cleanly. A reasonable workaround: estimate average speed and average incline across the session and use those as inputs. It gives a useful ballpark. For more precision, use the calorie-per-minute figure from the Calorie Burn tab and multiply separately by time spent at each intensity within the interval session.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">What is the 12-3-30 treadmill workout and how many calories does it burn?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      The 12-3-30 — 12% incline, 3 mph (4.8 km/h), 30 minutes — took off on social media a few years back and became one of those workouts that genuinely stuck around because it works. For a 70 kg person, the burn is approximately 250–310 kcal depending on individual metabolic parameters. A <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11864452/" class="text-[#1D9E75] hover:text-[#168561] underline font-medium" target="_blank" rel="noopener">2025 study in the International Journal of Exercise Science</a> found its metabolic demands comparable to self-paced moderate-intensity running when both were matched for total energy expenditure. Low impact, no running required, and calorie burn that actually earns the hype.
+    </p>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-slate-900 mb-2">How many calories does a 1-hour treadmill walk burn?</h3>
+    <p class="text-slate-600 leading-relaxed">
+      For a 70 kg person walking at 5 km/h on flat ground, an hour is approximately 200–230 kcal. Add a 5% incline and that moves up to around 285–320 kcal. At 4.8 km/h on a 10% grade, an hour of walking can hit 420–460 kcal — in the ballpark of moderate jogging for the same time. Heavier people will see higher numbers; lighter people, lower. Type 60 into the Duration field with any speed and incline combination to get the exact figure.
+    </p>
+  </div>
+</section>
